@@ -12,6 +12,13 @@ pip install -r ml/requirements.txt
 python ml/train_apple_model.py --data-dir data/apple --output-dir artifacts/applecare
 ```
 
+For the pretrained VGG19 backend model:
+
+```bash
+python ml/train_apple_model.py --data-dir data/apple --output-dir artifacts/applecare \
+  --architecture vgg19 --epochs 40 --device cpu --skip-tflite
+```
+
 The script writes a checkpoint, `metrics.json`, `classes.json`, and an ONNX
 model. For mobile export:
 

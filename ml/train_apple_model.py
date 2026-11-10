@@ -51,6 +51,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default="auto", choices=["auto", "cpu", "cuda"])
+    parser.add_argument("--skip-tflite", action="store_true", help="Export ONNX only when TFLite tools are unavailable.")
+    parser.add_argument("--architecture", default="mobilenet_v3_small", choices=["mobilenet_v3_small", "vgg19"])
     return parser.parse_args()
 
 
@@ -91,7 +93,14 @@ def validate_classes(dataset: datasets.ImageFolder, split: str) -> None:
         raise ValueError(f"{split} classes must match {CLASS_NAMES}; missing={missing}, unexpected={unexpected}")
 
 
-def make_model(num_classes: int) -> nn.Module:
+def make_model(num_classes: int, architecture: str) -> nn.Module:
+    if architecture == "vgg19":
+        weights = models.VGG19_Weights.DEFAULT
+        model = models.vgg19(weights=weights)
+        for parameter in model.features.parameters():
+            parameter.requires_grad = False
+        model.classifier[6] = nn.Linear(model.classifier[6].in_features, num_classes)
+        return model
     weights = models.MobileNet_V3_Small_Weights.DEFAULT
     model = models.mobilenet_v3_small(weights=weights)
     for parameter in model.features.parameters():
@@ -167,7 +176,7 @@ def main() -> None:
         datasets_by_split[split] = datasets.ImageFolder(split_path, transform=transform)
         validate_classes(datasets_by_split[split], split)
     loaders = {split: DataLoader(ds, args.batch_size, shuffle=split == "train", num_workers=args.workers, pin_memory=device.type == "cuda") for split, ds in datasets_by_split.items()}
-    model = make_model(len(CLASS_NAMES)).to(device)
+    model = make_model(len(CLASS_NAMES), args.architecture).to(device)
     criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
     optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=args.learning_rate, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
@@ -190,7 +199,8 @@ def main() -> None:
     (args.output_dir / "classes.json").write_text(json.dumps(CLASS_NAMES, indent=2), encoding="utf-8")
     onnx_path = args.output_dir / "applecare_mobilenetv3.onnx"
     export_onnx(model, onnx_path, device)
-    convert_to_tflite(onnx_path, args.output_dir)
+    if not args.skip_tflite:
+        convert_to_tflite(onnx_path, args.output_dir)
     LOGGER.info("Training complete: accuracy=%.4f checkpoint=%s onnx=%s", test_accuracy, best_path, onnx_path)
 
 
