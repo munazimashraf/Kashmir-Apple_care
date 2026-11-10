@@ -1,7 +1,7 @@
 @echo off
 title Kashmir Apple Care - Full System Launcher
 echo =================================================================
-echo   KASHMIR APPLE CARE — DeepSeek AI Vision & SKUAST-K Advisory
+echo   KASHMIR APPLE CARE — Local VGG19 Vision & SKUAST-K Advisory
 echo =================================================================
 echo.
 echo Launching Backend and Frontend in separate windows...

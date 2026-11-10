@@ -197,7 +197,8 @@ def main() -> None:
     metrics = {"test_loss": test_loss, "test_accuracy": test_accuracy, "classification_report": report, "confusion_matrix": confusion_matrix(targets, predictions).tolist()}
     (args.output_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
     (args.output_dir / "classes.json").write_text(json.dumps(CLASS_NAMES, indent=2), encoding="utf-8")
-    onnx_path = args.output_dir / "applecare_mobilenetv3.onnx"
+    model_filename = "applecare_vgg19.onnx" if args.architecture == "vgg19" else "applecare_mobilenetv3.onnx"
+    onnx_path = args.output_dir / model_filename
     export_onnx(model, onnx_path, device)
     if not args.skip_tflite:
         convert_to_tflite(onnx_path, args.output_dir)

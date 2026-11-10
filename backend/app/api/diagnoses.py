@@ -1,8 +1,7 @@
 import hashlib
 import io
-from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 try:
@@ -19,8 +18,7 @@ from app.db.session import get_db
 from app.models import Diagnosis, User
 from app.schemas.api import DiagnoseResponse, ImageDiagnoseResponse
 from app.services.advisory import build_advisory
-from app.services.deepseek_service import detect_apple_disease_deepseek
-from app.services.inference import InferenceUnavailable, LeafInference
+from app.services.inference import InferenceUnavailable, get_classifier
 
 router = APIRouter(prefix="/diagnoses", tags=["diagnoses"])
 
@@ -44,9 +42,6 @@ async def analyze_specimen(
     file: UploadFile = File(...),
     growth_stage: str = Form(...),
     rain_within_12_hours: bool = Form(...),
-    x_deepseek_api_key: str | None = Header(default=None),
-    x_deepseek_base_url: str | None = Header(default=None),
-    x_deepseek_model: str | None = Header(default=None),
 ) -> dict:
     if file.content_type not in {"image/jpeg", "image/png", "image/webp"}:
         raise HTTPException(status_code=415, detail="Only JPEG, PNG, and WebP images are accepted")
@@ -79,58 +74,39 @@ async def analyze_specimen(
             raise HTTPException(status_code=400, detail="Uploaded file is not a readable image")
 
     try:
-        ds_res = detect_apple_disease_deepseek(
-            content=content,
-            content_type=file.content_type,
-            api_key=x_deepseek_api_key,
-            model=x_deepseek_model,
-            base_url=x_deepseek_base_url,
-        )
-        dis_slug = (ds_res.get("disease") or "apple_scab").lower().replace(" ", "_")
+        result = get_classifier().predict(content)
+        dis_slug = result["disease"]
         advisory_data = build_advisory(
             disease=dis_slug,
             growth_stage=clean_stage,
             rain_within_12_hours=rain_within_12_hours,
         )
         return {
-            "ai_engine": ds_res.get("ai_engine", "DeepSeek AI"),
+            "ai_engine": "Local VGG19 trained on supplied apple leaf datasets",
             "crop": "Apple (Malus domestica)",
             "crop_name": "Apple",
             "image_subject": "Apple Foliage Specimen",
             "disease": dis_slug,
-            "disease_name": ds_res.get("disease", "Apple Scab"),
+            "disease_name": result["disease_name"],
             "kashmiri_name": advisory_data.get("kashmiri_name", "Tchunt"),
             "category": "Foliar Condition",
-            "pathogen": ds_res.get("scientific_name", "Venturia inaequalis"),
-            "urgency": "High" if ds_res.get("severity") in {"severe", "moderate"} else "Routine",
-            "confidence": float(ds_res.get("confidence_numeric", 85.0)),
-            "scab_percent": float(ds_res.get("scab_percent", 0.0)),
-            "severity_grade": f"{ds_res.get('severity', 'moderate').upper()} Severity",
-            "details": ". ".join(ds_res.get("visual_observations", [])),
-            "scab_details": ". ".join(ds_res.get("symptoms", [])),
-            "hotspots": ds_res.get("hotspots", []),
-            "top_predictions": [
-                {"class": ds_res.get("disease", "Apple Scab"), "probability": ds_res.get("confidence_numeric", 85.0)},
-                {"class": "Healthy Apple Leaf", "probability": 10.0},
-                {"class": "Powdery Mildew", "probability": 5.0},
-            ],
+            "pathogen": result["scientific_name"],
+            "urgency": "High" if result["severity"] == "moderate" else "Routine",
+            "confidence": result["confidence"],
+            "scab_percent": result["confidence"] if dis_slug == "apple_scab" else 0.0,
+            "severity_grade": f"{result['severity'].upper()} Severity",
+            "details": f"Classification produced by the local VGG19 model with {result['confidence']:.1f}% confidence.",
+            "scab_details": f"Predicted class: {result['disease_name']}.",
+            "hotspots": [],
+            "top_predictions": result["top_predictions"],
             "other_findings": [],
-            "recommendations": [
-                {
-                    "stage": clean_stage,
-                    "chemical": item.split("@")[0].strip() if "@" in item else item,
-                    "dosage_100l": item.split("@")[1].strip() if "@" in item else "Per SKUAST-K schedule",
-                    "dosage_200l": "Double rate per 200L drum",
-                    "action": "Spray foliar coverage",
-                    "urgency": "Immediate" if ds_res.get("severity") in {"severe", "moderate"} else "Protective",
-                    "reason": item,
-                }
-                for item in ds_res.get("treatment", [])
-            ],
-            "guardrails": ds_res.get("prevention", []),
+            "recommendations": advisory_data.get("recommendations", []),
+            "guardrails": advisory_data.get("guardrails", []),
         }
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"DeepSeek AI diagnosis error: {exc}") from exc
+        if isinstance(exc, InferenceUnavailable):
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
+        raise HTTPException(status_code=500, detail=f"Local VGG19 diagnosis error: {exc}") from exc
 
 
 @router.post("/upload", response_model=DiagnoseResponse)
@@ -157,18 +133,13 @@ async def diagnose(
         )
 
     sha256_hash = hashlib.sha256(content).hexdigest()
-    model_path = Path(settings.model_path)
-    classes_path = Path(settings.classes_path)
-
     try:
-        classifier = LeafInference(model_path=model_path, classes_path=classes_path)
-        predicted_disease, confidence = classifier.predict(content)
-        heatmap = classifier.generate_heatmap(content)
-    except (InferenceUnavailable, Exception):
-        ds_res = detect_apple_disease_deepseek(content, file.content_type)
-        predicted_disease = (ds_res.get("disease") or "apple_scab").lower().replace(" ", "_")
-        confidence = float(ds_res.get("confidence_numeric", 85.0))
-        heatmap = {"points": ds_res.get("hotspots", [])}
+        result = get_classifier().predict(content)
+        predicted_disease = result["disease"]
+        confidence = result["confidence"]
+        heatmap = result["heatmap"]
+    except InferenceUnavailable as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     advisory = build_advisory(
         disease=predicted_disease,

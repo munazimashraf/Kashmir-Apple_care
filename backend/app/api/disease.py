@@ -3,7 +3,7 @@ import io
 import logging
 from typing import Any
 
-from fastapi import APIRouter, Depends, File, Header, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 try:
@@ -17,7 +17,7 @@ from app.core.config import get_settings
 from app.db.session import get_db
 from app.models.entities import Diagnosis, User
 from app.schemas.api import AppleDiseaseDetectResponse
-from app.services.deepseek_service import detect_apple_disease_deepseek
+from app.services.inference import InferenceUnavailable, get_classifier
 
 logger = logging.getLogger("applecare.disease_api")
 
@@ -27,14 +27,12 @@ router = APIRouter()
 @router.post("/detect", response_model=AppleDiseaseDetectResponse)
 async def detect_disease(
     file: UploadFile = File(...),
-    x_deepseek_api_key: str | None = Header(default=None),
-    x_deepseek_model: str | None = Header(default=None),
     user: User | None = Depends(optional_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
     """
-    AI-powered Apple Disease Detection using DeepSeek AI.
-    Receives an apple foliage or fruit image, sends to DeepSeek multimodal API,
+    Local VGG19 Apple Disease Detection.
+    Receives an apple foliage image and classifies it using the trained model,
     and returns verified structured JSON adhering strictly to:
     {
       "disease": str,
@@ -86,19 +84,33 @@ async def detect_disease(
                 detail="Uploaded file header is not a valid JPEG, PNG, or WebP image."
             )
 
-    # 4. DeepSeek AI Analysis
+    # 4. Local model analysis
     try:
-        result = detect_apple_disease_deepseek(
-            content=content,
-            content_type=file.content_type or "image/jpeg",
-            api_key=x_deepseek_api_key,
-            model=x_deepseek_model,
-        )
+        prediction = get_classifier().predict(content)
+        result = {
+            "disease": prediction["disease_name"],
+            "scientific_name": prediction["scientific_name"],
+            "confidence": prediction["confidence_label"],
+            "severity": prediction["severity"],
+            "symptoms": [f"Model prediction: {prediction['disease_name']}."],
+            "visual_observations": [
+                f"Local VGG19 classifier confidence: {prediction['confidence']:.1f}%.",
+            ],
+            "treatment": [],
+            "prevention": [],
+            "expert_consultation": prediction["confidence"] < 60,
+            "ai_engine": "Local VGG19 trained on supplied apple leaf datasets",
+            "hotspots": [],
+            "confidence_numeric": prediction["confidence"],
+            "scab_percent": prediction["confidence"] if prediction["disease"] == "apple_scab" else 0.0,
+        }
+    except InferenceUnavailable as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except Exception as exc:
-        logger.error("DeepSeek detection error: %s", exc)
+        logger.error("Local model detection error: %s", exc)
         raise HTTPException(
             status_code=500,
-            detail=f"DeepSeek vision detection failed: {exc}"
+            detail=f"Local VGG19 detection failed: {exc}"
         ) from exc
 
     # 5. Database Integration (Save to existing database history when user is authenticated)

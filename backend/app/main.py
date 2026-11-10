@@ -18,7 +18,7 @@ limiter = Limiter(key_func=get_remote_address, default_limits=["120/minute"])
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    logger.info("Starting Kashmir Apple Care API with DeepSeek AI Engine")
+    logger.info("Starting Kashmir Apple Care API with local VGG19 inference")
     try:
         await init_db()
         logger.info("Database initialized successfully")
@@ -46,9 +46,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DeepSeek Apple Disease Detection Endpoints
-app.include_router(disease.router, prefix="/api/disease", tags=["DeepSeek Apple Disease Detection"])
-app.include_router(disease.router, prefix="/api/v1/disease", tags=["DeepSeek Apple Disease Detection"])
+app.include_router(disease.router, prefix="/api/disease", tags=["Local VGG19 Apple Disease Detection"])
+app.include_router(disease.router, prefix="/api/v1/disease", tags=["Local VGG19 Apple Disease Detection"])
 
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(diagnoses.router, prefix="/api/v1")
@@ -65,13 +64,10 @@ async def health() -> dict[str, str]:
 @app.get("/api/v1/status")
 async def api_status() -> dict[str, object]:
     settings = get_settings()
-    has_key = bool(settings.deepseek_api_key)
-    model = settings.deepseek_model
     return {
         "status": "ready",
         "app_name": settings.app_name,
-        "ai_engine": f"DeepSeek AI ({model})",
-        "has_deepseek_key": has_key,
-        "keyless": not has_key,
+        "ai_engine": "Local VGG19 trained on supplied apple leaf datasets",
+        "keyless": True,
         "database": "sqlite" if "sqlite" in settings.database_url else "postgresql",
     }

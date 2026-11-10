@@ -22,7 +22,7 @@ if exist "%~dp0.venv\Scripts\python.exe" (
 )
 
 echo Using Python: %PYTHON_EXE%
-echo Environment: DeepSeek AI Engine
+echo Environment: Local VGG19 Inference Engine
 echo Server URL: http://127.0.0.1:8000
 echo Docs URL  : http://127.0.0.1:8000/docs
 echo.

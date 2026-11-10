@@ -21,14 +21,9 @@ class Settings(BaseSettings):
         validation_alias="OPENWEATHER_API_KEY",
     )
     allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8000,http://127.0.0.1:8000,*"
-    model_path: str = "artifacts/applecare/applecare_mobilenetv3.onnx"
+    model_path: str = "artifacts/applecare/applecare_vgg19.onnx"
     classes_path: str = "artifacts/applecare/classes.json"
     max_upload_bytes: int = 15 * 1024 * 1024
-
-    # DeepSeek AI Multimodal Engine
-    deepseek_api_key: str | None = Field(default=None, validation_alias="DEEPSEEK_API_KEY")
-    deepseek_base_url: str = Field(default="https://api.deepseek.com", validation_alias="DEEPSEEK_BASE_URL")
-    deepseek_model: str = Field(default="deepseek-flash", validation_alias="DEEPSEEK_MODEL")
 
     @property
     def cors_origins(self) -> list[str]:
