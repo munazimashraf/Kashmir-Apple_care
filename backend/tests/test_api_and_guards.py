@@ -18,10 +18,41 @@ def test_health():
     asyncio.run(_run())
 
 
-def test_plant_guard_with_leaf():
-    # Green foliage sample
+def test_plant_guard_rejects_plain_green():
+    # Plain green solid color - must be rejected
     leaf_img = Image.new("RGB", (224, 224), color=(34, 139, 34))
     is_plant, reason, _ = check_is_plant(leaf_img)
+    assert is_plant is False
+    assert "Plain or uniform color" in reason or "lacks organic leaf veins" in reason
+
+
+def test_plant_guard_rejects_neon_fast_color():
+    # Neon fast green (0, 255, 0) - must be rejected
+    neon_img = Image.new("RGB", (224, 224), color=(0, 255, 0))
+    is_plant, reason, _ = check_is_plant(neon_img)
+    assert is_plant is False
+    assert "Plain" in reason or "Synthetic fast" in reason or "fast/neon" in reason
+
+
+def test_plant_guard_rejects_fast_lime():
+    # Bright fast lime (50, 255, 50) - must be rejected
+    lime_img = Image.new("RGB", (224, 224), color=(50, 255, 50))
+    is_plant, reason, _ = check_is_plant(lime_img)
+    assert is_plant is False
+    assert "Plain" in reason or "Synthetic fast" in reason or "fast/neon" in reason
+
+
+def test_plant_guard_accepts_authentic_leaf():
+    # Real botanical leaf with veins and cellular texture
+    import glob
+    leaf_files = glob.glob("PlantVillage-Dataset/raw/color/Apple___healthy/*.JPG")
+    if leaf_files:
+        real_leaf = Image.open(leaf_files[0])
+    else:
+        # Fallback to authentic leaf in test set
+        test_files = glob.glob("data/apple/test/healthy/*.JPG")
+        real_leaf = Image.open(test_files[0])
+    is_plant, reason, _ = check_is_plant(real_leaf)
     assert is_plant is True
     assert "Valid" in reason
 
@@ -31,7 +62,7 @@ def test_plant_guard_rejects_non_plant():
     car_img = Image.new("RGB", (224, 224), color=(20, 50, 220))
     is_plant, reason, _ = check_is_plant(car_img)
     assert is_plant is False
-    assert "No plant leaf" in reason or "non-plant" in reason
+    assert "Inappropriate" in reason or "No plant leaf" in reason or "Plain" in reason or "non-plant" in reason
 
 
 def test_skuast_advisory_contents():
@@ -77,12 +108,33 @@ def test_diagnose_inappropriate_image():
     asyncio.run(_run())
 
 
+def test_diagnose_plain_green_via_api():
+    async def _run():
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+            img = Image.new("RGB", (224, 224), color=(0, 200, 0))  # Fast solid green
+            buf = io.BytesIO()
+            img.save(buf, format="JPEG")
+            buf.seek(0)
+            files = {"file": ("plain_green.jpg", buf, "image/jpeg")}
+            data = {"growth_stage": "Green Tip", "rain_within_12_hours": "false"}
+            res = await client.post("/api/v1/diagnoses/upload", files=files, data=data)
+            assert res.status_code == 200
+            json_res = res.json()
+            assert json_res["inappropriate"] is True
+            assert json_res["is_plant"] is False
+            assert "Inappropriate" in json_res["error"]
+    asyncio.run(_run())
+
+
 def test_leaf_held_in_hand():
-    # Green leaf in center with skin-tone border (simulating farmer hand holding leaf)
-    img = Image.new("RGB", (128, 128), color=(220, 160, 120)) # skin tone background
-    draw = ImageDraw.Draw(img)
-    draw.rectangle([25, 20, 105, 110], fill=(34, 139, 34)) # central green leaf
-    is_plant, reason, _ = check_is_plant(img)
+    # Authentic leaf in center with skin-tone border (simulating farmer scouting leaf on palm)
+    import glob
+    leaf_files = glob.glob("PlantVillage-Dataset/raw/color/Apple___*/*.JPG")
+    assert leaf_files, "PlantVillage leaf images must exist"
+    real_leaf = Image.open(leaf_files[0]).resize((80, 80))
+    palm_img = Image.new("RGB", (128, 128), color=(220, 160, 120))  # skin tone background
+    palm_img.paste(real_leaf, (24, 24))
+    is_plant, reason, _ = check_is_plant(palm_img)
     assert is_plant is True
     assert "Valid" in reason
 

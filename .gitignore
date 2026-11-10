@@ -15,5 +15,8 @@ data/apple/val
 data/apple/test
 data/apple/raw
 data/apple-plantvillage/
+PlantVillage-Dataset/
+PlantVillage-Dataset
+*.pth.bak
 
 

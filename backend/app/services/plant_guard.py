@@ -87,6 +87,132 @@ EXPLICIT_NON_PLANT_INDICES = {
 }
 
 _GUARD_MODEL = None
+_PLANT_VERIFIER_SESSION = None
+
+
+def get_plant_verifier():
+    """Loads the dedicated neural PlantVillage verifier model (ONNX) if available."""
+    global _PLANT_VERIFIER_SESSION
+    if _PLANT_VERIFIER_SESSION is None:
+        try:
+            from pathlib import Path
+            import onnxruntime as ort
+            onnx_path = Path("backend/models/plant_verifier_mobilenetv3.onnx")
+            if onnx_path.is_file():
+                opts = ort.SessionOptions()
+                opts.intra_op_num_threads = 2
+                _PLANT_VERIFIER_SESSION = ort.InferenceSession(str(onnx_path), opts, providers=["CPUExecutionProvider"])
+                LOGGER.info("Loaded PlantVerifier ONNX model from %s", onnx_path)
+            else:
+                _PLANT_VERIFIER_SESSION = False
+        except Exception as exc:
+            LOGGER.warning("Could not load PlantVerifier ONNX model: %s", exc)
+            _PLANT_VERIFIER_SESSION = False
+    return _PLANT_VERIFIER_SESSION if _PLANT_VERIFIER_SESSION is not False else None
+
+
+def predict_plant_verifier(image: Image.Image) -> Tuple[bool, float]:
+    """Evaluates image with the PlantVillage-trained neural verifier."""
+    session = get_plant_verifier()
+    if session is None:
+        return True, 1.0  # Fallback if model not yet loaded
+
+    try:
+        im = image.convert("RGB").resize((224, 224))
+        arr = np.asarray(im, dtype=np.float32) / 255.0
+        mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
+        std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
+        arr = ((arr - mean) / std).astype(np.float32, copy=False)
+        tensor = np.transpose(arr, (2, 0, 1))[None, ...]
+
+        input_name = session.get_inputs()[0].name
+        logits = session.run(None, {input_name: tensor})[0][0]
+        shift = logits - np.max(logits)
+        probs = np.exp(shift) / np.sum(np.exp(shift))
+        p_plant = float(probs[1])
+        return (p_plant >= 0.50), p_plant
+    except Exception as exc:
+        LOGGER.warning("PlantVerifier inference failed: %s", exc)
+        return True, 1.0
+
+
+def analyze_botanical_texture_and_flatness(image: Image.Image) -> Dict[str, Any]:
+    """Analyzes spatial frequency, discrete Laplacian variance, local tile variance,
+    and synthetic saturation to detect flat plain colors, neon fast colors, and digital graphics.
+
+    Authentic leaves have veins, stomata, margins, and natural chlorophyll gradients.
+    Plain colors or artificial 'fast' colors have near-zero texture and unnatural saturation.
+    """
+    rgb_img = image.convert("RGB").resize((160, 160))
+    arr = np.asarray(rgb_img, dtype=np.float32)
+    gray = 0.299 * arr[..., 0] + 0.587 * arr[..., 1] + 0.114 * arr[..., 2]
+
+    # 1. Discrete 2nd-order Laplacian variance (measures leaf vein & surface micro-texture)
+    lap = -4 * gray[1:-1, 1:-1] + gray[:-2, 1:-1] + gray[2:, 1:-1] + gray[1:-1, :-2] + gray[1:-1, 2:]
+    lap_var = float(np.var(lap))
+
+    # 2. Local 16x16 micro-tile variance (detects uniform blocks / absence of vein networks)
+    tiles = []
+    h, w = gray.shape
+    for i in range(0, h - 16, 16):
+        for j in range(0, w - 16, 16):
+            tiles.append(np.std(gray[i:i + 16, j:j + 16]))
+    tile_std_mean = float(np.mean(tiles)) if tiles else 0.0
+    tile_std_max = float(np.max(tiles)) if tiles else 0.0
+
+    # 3. Spatial gradient energy
+    dx = np.abs(gray[:, 1:] - gray[:, :-1])
+    dy = np.abs(gray[1:, :] - gray[:-1, :])
+    grad_mean = float(np.mean(dx) + np.mean(dy))
+
+    # 4. Color variance across RGB
+    color_std = float(np.mean([np.std(arr[..., c]) for c in range(3)]))
+
+    # 5. Synthetic fast / neon color detection (HSV)
+    r, g, b = arr[..., 0] / 255.0, arr[..., 1] / 255.0, arr[..., 2] / 255.0
+    max_c = np.maximum(r, np.maximum(g, b))
+    min_c = np.minimum(r, np.minimum(g, b))
+    sat = np.where(max_c > 0.01, (max_c - min_c) / (max_c + 1e-6), 0.0)
+    mean_sat = float(np.mean(sat))
+    mean_val = float(np.mean(max_c))
+
+    # A. Plain flat color: near-zero Laplacian variance, tile standard deviation, or gradient
+    avg_r, avg_g, avg_b = float(np.mean(arr[..., 0])), float(np.mean(arr[..., 1])), float(np.mean(arr[..., 2]))
+    mean_color = np.array([avg_r, avg_g, avg_b], dtype=np.float32)
+    dist_from_mean = np.sqrt(np.sum((arr - mean_color) ** 2, axis=-1))
+    uniform_ratio = float(np.mean(dist_from_mean < 15.0))
+    is_uniform_swatch = uniform_ratio > 0.85
+
+    is_plain_color = (
+        (lap_var < 28.0 and tile_std_mean < 3.5)
+        or color_std < 10.0
+        or is_uniform_swatch
+    )
+
+    # B. Synthetic fast/neon color: high artificial saturation with lack of natural leaf vein texture
+    is_synthetic_fast_color = (
+        mean_sat > 0.65 and (lap_var < 80.0 or tile_std_mean < 6.0)
+    )
+
+    # C. Unnatural green dominance without chlorophyll balance (e.g. pure phosphor green RGB(0,255,0))
+    is_unnatural_green = (
+        avg_g > 1.8 * (avg_r + 2.0) and avg_g > 1.8 * (avg_b + 2.0) and mean_sat > 0.55 and lap_var < 90.0
+    )
+
+    return {
+        "lap_var": round(lap_var, 2),
+        "tile_std_mean": round(tile_std_mean, 2),
+        "tile_std_max": round(tile_std_max, 2),
+        "grad_mean": round(grad_mean, 2),
+        "color_std": round(color_std, 2),
+        "mean_sat": round(mean_sat, 2),
+        "mean_val": round(mean_val, 2),
+        "uniform_ratio": round(uniform_ratio, 2),
+        "is_plain_color": is_plain_color,
+        "is_synthetic_fast_color": is_synthetic_fast_color,
+        "is_unnatural_green": is_unnatural_green,
+        "is_uniform_swatch": is_uniform_swatch,
+    }
 
 
 def get_guard_model():
@@ -163,11 +289,20 @@ def analyze_skin_and_foliage(image: Image.Image) -> Tuple[float, float, float, f
 def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
     """Evaluates whether the uploaded image is a real plant leaf or an inappropriate / non-plant image.
     
-    Supports real-world agricultural photography where farmers hold leaves in their hands or on their palms.
+    Strictly rejects:
+    - Plain green colors, neon fast colors, flat digital graphics, and uniform swatches.
+    - Human beings, portraits, selfies, and clothing.
+    - Vehicles, electronics, animals, furniture, and indoor scenes.
+    - Non-plant images without botanical leaf texture.
+    
+    Supports authentic field conditions where growers hold leaves in hand or on palm.
     
     Returns:
         (is_plant: bool, reason: str, details: dict)
     """
+    # Step 0: Botanical Texture & Flatness Physics Guard
+    texture = analyze_botanical_texture_and_flatness(image)
+    
     total_skin, total_foliage, center_skin, center_foliage = analyze_skin_and_foliage(image)
 
     # A genuine leaf held in hand or photographed on palm will dominate the central frame
@@ -175,6 +310,9 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
         (center_foliage >= 0.40 and center_skin < 0.20)
         or (center_foliage >= 0.60 and center_skin < 0.30)
     )
+
+    # Neural Plant Verifier (Trained on PlantVillage dataset + negative fast colors)
+    is_real_plant_neural, p_plant_neural = predict_plant_verifier(image)
 
     # ImageNet category verification
     guard_model = get_guard_model()
@@ -221,13 +359,33 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
         "center_skin_ratio": round(center_skin, 4),
         "center_foliage_ratio": round(center_foliage, 4),
         "is_center_leaf": is_center_leaf,
+        "lap_var": texture["lap_var"],
+        "tile_std_mean": texture["tile_std_mean"],
+        "color_std": texture["color_std"],
+        "mean_sat": texture["mean_sat"],
+        "p_plant_verifier": round(p_plant_neural, 4),
         "imagenet_top1_idx": imagenet_top1_idx,
         "imagenet_top1_prob": round(imagenet_top1_prob, 4),
         "is_flora_top": is_flora_top,
         "has_clothing_top": has_clothing_top,
     }
 
-    # Case 1: If NOT a dominant center leaf, verify it is not a human subject/portrait/clothing
+    # REJECTION RULE 1: Plain / Solid / Uniform Flat Color Check
+    if texture["is_plain_color"] or texture["is_uniform_swatch"]:
+        LOGGER.info("Plain/flat color detected: %s", texture)
+        return False, "Inappropriate image: Plain or uniform color detected. The image lacks organic leaf veins, cellular texture, and botanical structure. Please photograph an actual plant leaf.", details
+
+    # REJECTION RULE 2: Synthetic Fast / Neon Color Check
+    if texture["is_synthetic_fast_color"] or texture["is_unnatural_green"]:
+        LOGGER.info("Synthetic fast/neon color detected: %s", texture)
+        return False, "Inappropriate image: Synthetic fast/neon color detected. Natural plant leaves have organic chlorophyll pigmentation and surface micro-texture. Please photograph an actual plant leaf in natural light.", details
+
+    # REJECTION RULE 3: Neural Plant Verifier Rejection
+    if not is_real_plant_neural:
+        LOGGER.info("Neural Plant Verifier rejected non-plant: p_plant=%.4f", p_plant_neural)
+        return False, "Inappropriate image: Neural verification determined this image is not a genuine plant leaf. Please upload a clear photo of an apple leaf.", details
+
+    # REJECTION RULE 4: Human Subject / Portrait / Selfie / Clothes
     if not is_center_leaf:
         # High skin in center = person face/neck/torso
         if center_skin > 0.25:
@@ -244,7 +402,7 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
             LOGGER.info("Clothing/person detected: indices=%s", top_indices)
             return False, "Clothing or person detected. Please upload an apple leaf photo.", details
 
-    # Case 2: Explicit non-plant objects (vehicles, electronics, furniture, domestic animals)
+    # REJECTION RULE 5: Explicit Non-Plant Objects (vehicles, electronics, furniture, domestic animals)
     is_explicit_non_plant = (
         imagenet_top1_idx in EXPLICIT_NON_PLANT_INDICES
         or any(idx in EXPLICIT_NON_PLANT_INDICES for idx in top_indices[:2])
@@ -253,7 +411,7 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
         LOGGER.info("Explicit non-plant object detected: top1=%s, prob=%.3f", imagenet_top1_idx, imagenet_top1_prob)
         return False, "Inappropriate image: Non-plant object detected (vehicle/electronics/animal/indoor object).", details
 
-    # Case 3: Insufficient foliage coloration (< 8% overall and < 8% in center)
+    # REJECTION RULE 6: Insufficient Foliage Coloration (< 8% overall and < 8% in center)
     if total_foliage < 0.08 and center_foliage < 0.08:
         LOGGER.info("Foliage color check failed: foliage=%.3f, center_foliage=%.3f", total_foliage, center_foliage)
         return False, "No plant leaf or foliage coloration detected in the image.", details

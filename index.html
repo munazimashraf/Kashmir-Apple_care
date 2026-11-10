@@ -2418,7 +2418,7 @@
         `${name} چیک کرُن مکمل۔ بارش آسہٕ تہٕ سپرے ملتوی کٔرِو، تہٕ لیبل ہدایات مُطابق عمل کٔرِو۔`;
     }
 
-    // Client-side quick plant vs non-plant color verification (with human skin tone detection)
+    // Client-side quick plant vs non-plant color verification (with human skin tone & texture detection)
     function clientPlantCheck(img) {
       const c = document.createElement("canvas");
       c.width = 128; c.height = 128;
@@ -2437,12 +2437,25 @@
       const total = 128 * 128;
       const centerTotal = 64 * 64;
 
+      let sumR = 0, sumG = 0, sumB = 0;
+      let sumSqR = 0, sumSqG = 0, sumSqB = 0;
+      let sumSat = 0;
+      const grayArr = new Float32Array(total);
+
       for (let i = 0; i < data.length; i += 4) {
         const r = data[i], g = data[i+1], b = data[i+2];
         const pixelIdx = i / 4;
         const row = Math.floor(pixelIdx / 128);
         const col = pixelIdx % 128;
         const isCenter = (row >= 32 && row < 96 && col >= 32 && col < 96);
+
+        const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+        grayArr[pixelIdx] = gray;
+        sumR += r; sumG += g; sumB += b;
+        sumSqR += r * r; sumSqG += g * g; sumSqB += b * b;
+        const maxC = Math.max(r, g, b);
+        const minC = Math.min(r, g, b);
+        sumSat += maxC > 0 ? (maxC - minC) / maxC : 0;
 
         // Human skin tone detection (Peer et al. algorithm)
         const isSkin = (r > 95) && (g > 40) && (b > 20) &&
@@ -2469,6 +2482,37 @@
         if (r > 180 && g > 185 && b > 175) whiteMildew++;
         if (g > 100 && g > r * 1.25 && g > b * 1.3) healthyGreen++;
         if (r > 100 && g > 70 && b < 60 && Math.abs(r - g) < 40) alternariaBrown++;
+      }
+
+      // Compute spatial gradient energy to detect flat/plain colors vs organic leaf veins
+      let sumGrad = 0;
+      for (let y = 0; y < 127; y++) {
+        for (let x = 0; x < 127; x++) {
+          const idx = y * 128 + x;
+          sumGrad += Math.abs(grayArr[idx] - grayArr[idx + 1]) + Math.abs(grayArr[idx] - grayArr[idx + 128]);
+        }
+      }
+
+      const meanGrad = sumGrad / (127 * 127);
+      const avgR = sumR / total, avgG = sumG / total, avgB = sumB / total;
+      const stdR = Math.sqrt(Math.max(0, (sumSqR / total) - (avgR * avgR)));
+      const stdG = Math.sqrt(Math.max(0, (sumSqG / total) - (avgG * avgG)));
+      const stdB = Math.sqrt(Math.max(0, (sumSqB / total) - (avgB * avgB)));
+      const colorStd = (stdR + stdG + stdB) / 3;
+      const avgSat = sumSat / total;
+
+      // 0. REJECT PLAIN / FLAT / UNIFORM COLOR
+      if (meanGrad < 2.5 || colorStd < 12) {
+        return { isPlant: false, reason: "Inappropriate Image: Plain or uniform color detected. The image lacks organic leaf veins, cellular texture, and botanical structure." };
+      }
+
+      // 0b. REJECT SYNTHETIC FAST / NEON COLOR
+      if (avgSat > 0.60 && meanGrad < 8.0) {
+        return { isPlant: false, reason: "Inappropriate Image: Synthetic fast/neon color detected. Natural plant leaves have organic chlorophyll pigmentation and surface micro-texture." };
+      }
+
+      if (avgG > 1.8 * (avgR + 5) && avgG > 1.8 * (avgB + 5) && avgSat > 0.50 && meanGrad < 9.0) {
+        return { isPlant: false, reason: "Inappropriate Image: Artificial fast-color graphic detected. Please photograph an actual apple leaf in natural daylight." };
       }
 
       const skinRatio = skinPixels / total;
