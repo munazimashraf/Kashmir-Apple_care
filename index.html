@@ -2470,16 +2470,14 @@ CRITICAL GUARDRAILS:
       const updatedText = document.getElementById("weatherUpdated");
 
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=precipitation_probability,rain&forecast_days=1&timezone=auto`;
+        const url = `/api/v1/weather?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("Weather service offline");
         const data = await res.json();
 
-        const current = data.current_weather;
-        const temp = Math.round(current.temperature);
-        const hourly = data.hourly || {};
-        const rainNext12 = (hourly.precipitation_probability || []).slice(0, 12);
-        const willRain = rainNext12.some(p => p > 45);
+        const current = data.current || {};
+        const temp = Math.round(current.main?.temp ?? 0);
+        const willRain = Boolean(data.rain_within_12_hours);
 
         weatherState.rainWithin12h = willRain;
         weatherState.temp = temp;
