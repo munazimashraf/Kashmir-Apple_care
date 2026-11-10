@@ -522,6 +522,358 @@
       text-decoration: underline;
     }
 
+    /* SKUAST-K Apple Spray Calendar Styles */
+    .calendar-section {
+      margin-top: 36px;
+      margin-bottom: 60px;
+    }
+    .calendar-panel {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      padding: 30px 32px;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .calendar-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--deep);
+      margin: 4px 0 6px;
+    }
+    .calendar-header p {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin: 0;
+      max-width: 680px;
+      line-height: 1.45;
+    }
+    .calendar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stage-timeline-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: thin;
+    }
+    .timeline-stage-btn {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .timeline-stage-btn:hover {
+      border-color: var(--primary);
+      background: #f0fdf4;
+    }
+    .timeline-stage-btn.active {
+      border-color: var(--primary);
+      background: #ecfdf5;
+      box-shadow: 0 4px 12px rgba(6,78,59,0.12);
+    }
+    .timeline-stage-num {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+    }
+    .timeline-stage-name {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 2px 0 1px;
+      white-space: nowrap;
+    }
+    .timeline-stage-timing {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .stage-hero-banner {
+      background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .stage-hero-title h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--deep);
+      margin: 0 0 4px;
+    }
+    .stage-hero-kashmiri {
+      font-size: 13px;
+      font-weight: 750;
+      color: #0f766e;
+      margin-bottom: 6px;
+    }
+    .stage-hero-desc {
+      font-size: 13px;
+      color: #334155;
+      margin: 0;
+      line-height: 1.45;
+    }
+    .target-pests-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .pest-pill {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .calendar-products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .cal-prod-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .cal-prod-name {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--deep);
+      margin-bottom: 2px;
+    }
+    .cal-prod-brands {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .dosage-badges-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+      padding: 10px 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .dosage-col-label {
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .dosage-col-val {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .cal-prod-purpose {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.4;
+      margin-top: auto;
+    }
+    .stage-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 880px) {
+      .stage-bottom-grid { grid-template-columns: 1fr; }
+    }
+    .cultural-card, .precautions-card {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+    .cultural-card h4, .precautions-card h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cultural-list, .precautions-list {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.55;
+    }
+    .cultural-list li, .precautions-list li {
+      margin-bottom: 6px;
+    }
+    .precautions-card {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .precautions-card h4 {
+      color: #92400e;
+    }
+    .drawer-card {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      margin-top: 24px;
+      position: relative;
+    }
+    .drawer-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #64748b;
+    }
+    .tank-quick-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0 16px;
+    }
+    .tank-quick-btn {
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 12px;
+      font-weight: 750;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tank-quick-btn:hover, .tank-quick-btn.active {
+      background: #ecfdf5;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .calc-result-box {
+      background: #ffffff;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .compat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      margin-top: 14px;
+    }
+    .compat-table th {
+      text-align: left;
+      padding: 10px 12px;
+      background: #e2e8f0;
+      color: #334155;
+      font-weight: 800;
+    }
+    .compat-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #1e293b;
+    }
+    .compat-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .compat-badge.compatible {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .compat-badge.incompatible {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .compat-badge.caution {
+      background: #fffbeb;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-link {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+    .nav-link:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    @media print {
+      body * { visibility: hidden !important; }
+      #sprayCalendarSection, #sprayCalendarSection * { visibility: visible !important; }
+      #sprayCalendarSection { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+      .calendar-actions, .stage-timeline-nav, .drawer-card, .cal-prod-actions { display: none !important; }
+    }
+
     /* Main Grid */
     main { padding: 34px 0 80px; }
     .work-grid {
@@ -1109,6 +1461,12 @@
         <span class="brand-mark">🍏</span>
         <span>AppleCare Kashmir</span>
       </div>
+      <div class="nav-links">
+        <a href="#dropZone" class="nav-link">🔬 AI Diagnostic</a>
+        <a href="#sprayForecastSection" class="nav-link">🌦️ 7-Day Forecast</a>
+        <a href="#sprayCalendarSection" class="nav-link">📅 Spray Calendar</a>
+        <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink">⚖️ Tank Calc</a>
+      </div>
       <div class="nav-badges">
         <span class="pill model"><span class="status-dot"></span> MobileNetV3 AI (98.04%)</span>
         <span class="pill skuast">🎓 SKUAST-K Kashmir Advisory</span>
@@ -1426,6 +1784,176 @@
       </section>
     </div>
   </main>
+
+  <!-- SKUAST-K Kashmir Annual Apple Spray Calendar Section -->
+  <section class="calendar-section shell" id="sprayCalendarSection">
+    <div class="calendar-panel">
+      <!-- Calendar Header -->
+      <div class="calendar-header">
+        <div>
+          <div class="eyebrow">📅 Phenological Integrated Pest Management</div>
+          <h2>Annual SKUAST-K Apple Spray Calendar (2024–2026)</h2>
+          <p>Official 8-stage phenological spray guide, commercial brand alternatives, knapsack vs power-tanker dosages, cultural sanitation, and tank compatibility matrix.</p>
+        </div>
+        <div class="calendar-actions">
+          <button class="btn secondary" id="toggleTankCalcBtn" style="padding: 8px 14px; font-size: 12.5px;">⚖️ Tank Calculator</button>
+          <button class="btn secondary" id="toggleCompatBtn" style="padding: 8px 14px; font-size: 12.5px;">🧪 Compatibility Matrix</button>
+          <button class="btn secondary" id="toggleSprayLogBtn" style="padding: 8px 14px; font-size: 12.5px;">📋 Spray Log (<span id="sprayLogCountBadge">0</span>)</button>
+          <button class="btn ghost" id="printCalendarBtn" style="padding: 8px 14px; font-size: 12.5px;">🖨️ Print Stage</button>
+        </div>
+      </div>
+
+      <!-- 8-Stage Horizontal Timeline Navigation -->
+      <div class="stage-timeline-nav" id="stageTimelineNav" role="tablist" aria-label="Phenological Stages">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Active Stage Hero Banner -->
+      <div class="stage-hero-banner" id="stageHeroBanner">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Stage Chemical Formulations & Dosages -->
+      <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: var(--deep); margin: 0;">
+            🧴 Recommended Fungicides, Acaricides & Mineral Formulations
+          </h4>
+          <span style="font-size: 11.5px; font-weight: 650; color: var(--muted); background: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line);">
+            Exact SKUAST-K Dosages: 100L · 1,000L Power Sprayer · 16L Knapsack
+          </span>
+        </div>
+        <div class="calendar-products-grid" id="calendarProductsGrid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Stage Bottom Grid: Cultural Sanitation & Precautions -->
+      <div class="stage-bottom-grid">
+        <div class="cultural-card" id="stageCulturalCard">
+          <h4>🌿 Cultural Sanitation & Orchard Hygiene</h4>
+          <ul class="cultural-list" id="stageCulturalList">
+            <!-- Rendered via JS -->
+          </ul>
+        </div>
+        <div class="precautions-card" id="stagePrecautionsCard">
+          <h4>⚠️ Critical Stage Precautions & Pollinator Directives</h4>
+          <ul class="precautions-list" id="stagePrecautionsList">
+            <!-- Rendered via JS -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive Tank Dosage Calculator Drawer -->
+      <div class="drawer-card" id="tankCalcDrawer" style="display: none;">
+        <button class="drawer-close-btn" id="closeTankCalcBtn" title="Close Calculator">✕</button>
+        <div class="eyebrow">⚖️ Precise Chemical Dosage Engine</div>
+        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);">Tank Mixing & Volume Dosage Calculator</h3>
+        <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;">Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; align-items: end;">
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 750; color: var(--ink); margin-bottom: 6px;">Select Chemical Formulation</label>
+            <select id="calcChemicalSelect" class="input-select" style="width: 100%;">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 750; color: var(--ink); margin-bottom: 6px;">Orchard Sprayer Tank Volume (Liters)</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="calcWaterLitersInput" class="input-select" value="1000" min="1" max="10000" step="5" style="width: 100px;">
+              <input type="range" id="calcWaterSlider" min="16" max="2000" step="10" value="1000" style="flex: 1; accent-color: var(--primary);">
+            </div>
+          </div>
+        </div>
+
+        <div class="tank-quick-btns">
+          <span style="font-size: 11px; font-weight: 700; color: #64748b; align-self: center; margin-right: 4px;">Quick Sizes:</span>
+          <button class="tank-quick-btn" data-liters="16">16 L (Knapsack)</button>
+          <button class="tank-quick-btn" data-liters="200">200 L (Drum / Barrel)</button>
+          <button class="tank-quick-btn" data-liters="500">500 L (Mini-Tanker)</button>
+          <button class="tank-quick-btn active" data-liters="1000">1,000 L (Standard Power Tanker)</button>
+          <button class="tank-quick-btn" data-liters="2000">2,000 L (Tractor Mega Tanker)</button>
+        </div>
+
+        <!-- Calculated Result Box -->
+        <div class="calc-result-box" id="calcResultBox">
+          <div>
+            <div style="font-size: 11px; font-weight: 750; text-transform: uppercase; color: #047857; letter-spacing: 0.05em;">Calculated Active Quantity</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--primary); margin: 2px 0;" id="calcTotalQty">3.0 kg</div>
+            <div style="font-size: 12.5px; color: #334155;" id="calcChemicalSummary">Mancozeb 75 WP in 1,000 Liters of water (Rate: 300g / 100L)</div>
+            <div style="font-size: 11.5px; color: #64748b; margin-top: 4px;" id="calcMixingTip">💡 Premix chemical in a 10L bucket with clean water before pouring into the spray tank with the agitator running.</div>
+          </div>
+          <button class="btn primary" id="calcLogBtn" style="padding: 10px 18px; font-size: 13px;">📋 Log to Orchard History</button>
+        </div>
+      </div>
+
+      <!-- Chemical Compatibility Matrix Drawer -->
+      <div class="drawer-card" id="compatMatrixDrawer" style="display: none;">
+        <button class="drawer-close-btn" id="closeCompatBtn" title="Close Compatibility Matrix">✕</button>
+        <div class="eyebrow">🧪 Tank Mix Safety Matrix</div>
+        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);">SKUAST-K Chemical Compatibility & Phytotoxicity Guide</h3>
+        <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;">Avoid tank mixtures that cause active ingredient breakdown, flocculation, leaf scorch, or severe phytotoxicity.</p>
+
+        <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <input type="text" id="compatSearchInput" placeholder="🔍 Search chemical (e.g. TSO, Sulphur, Mancozeb, Dodine, Copper)..." class="input-select" style="max-width: 380px; font-size: 12px;">
+          <div style="display: flex; gap: 8px; font-size: 11px; font-weight: 700;">
+            <span class="compat-badge compatible">✅ Compatible</span>
+            <span class="compat-badge incompatible">❌ Incompatible</span>
+            <span class="compat-badge caution">⚠️ Caution</span>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="compat-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Chemical Combination</th>
+                <th style="width: 18%;">Status</th>
+                <th>SKUAST-K Tank Mixing Scientific Directive</th>
+              </tr>
+            </thead>
+            <tbody id="compatTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Spray History Log Drawer -->
+      <div class="drawer-card" id="sprayLogDrawer" style="display: none;">
+        <button class="drawer-close-btn" id="closeSprayLogBtn" title="Close Spray Log">✕</button>
+        <div class="eyebrow">📋 Orchard Spray Record</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+          <div>
+            <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0; color: var(--deep);">Completed Spray Application Journal</h3>
+            <p style="font-size: 12px; color: var(--muted); margin: 0;">Maintains your mandatory record for GlobalGAP, organic audits, and PHI tracking.</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn ghost" id="clearSprayLogBtn" style="padding: 6px 12px; font-size: 11.5px; color: #ef4444;">🗑️ Clear Records</button>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="compat-table" id="sprayLogTable">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Phenological Stage</th>
+                <th>Chemical Applied</th>
+                <th>Tank Volume</th>
+                <th>District</th>
+              </tr>
+            </thead>
+            <tbody id="sprayLogTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <footer>
     <div class="shell">
@@ -2580,9 +3108,847 @@
       renderHistory();
     });
 
+    // =========================================================================
+    // SKUAST-KASHMIR ANNUAL APPLE SPRAY CALENDAR & TANK CALCULATOR ENGINE
+    // =========================================================================
+
+    const SKUAST_CALENDAR_DATA = [
+      {
+        id: "delayed_dormant",
+        stage_number: 1,
+        stage_name: "Delayed Dormant",
+        kashmiri_name: "Khamosh Marhalah (سست مرحلہ)",
+        timing: "Late February – Early March",
+        tree_phenology: "Fruit and leaf buds swell noticeably but green tissue has not yet separated.",
+        target_pests: [
+          "San Jose Scale (overwintering nymphs)",
+          "European Red Mite (overwintering eggs)",
+          "Stem Cankers & Lichens"
+        ],
+        products: [
+          {
+            product: "Tree Spray Oil (TSO) / Horticulture Mineral Oil (HMO)",
+            common_brands: "Servo Orchard Spray Oil, HP HMO, Mak All Season",
+            dosage_per_100l: "2.0 Liters",
+            dosage_per_1000l: "20.0 Liters",
+            dosage_per_16l: "320 ml",
+            purpose: "Suffocates overwintering scale insects and red mite eggs on bark",
+            type: "Horticultural mineral oil"
+          },
+          {
+            product: "Copper Oxychloride 50 WP (Blitox)",
+            common_brands: "Blitox 50, Tata Rallcop",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Bactericidal and fungicidal cover for cankers and pruning wounds",
+            type: "Inorganic copper protectant"
+          }
+        ],
+        cultural_sanitation: [
+          "Prune diseased, broken, dead, and cankered branches prior to spraying.",
+          "Apply Chaubattia paste (Copper Carbonate 1 part + Red Lead 1 part + Raw Linseed Oil 1.25 parts) to cut surfaces > 2 cm.",
+          "Scrape loose bark sheltering San Jose scale with dull iron scrapers onto ground tarps."
+        ],
+        precautions: [
+          "⚠️ Do NOT apply TSO if temperature is below 4°C or freezing frost is expected within 24 hours.",
+          "⚠️ Maintain a minimum 21-day gap between oil application and any sulphur-containing fungicide."
+        ]
+      },
+      {
+        id: "green_tip",
+        stage_number: 2,
+        stage_name: "Green Tip",
+        kashmiri_name: "Sabz Nok (سبز نوک)",
+        timing: "Late March – Early April",
+        tree_phenology: "Terminal and lateral buds break; 2–5 mm green leaf tissue visible at bud tips.",
+        target_pests: [
+          "Apple Scab (Venturia inaequalis - Primary ascospore discharge)",
+          "Blossom Blight"
+        ],
+        products: [
+          {
+            product: "Mancozeb 75 WP (Indofil M-45)",
+            common_brands: "Indofil M-45, UPL Dithane M-45",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Broad-spectrum contact protectant against primary scab ascospores",
+            type: "Dithiocarbamate multi-site contact fungicide"
+          },
+          {
+            product: "Propineb 70 WP (Antracol)",
+            common_brands: "Bayer Antracol",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Protective contact fungicide providing supplementary foliar Zinc (Zn)",
+            type: "Propineb contact protectant"
+          },
+          {
+            product: "Captan 50 WP",
+            common_brands: "Tata Captaf, Dhanuka Captan",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Protective multi-site contact fungicide",
+            type: "Phthalimide protectant"
+          },
+          {
+            product: "Dodine 65 WP (Syllit)",
+            common_brands: "Syllit 65 WP",
+            dosage_per_100l: "60 grams",
+            dosage_per_1000l: "600 grams",
+            dosage_per_16l: "10 grams",
+            purpose: "Translaminar and curative scab control if wetness exceeds 12h",
+            type: "Guanidine translaminar fungicide"
+          }
+        ],
+        cultural_sanitation: [
+          "Ensure entire tree canopy is drenched uniformly until run-off.",
+          "If autumn 5% Urea was missed, spray orchard floor leaf litter with 5% Urea before bud burst to hasten perithecial decay."
+        ],
+        precautions: [
+          "⚠️ Spray immediately before predicted rain spells; once primary ascospores germinate, contact fungicides cannot cure infection."
+        ]
+      },
+      {
+        id: "pink_bud",
+        stage_number: 3,
+        stage_name: "Pink Bud",
+        kashmiri_name: "Gulabi Kali (گلابی کلی)",
+        timing: "Mid to Late April",
+        tree_phenology: "Flower buds separate from cluster and display distinct bright pink petals before opening.",
+        target_pests: [
+          "Apple Scab",
+          "Powdery Mildew (Podosphaera leucotricha)",
+          "Alternaria Leaf Blotch"
+        ],
+        products: [
+          {
+            product: "Difenoconazole 25 EC (Score)",
+            common_brands: "Syngenta Score 25 EC",
+            dosage_per_100l: "30 ml",
+            dosage_per_1000l: "300 ml",
+            dosage_per_16l: "5 ml",
+            purpose: "Systemic triazole with 72-96h kick-back curative activity against scab",
+            type: "Systemic DMI triazole fungicide"
+          },
+          {
+            product: "Flusilazole 40 EC (Cursor)",
+            common_brands: "Cursor 40 EC, Dupont Punch",
+            dosage_per_100l: "20 ml",
+            dosage_per_1000l: "200 ml",
+            dosage_per_16l: "3.5 ml",
+            purpose: "High-potency systemic sterol inhibitor for Scab and Mildew",
+            type: "Systemic triazole fungicide"
+          },
+          {
+            product: "Hexaconazole 5 EC (Contaf)",
+            common_brands: "Tata Contaf 5 EC",
+            dosage_per_100l: "50 ml",
+            dosage_per_1000l: "500 ml",
+            dosage_per_16l: "8 ml",
+            purpose: "Systemic control of Powdery Mildew and Scab",
+            type: "Systemic triazole fungicide"
+          },
+          {
+            product: "Zineb 68% + Hexaconazole 4% WP (Avatar)",
+            common_brands: "Indofil Avatar",
+            dosage_per_100l: "100 grams",
+            dosage_per_1000l: "1.0 kg",
+            dosage_per_16l: "16 grams",
+            purpose: "Combination contact + systemic protection",
+            type: "Combination fungicide"
+          }
+        ],
+        cultural_sanitation: [
+          "Cut out white powdery 'silver terminal' shoots infected with powdery mildew and dispose off-site.",
+          "Install yellow sticky traps for monitoring sucking pest emergence."
+        ],
+        precautions: [
+          "⚠️ Do NOT spray during strong winds (> 14 km/h) to avoid chemical drift into water bodies or neighboring fields."
+        ]
+      },
+      {
+        id: "full_bloom",
+        stage_number: 4,
+        stage_name: "Full Bloom",
+        kashmiri_name: "Phool Marhalah / Gul (پھول مرحلہ)",
+        timing: "Late April – Early May",
+        tree_phenology: "70–80% of apple blossoms are open; active honeybee cross-pollination taking place.",
+        target_pests: [
+          "CRITICAL POLLINATOR PROTECTION PERIOD"
+        ],
+        products: [
+          {
+            product: "NO-SPRAY: All chemical insecticides and fungicides discouraged",
+            common_brands: "Strict SKUAST-K Honeybee Protection Protocol",
+            dosage_per_100l: "N/A",
+            dosage_per_1000l: "N/A",
+            dosage_per_16l: "N/A",
+            purpose: "Preserves foraging worker honeybees necessary for fruit set and commercial crop yield",
+            type: "Pollinator shield"
+          }
+        ],
+        cultural_sanitation: [
+          "Place 2–3 active Apis mellifera / Apis cerana bee colonies per acre in sunny, wind-protected orchard corners.",
+          "Mow ground dandelion weeds prior to bloom so bees focus exclusively on apple blossoms.",
+          "Provide clean, shallow water pans with floating wooden sticks so foraging bees do not drown."
+        ],
+        precautions: [
+          "🚨 STRICT DIRECTIVE: Application of any synthetic pyrethroid, organophosphate, or neonicotinoid during bloom is prohibited by SKUAST-K. Insecticides cause immediate bee mortality and colony collapse."
+        ]
+      },
+      {
+        id: "petal_fall",
+        stage_number: 5,
+        stage_name: "Petal Fall (75% Petal Drop)",
+        kashmiri_name: "Pattian Girna (پتیاں گرنا)",
+        timing: "Early to Mid May",
+        tree_phenology: "75–80% of flower petals have fallen; young fruitlets (2–5 mm) have begun setting.",
+        target_pests: [
+          "Apple Scab",
+          "Powdery Mildew",
+          "Alternaria Leaf Blotch",
+          "European Red Mite (first generation nymphs)"
+        ],
+        products: [
+          {
+            product: "Dodine 65 WP (Syllit)",
+            common_brands: "Syllit 65 WP",
+            dosage_per_100l: "60 grams",
+            dosage_per_1000l: "600 grams",
+            dosage_per_16l: "10 grams",
+            purpose: "Translaminar and curative scab control on tender newly formed leaves",
+            type: "Guanidine translaminar fungicide"
+          },
+          {
+            product: "Trifloxystrobin + Tebuconazole (Nativo 75 WG)",
+            common_brands: "Bayer Nativo 75 WG",
+            dosage_per_100l: "40 grams",
+            dosage_per_1000l: "400 grams",
+            dosage_per_16l: "6.5 grams",
+            purpose: "Broad-spectrum systemic control of Scab, Alternaria, and Mildew",
+            type: "Strobilurin + Triazole combination"
+          },
+          {
+            product: "Kresoxim-methyl 44.3 SC (Ergon)",
+            common_brands: "Rallis Ergon",
+            dosage_per_100l: "50 ml",
+            dosage_per_1000l: "500 ml",
+            dosage_per_16l: "8 ml",
+            purpose: "Mesostemic protective and curative activity with vapor phase distribution",
+            type: "Strobilurin fungicide"
+          }
+        ],
+        cultural_sanitation: [
+          "Inspect underside of young leaves with 10x hand lens for red mite infestation (> 5 mites/leaf warrants acaricide).",
+          "Maintain clean tree basins free of dense weed competition."
+        ],
+        precautions: [
+          "⚠️ Spray only after dusk or early morning when remaining straggler bees have returned to hives."
+        ]
+      },
+      {
+        id: "fruit_growth_1",
+        stage_number: 6,
+        stage_name: "Fruit Development I (Walnut / Pea Size)",
+        kashmiri_name: "Gird Phalayee - Awal (پھل کی بڑھوتری - ۱)",
+        timing: "Late May – June",
+        tree_phenology: "Fruitlets reach 15–25 mm (walnut size); rapid shoot extension.",
+        target_pests: [
+          "Secondary Apple Scab",
+          "Alternaria Leaf Blotch",
+          "Fruit Spot / Rot",
+          "San Jose Scale (crawler stage)",
+          "Woolly Apple Aphid"
+        ],
+        products: [
+          {
+            product: "Metiram 55% + Pyraclostrobin 5% WG (Cabrio Top)",
+            common_brands: "BASF Cabrio Top",
+            dosage_per_100l: "100 grams",
+            dosage_per_1000l: "1.0 kg",
+            dosage_per_16l: "16 grams",
+            purpose: "Dual protective and translaminar control of Alternaria and Scab",
+            type: "Strobilurin + Dithiocarbamate combination"
+          },
+          {
+            product: "Mancozeb 75 WP (Indofil M-45)",
+            common_brands: "Indofil M-45",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Continuous protective multi-site shield against summer spore wash",
+            type: "Contact protectant"
+          },
+          {
+            product: "Spiromesifen 22.9 SC (Oberon)",
+            common_brands: "Bayer Oberon",
+            dosage_per_100l: "40 ml",
+            dosage_per_1000l: "400 ml",
+            dosage_per_16l: "6.5 ml",
+            purpose: "Selective acaricide for European Red Mite nymphs and adults",
+            type: "Lipid biosynthesis inhibitor miticide"
+          }
+        ],
+        cultural_sanitation: [
+          "Thin overloaded fruit clusters down to 1–2 king fruits per spur to optimize fruit sizing and allow chemical spray penetration.",
+          "Summer prune vigorous upright water sprouts shading inner canopy."
+        ],
+        precautions: [
+          "⚠️ Do NOT use DMI triazole fungicides (Score/Contaf) more than twice per season to prevent resistant fungal strains."
+        ]
+      },
+      {
+        id: "fruit_growth_2",
+        stage_number: 7,
+        stage_name: "Fruit Development II (Pre-Harvest / Coloration)",
+        kashmiri_name: "Gird Phalayee - Doum (پھل کی بڑھوتری - ۲)",
+        timing: "July – August",
+        tree_phenology: "Fruit sizing complete; anthocyanin red skin color development commences.",
+        target_pests: [
+          "Alternaria Leaf Blotch",
+          "Bitter Rot (Colletotrichum)",
+          "Sooty Blotch & Flyspeck",
+          "Storage Rots"
+        ],
+        products: [
+          {
+            product: "Ziram 27 SC",
+            common_brands: "Dhanuka Cuman L, Indofil Ziram",
+            dosage_per_100l: "200 ml",
+            dosage_per_1000l: "2.0 Liters",
+            dosage_per_16l: "32 ml",
+            purpose: "Protective summer fungicide effective against late-season Alternaria blotch and fruit rot",
+            type: "Dithiocarbamate protectant"
+          },
+          {
+            product: "Captan 50 WP",
+            common_brands: "Tata Captaf",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Improves fruit finish and shields against pre-harvest fungal infections",
+            type: "Contact protectant"
+          },
+          {
+            product: "Calcium Chloride (Food/Agri Grade)",
+            common_brands: "Soluble Calcium Chloride / Calcium Nitrate",
+            dosage_per_100l: "300–400 grams",
+            dosage_per_1000l: "3.5 kg",
+            dosage_per_16l: "50 grams",
+            purpose: "Foliar nutrient spray strengthening cell walls to prevent Bitter Pit and storage breakdown",
+            type: "Foliar micronutrient"
+          }
+        ],
+        cultural_sanitation: [
+          "Mow orchard floor sod to maintain low relative humidity inside canopy.",
+          "Remove dropped and sunburned apples from orchard floor."
+        ],
+        precautions: [
+          "⚠️ Observe Pre-Harvest Interval (PHI): Maintain a strict 20-day interval between last pesticide application and commercial harvest."
+        ]
+      },
+      {
+        id: "post_harvest",
+        stage_number: 8,
+        stage_name: "Post-Harvest / Pre-Leaf Fall",
+        kashmiri_name: "Fasal Bardasht Baad (فصل برادشت بعد)",
+        timing: "October – November",
+        tree_phenology: "Post fruit harvest; leaves mature and prepare for senescence and natural abscission.",
+        target_pests: [
+          "Apple Scab Overwintering Pseudothecia Inoculum",
+          "Bacterial Blight and Fungal Cankers"
+        ],
+        products: [
+          {
+            product: "Agricultural Urea (5%)",
+            common_brands: "Commercial Agricultural Urea 46% N",
+            dosage_per_100l: "5.0 kg",
+            dosage_per_1000l: "50.0 kg",
+            dosage_per_16l: "800 grams",
+            purpose: "Accelerates fallen leaf decomposition and eradicates overwintering scab pseudothecia",
+            type: "Nitrogenous leaf litter eradicant"
+          },
+          {
+            product: "Copper Oxychloride 50 WP (Blitox)",
+            common_brands: "Blitox 50, Tata Rallcop",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Disinfects leaf scar abscission zones and fresh pruning cuts against canker entry",
+            type: "Inorganic copper bactericide/fungicide"
+          }
+        ],
+        cultural_sanitation: [
+          "Drench both tree canopy and the fallen orchard floor leaf litter with 5% Urea immediately after harvest while leaves are still on branches.",
+          "Collect and burn or bury heavily cankered branch debris."
+        ],
+        precautions: [
+          "⚠️ Do NOT spray Urea earlier than mid-October to avoid triggering untimely tender autumn vegetative flushes susceptible to early winter freeze."
+        ]
+      }
+    ];
+
+    const SKUAST_COMPATIBILITY_DATA = [
+      {
+        combination: "Tree Spray Oil (TSO/HMO) + Sulphur Fungicides",
+        status: "incompatible",
+        symbol: "❌",
+        verdict: "STRICTLY INCOMPATIBLE",
+        details: "Causes severe foliage phytotoxicity, leaf scorch, and bark injury. Minimum 21-day interval required between oil and sulphur."
+      },
+      {
+        combination: "Copper Oxychloride + Dodine / Lime Sulphur",
+        status: "incompatible",
+        symbol: "❌",
+        verdict: "INCOMPATIBLE TANK MIX",
+        details: "Causes chemical precipitation and rapid breakdown of active fungicidal ingredients. Do not mix."
+      },
+      {
+        combination: "Mancozeb 75 WP + Chlorpyrifos / Dimethoate",
+        status: "compatible",
+        symbol: "✅",
+        verdict: "COMPATIBLE MIXTURE",
+        details: "Widely tested and safe tank mixture for combined scab protection and sucking pest/aphid control."
+      },
+      {
+        combination: "Captan 50 WP + Difenoconazole 25 EC (Score)",
+        status: "compatible",
+        symbol: "✅",
+        verdict: "COMPATIBLE MIXTURE",
+        details: "Standard SKUAST-K protective contact + curative systemic combination during high-pressure scab infection windows."
+      },
+      {
+        combination: "Agricultural Urea (5%) + Alkaline Sprays / Lime",
+        status: "incompatible",
+        symbol: "❌",
+        verdict: "INCOMPATIBLE MIXTURE",
+        details: "Alkaline pH causes rapid ammonia volatilization and foliar scorch. Spray Urea separately on orchard floor."
+      },
+      {
+        combination: "Dodine 65 WP + Hard Water / Alkaline Agents",
+        status: "caution",
+        symbol: "⚠️",
+        verdict: "USE WITH CAUTION",
+        details: "Dodine flocculates in hard water. Always add Dodine to tank first under continuous agitation."
+      }
+    ];
+
+    let sprayCalendarStages = SKUAST_CALENDAR_DATA;
+    let activeCalendarStageId = "green_tip";
+    let sprayLog = JSON.parse(localStorage.getItem("applecare_spray_log") || "[]");
+
+    async function initSprayCalendar() {
+      // 1. Try fetching latest calendar from backend API
+      try {
+        const calResp = await fetch("/api/v1/advisory/calendar");
+        if (calResp.ok) {
+          const remoteCal = await calResp.json();
+          if (Array.isArray(remoteCal) && remoteCal.length > 0) {
+            sprayCalendarStages = remoteCal;
+          }
+        }
+      } catch (e) {
+        console.info("Using embedded SKUAST calendar fallback");
+      }
+
+      // Auto-detect stage according to calendar month
+      const month = new Date().getMonth(); // 0 = Jan, 10 = Nov
+      if (month === 10 || month === 11 || month === 9) {
+        activeCalendarStageId = "post_harvest";
+      } else if (month === 1 || month === 2) {
+        activeCalendarStageId = "delayed_dormant";
+      } else if (month === 3) {
+        activeCalendarStageId = "green_tip";
+      } else if (month === 4) {
+        activeCalendarStageId = "petal_fall";
+      } else if (month >= 5 && month <= 7) {
+        activeCalendarStageId = "fruit_growth_1";
+      }
+
+      renderStageTimeline();
+      selectCalendarStage(activeCalendarStageId);
+      initTankCalculator();
+      initCompatibilityMatrix();
+      renderSprayLog();
+      bindCalendarDrawerButtons();
+    }
+
+    function renderStageTimeline() {
+      const container = document.getElementById("stageTimelineNav");
+      if (!container) return;
+
+      container.innerHTML = sprayCalendarStages.map(st => {
+        const isActive = st.id === activeCalendarStageId;
+        return `
+          <button class="timeline-stage-btn ${isActive ? 'active' : ''}" data-stage-id="${st.id}">
+            <span class="timeline-stage-num">Stage ${st.stage_number}</span>
+            <span class="timeline-stage-name">${escapeHtml(st.stage_name)}</span>
+            <span class="timeline-stage-timing">${escapeHtml(st.timing)}</span>
+          </button>
+        `;
+      }).join("");
+
+      container.querySelectorAll(".timeline-stage-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectCalendarStage(btn.dataset.stageId);
+        });
+      });
+    }
+
+    function selectCalendarStage(stageId) {
+      activeCalendarStageId = stageId;
+      const stage = sprayCalendarStages.find(s => s.id === stageId) || sprayCalendarStages[0];
+
+      // Update timeline buttons
+      document.querySelectorAll(".timeline-stage-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.stageId === stageId);
+      });
+
+      // Render Stage Hero Banner
+      const heroBanner = document.getElementById("stageHeroBanner");
+      if (heroBanner) {
+        heroBanner.innerHTML = `
+          <div class="stage-hero-title">
+            <div class="eyebrow" style="margin-bottom: 2px;">STAGE ${stage.stage_number} OF 8 · ${escapeHtml(stage.timing)}</div>
+            <h3>${escapeHtml(stage.stage_name)}</h3>
+            <div class="stage-hero-kashmiri">${escapeHtml(stage.kashmiri_name)}</div>
+            <p class="stage-hero-desc"><b>Tree Phenology:</b> ${escapeHtml(stage.tree_phenology)}</p>
+            <div class="target-pests-wrap">
+              ${(stage.target_pests || []).map(p => `<span class="pest-pill">🎯 ${escapeHtml(p)}</span>`).join("")}
+            </div>
+          </div>
+          <div style="text-align: right; align-self: center;">
+            <button class="btn secondary" id="bannerTankBtn" style="padding: 8px 14px; font-size: 12px;">⚖️ Calculate Tank Dosage</button>
+          </div>
+        `;
+        document.getElementById("bannerTankBtn")?.addEventListener("click", () => {
+          openDrawer("tankCalcDrawer");
+        });
+      }
+
+      // Render Product Cards
+      const grid = document.getElementById("calendarProductsGrid");
+      if (grid) {
+        grid.innerHTML = (stage.products || []).map(prod => `
+          <div class="cal-prod-card">
+            <div class="cal-prod-name">${escapeHtml(prod.product)}</div>
+            <div class="cal-prod-brands">${prod.common_brands ? `Brands: ${escapeHtml(prod.common_brands)}` : (prod.type || "")}</div>
+            
+            <div class="dosage-badges-row">
+              <div>
+                <div class="dosage-col-label">Per 100L</div>
+                <div class="dosage-col-val">${escapeHtml(prod.dosage_per_100l || "N/A")}</div>
+              </div>
+              <div>
+                <div class="dosage-col-label">Per 1000L Tank</div>
+                <div class="dosage-col-val">${escapeHtml(prod.dosage_per_1000l || "N/A")}</div>
+              </div>
+              <div>
+                <div class="dosage-col-label">Per 16L Knapsack</div>
+                <div class="dosage-col-val">${escapeHtml(prod.dosage_per_16l || "N/A")}</div>
+              </div>
+            </div>
+
+            <div class="cal-prod-purpose">${escapeHtml(prod.purpose || "")}</div>
+
+            ${prod.dosage_per_100l !== "N/A" ? `
+              <div style="margin-top: 14px; display: flex; gap: 8px;">
+                <button class="btn secondary btn-card-calc" data-product="${escapeHtml(prod.product)}" style="flex: 1; padding: 6px 10px; font-size: 11.5px;">⚖️ Calc Tank</button>
+                <button class="btn ghost btn-card-log" data-stage="${escapeHtml(stage.stage_name)}" data-product="${escapeHtml(prod.product)}" style="padding: 6px 10px; font-size: 11.5px;">📋 Log Spray</button>
+              </div>
+            ` : ""}
+          </div>
+        `).join("");
+
+        grid.querySelectorAll(".btn-card-calc").forEach(b => {
+          b.addEventListener("click", () => {
+            openDrawer("tankCalcDrawer");
+            const sel = document.getElementById("calcChemicalSelect");
+            if (sel) {
+              for (let i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].value.includes(b.dataset.product) || b.dataset.product.includes(sel.options[i].value)) {
+                  sel.selectedIndex = i;
+                  break;
+                }
+              }
+              updateTankCalculation();
+            }
+          });
+        });
+
+        grid.querySelectorAll(".btn-card-log").forEach(b => {
+          b.addEventListener("click", () => {
+            logSprayRecord(b.dataset.stage, b.dataset.product, "1000 Liters (Power Sprayer)");
+            b.textContent = "✅ Logged!";
+            setTimeout(() => { b.textContent = "📋 Log Spray"; }, 2000);
+          });
+        });
+      }
+
+      // Render Cultural Sanitation
+      const cultList = document.getElementById("stageCulturalList");
+      if (cultList) {
+        cultList.innerHTML = (stage.cultural_sanitation || []).map(c => `<li>${escapeHtml(c)}</li>`).join("");
+      }
+
+      // Render Precautions
+      const precList = document.getElementById("stagePrecautionsList");
+      if (precList) {
+        precList.innerHTML = (stage.precautions || []).map(p => `<li>${escapeHtml(p)}</li>`).join("");
+      }
+    }
+
+    // Tank Mix Dosage Calculator
+    function initTankCalculator() {
+      const select = document.getElementById("calcChemicalSelect");
+      const waterInput = document.getElementById("calcWaterLitersInput");
+      const waterSlider = document.getElementById("calcWaterSlider");
+      if (!select || !waterInput || !waterSlider) return;
+
+      // Populate unique chemicals from all stages
+      const seen = new Set();
+      const options = [];
+      sprayCalendarStages.forEach(st => {
+        (st.products || []).forEach(p => {
+          if (p.dosage_per_100l && p.dosage_per_100l !== "N/A" && !seen.has(p.product)) {
+            seen.add(p.product);
+            options.push({ name: p.product, rate: p.dosage_per_100l, stage: st.stage_name });
+          }
+        });
+      });
+
+      select.innerHTML = options.map(o => `<option value="${escapeHtml(o.name)}" data-rate="${escapeHtml(o.rate)}" data-stage="${escapeHtml(o.stage)}">${escapeHtml(o.name)} [${escapeHtml(o.rate)}]</option>`).join("");
+
+      // Sync slider & number input
+      waterInput.addEventListener("input", () => {
+        waterSlider.value = waterInput.value;
+        updateTankCalculation();
+      });
+      waterSlider.addEventListener("input", () => {
+        waterInput.value = waterSlider.value;
+        updateTankCalculation();
+      });
+      select.addEventListener("change", updateTankCalculation);
+
+      // Quick size buttons
+      document.querySelectorAll(".tank-quick-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tank-quick-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const val = Number(btn.dataset.liters);
+          waterInput.value = val;
+          waterSlider.value = val;
+          updateTankCalculation();
+        });
+      });
+
+      // Log from Calculator
+      document.getElementById("calcLogBtn")?.addEventListener("click", () => {
+        const chem = select.value;
+        const opt = select.options[select.selectedIndex];
+        const stageName = opt?.dataset?.stage || "Orchard Spray";
+        const waterVal = Number(waterInput.value) || 1000;
+        logSprayRecord(stageName, chem, `${waterVal} Liters`);
+        const btn = document.getElementById("calcLogBtn");
+        btn.textContent = "✅ Saved to Log!";
+        setTimeout(() => { btn.textContent = "📋 Log to Orchard History"; }, 2000);
+      });
+
+      updateTankCalculation();
+    }
+
+    function updateTankCalculation() {
+      const select = document.getElementById("calcChemicalSelect");
+      const waterInput = document.getElementById("calcWaterLitersInput");
+      const totalQtyEl = document.getElementById("calcTotalQty");
+      const summaryEl = document.getElementById("calcChemicalSummary");
+      const tipEl = document.getElementById("calcMixingTip");
+      if (!select || !waterInput || !totalQtyEl) return;
+
+      const opt = select.options[select.selectedIndex];
+      const chemName = select.value;
+      const rateStr = opt?.dataset?.rate || "300 grams";
+      const waterLiters = Number(waterInput.value) || 1000;
+
+      // Parse numerical dosage from string (e.g. "300 grams", "30 ml", "2.0 Liters", "5.0 kg")
+      let rateNum = 300;
+      let unit = "grams";
+      const match = rateStr.match(/^([\d.]+)\s*([a-zA-Z]+)/);
+      if (match) {
+        rateNum = parseFloat(match[1]);
+        unit = match[2].toLowerCase();
+      }
+
+      const totalRaw = (rateNum / 100.0) * waterLiters;
+      let displayQty = "";
+
+      if (unit.startsWith("gram") || unit === "g") {
+        if (totalRaw >= 1000) {
+          displayQty = `${(totalRaw / 1000.0).toFixed(2).replace(/\.00$/, "")} kg`;
+        } else {
+          displayQty = `${Math.round(totalRaw)} grams`;
+        }
+      } else if (unit.startsWith("ml") || unit.startsWith("milli")) {
+        if (totalRaw >= 1000) {
+          displayQty = `${(totalRaw / 1000.0).toFixed(2).replace(/\.00$/, "")} Liters`;
+        } else {
+          displayQty = `${Math.round(totalRaw)} ml`;
+        }
+      } else if (unit.startsWith("liter") || unit === "l") {
+        displayQty = `${totalRaw.toFixed(1).replace(/\.0$/, "")} Liters`;
+      } else if (unit.startsWith("kg")) {
+        displayQty = `${totalRaw.toFixed(1).replace(/\.0$/, "")} kg`;
+      } else {
+        displayQty = `${Math.round(totalRaw)} ${unit}`;
+      }
+
+      totalQtyEl.textContent = displayQty;
+      summaryEl.textContent = `${chemName} in ${waterLiters.toLocaleString()} Liters of water (Standard Rate: ${rateStr} / 100L)`;
+      
+      if (chemName.toLowerCase().includes("urea")) {
+        tipEl.textContent = "💡 Drench the ground leaf litter uniformly. Best applied during late October/November while leaves are still on branches.";
+      } else if (chemName.toLowerCase().includes("oil") || chemName.toLowerCase().includes("tso")) {
+        tipEl.textContent = "💡 Shake drum vigorously before measuring. Do NOT apply if sub-zero freezing frost is forecast within 24 hours.";
+      } else if (chemName.toLowerCase().includes("dodine")) {
+        tipEl.textContent = "💡 In hard valley water, pre-dissolve Dodine in 10L warm water under agitation before adding to tank.";
+      } else {
+        tipEl.textContent = "💡 Premix chemical in a clean 10L bucket with water to make a smooth slurry before pouring into the spray tank with agitation running.";
+      }
+    }
+
+    // Chemical Compatibility Matrix
+    function initCompatibilityMatrix() {
+      const tbody = document.getElementById("compatTableBody");
+      const search = document.getElementById("compatSearchInput");
+      if (!tbody) return;
+
+      function renderRows(items) {
+        tbody.innerHTML = items.map(c => `
+          <tr>
+            <td><b>${escapeHtml(c.combination)}</b></td>
+            <td>
+              <span class="compat-badge ${c.status}">${escapeHtml(c.symbol)} ${escapeHtml(c.verdict)}</span>
+            </td>
+            <td>${escapeHtml(c.details)}</td>
+          </tr>
+        `).join("");
+      }
+
+      renderRows(SKUAST_COMPATIBILITY_DATA);
+
+      search?.addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        if (!q) {
+          renderRows(SKUAST_COMPATIBILITY_DATA);
+        } else {
+          const filtered = SKUAST_COMPATIBILITY_DATA.filter(c => 
+            c.combination.toLowerCase().includes(q) || 
+            c.details.toLowerCase().includes(q) ||
+            c.verdict.toLowerCase().includes(q)
+          );
+          renderRows(filtered);
+        }
+      });
+    }
+
+    // Orchard Spray Log
+    function logSprayRecord(stageName, chemical, tankLiters) {
+      const activeDistrict = localStorage.getItem("applecare_district")?.split(",")[2] || "Shopian";
+      const record = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString([], { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }),
+        stage: stageName,
+        chemical,
+        volume: tankLiters,
+        district: activeDistrict
+      };
+      sprayLog.unshift(record);
+      localStorage.setItem("applecare_spray_log", JSON.stringify(sprayLog.slice(0, 50)));
+      renderSprayLog();
+    }
+
+    function renderSprayLog() {
+      const tbody = document.getElementById("sprayLogTableBody");
+      const badge = document.getElementById("sprayLogCountBadge");
+      if (badge) badge.textContent = sprayLog.length;
+      if (!tbody) return;
+
+      if (sprayLog.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted);font-style:italic;">No sprays recorded yet. Click "📋 Log Spray" on any recommendation to save.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = sprayLog.map(item => `
+        <tr>
+          <td><span style="font-size:11px;color:#64748b;">${escapeHtml(item.date)}</span></td>
+          <td><b>${escapeHtml(item.stage)}</b></td>
+          <td>${escapeHtml(item.chemical)}</td>
+          <td>${escapeHtml(item.volume)}</td>
+          <td>📍 ${escapeHtml(item.district)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function openDrawer(drawerId) {
+      const el = document.getElementById(drawerId);
+      if (el) {
+        el.style.display = "block";
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function toggleDrawer(drawerId) {
+      const el = document.getElementById(drawerId);
+      if (el) {
+        const isHidden = el.style.display === "none";
+        el.style.display = isHidden ? "block" : "none";
+        if (isHidden) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+
+    function bindCalendarDrawerButtons() {
+      document.getElementById("toggleTankCalcBtn")?.addEventListener("click", () => toggleDrawer("tankCalcDrawer"));
+      document.getElementById("closeTankCalcBtn")?.addEventListener("click", () => {
+        document.getElementById("tankCalcDrawer").style.display = "none";
+      });
+      document.getElementById("navTankCalcLink")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        openDrawer("tankCalcDrawer");
+      });
+
+      document.getElementById("toggleCompatBtn")?.addEventListener("click", () => toggleDrawer("compatMatrixDrawer"));
+      document.getElementById("closeCompatBtn")?.addEventListener("click", () => {
+        document.getElementById("compatMatrixDrawer").style.display = "none";
+      });
+
+      document.getElementById("toggleSprayLogBtn")?.addEventListener("click", () => toggleDrawer("sprayLogDrawer"));
+      document.getElementById("closeSprayLogBtn")?.addEventListener("click", () => {
+        document.getElementById("sprayLogDrawer").style.display = "none";
+      });
+
+      document.getElementById("clearSprayLogBtn")?.addEventListener("click", () => {
+        if (confirm("Clear all recorded spray applications from this browser?")) {
+          sprayLog = [];
+          localStorage.removeItem("applecare_spray_log");
+          renderSprayLog();
+        }
+      });
+
+      document.getElementById("printCalendarBtn")?.addEventListener("click", () => {
+        window.print();
+      });
+    }
+
     // Initialization (Clean initial state awaiting upload)
     render();
     renderHistory();
+    initSprayCalendar();
 
     const savedDistrict = localStorage.getItem("applecare_district");
     if (savedDistrict) {

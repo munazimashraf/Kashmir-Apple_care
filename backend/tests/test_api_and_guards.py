@@ -110,3 +110,41 @@ def test_weather_spray_forecast_endpoints():
             assert "skuast_directive" in first_day
 
     asyncio.run(_run())
+
+
+def test_skuast_annual_spray_calendar_endpoints():
+    async def _run():
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+            # 1. Full 8-stage calendar
+            cal_res = await client.get("/api/v1/advisory/calendar")
+            assert cal_res.status_code == 200
+            calendar = cal_res.json()
+            assert len(calendar) == 8
+            assert calendar[0]["stage_name"] == "Delayed Dormant"
+            assert calendar[1]["stage_name"] == "Green Tip"
+            assert calendar[3]["stage_name"] == "Full Bloom"
+            assert calendar[7]["stage_name"] == "Post-Harvest / Pre-Leaf Fall"
+
+            # 2. Stage by ID
+            stage_res = await client.get("/api/v1/advisory/calendar/green_tip")
+            assert stage_res.status_code == 200
+            stage_gt = stage_res.json()
+            assert stage_gt["stage_name"] == "Green Tip"
+            assert any("Mancozeb" in p["product"] for p in stage_gt["products"])
+
+            # 3. Compatibility rules
+            comp_res = await client.get("/api/v1/advisory/compatibility")
+            assert comp_res.status_code == 200
+            compat = comp_res.json()
+            assert len(compat) >= 5
+            assert any("incompatible" in c["status"] for c in compat)
+
+            # 4. Tank calculator
+            calc_res = await client.get("/api/v1/advisory/tank-calculator?chemical=Score&water_liters=500")
+            assert calc_res.status_code == 200
+            calc_data = calc_res.json()
+            assert "Score" in calc_data["chemical"]
+            assert calc_data["water_liters"] == 500.0
+            assert "150" in calc_data["total_quantity"]
+
+    asyncio.run(_run())

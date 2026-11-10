@@ -7,7 +7,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from app.api import auth, diagnoses, logs, orchards, weather
+from app.api import advisory, auth, diagnoses, logs, orchards, weather
 from app.core.config import get_settings
 from app.db.base import Base
 from app.db.session import engine
@@ -39,6 +39,7 @@ app.add_middleware(
 )
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(diagnoses.router, prefix="/api/v1")
+app.include_router(advisory.router, prefix="/api/v1")
 app.include_router(orchards.router, prefix="/api/v1")
 app.include_router(weather.router, prefix="/api/v1")
 app.include_router(logs.router, prefix="/api/v1")
