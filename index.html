@@ -1000,15 +1000,15 @@
         <div class="brand-mark">🍏</div>
         <div>
           <div>Kashmir Apple Care</div>
-          <div style="font-size: 11px; color: var(--muted); font-weight: 600;">DeepSeek AI Vision & SKUAST-K Advisory</div>
+          <div style="font-size: 11px; color: var(--muted); font-weight: 600;">Local VGG19 Vision & SKUAST-K Advisory</div>
         </div>
-        <span class="brand-badge">DeepSeek AI</span>
+        <span class="brand-badge">VGG19 AI</span>
       </div>
 
       <div class="nav-actions">
-        <div class="ai-badge connected" id="aiStatusPill" title="DeepSeek Vision AI backend connected">
+        <div class="ai-badge connected" id="aiStatusPill" title="Local VGG19 model connected">
           <span class="ai-dot"></span>
-          <span id="aiStatusText">DeepSeek AI: Active</span>
+          <span id="aiStatusText">VGG19 AI: Active</span>
         </div>
         <button class="nav-btn" id="openCalendarBtn" title="View SKUAST-K Spray Schedule">
           <span>📅</span> <span class="label">Spray Calendar</span>
@@ -1024,10 +1024,10 @@
   <section class="hero">
     <div class="shell hero-grid">
       <div>
-        <div class="eyebrow">Powered by DeepSeek AI Multimodal Vision & SKUAST-K Intelligence</div>
-        <h1>DeepSeek AI Plant Pathology.<br><span style="color:var(--green)">Certified Diagnostic & Field Protection.</span></h1>
+        <div class="eyebrow">Powered by Local VGG19 Vision & SKUAST-K Intelligence</div>
+        <h1>VGG19 Plant Pathology.<br><span style="color:var(--green)">Certified Diagnostic & Field Protection.</span></h1>
         <p class="hero-copy">
-          Upload any field photo of an apple leaf, fruit, or orchard specimen. Deep learning multimodal vision detection powered by <b>DeepSeek AI</b> for real-world apple disease identification, with exact Kashmiri trade names, 100L & 200L spray drum dosages, rainfastness intervals, and SKUAST-K spray calendars.
+          Upload an apple leaf photo. Local VGG19 vision identifies one of six trained classes, with exact Kashmiri trade names, 100L & 200L spray drum dosages, rainfastness intervals, and SKUAST-K spray calendars.
         </p>
 
         <div class="stage-card">
@@ -1097,7 +1097,7 @@
         <section class="panel upload">
           <div class="section-heading">
             <div>
-              <div class="eyebrow">Step 01 · DeepSeek Specimen Scan</div>
+              <div class="eyebrow">Step 01 · VGG19 Specimen Scan</div>
               <h2>Universal Pathology Scanner</h2>
             </div>
             <p>JPEG, PNG, WebP · Up to 15 MB</p>
@@ -1121,13 +1121,13 @@
             
             <div class="empty-state" id="emptyState">
               <div class="camera-icon">🤖</div>
-              <b>Upload ANY Apple Leaf, Fruit, or Specimen for DeepSeek AI</b>
+              <b>Upload an Apple Leaf for VGG19 AI</b>
               <span>Drag & drop here, open camera, or click a field demonstration sample below</span>
             </div>
 
             <div class="empty-state hidden" id="scanState">
               <div class="camera-icon">🔎</div>
-              <b>DeepSeek AI Vision Analysis in Progress…</b>
+              <b>VGG19 Vision Analysis in Progress…</b>
               <span>Extracting lesion centroids, fungal conidia, necrotic rings, and pathogen taxonomy</span>
             </div>
           </div>
@@ -1163,7 +1163,7 @@
           </div>
 
           <div class="samples-wrap">
-            <label>Field Demonstration Samples (DeepSeek AI Multi-Crop & Fungus Scan):</label>
+            <label>Field Demonstration Samples (VGG19 Apple Leaf Scan):</label>
             <div class="samples">
               <button class="sample" data-sample="apple_scab">🍏 Apple Scab (Chhachh)</button>
               <button class="sample" data-sample="tomato_late_blight">🍅 Tomato Late Blight</button>
@@ -1181,13 +1181,13 @@
         <section class="results" aria-live="polite">
           <!-- Diagnosis Card -->
           <article class="card diagnosis">
-            <div class="eyebrow" id="analysisStatus">Step 02 · DeepSeek AI Diagnostic Finding</div>
+            <div class="eyebrow" id="analysisStatus">Step 02 · VGG19 Diagnostic Finding</div>
             
             <div class="diagnosis-head">
               <div>
                 <div class="crop-tag" id="cropBadge">Crop: Apple (Malus domestica)</div>
                 <div class="disease" id="diseaseName">Awaiting Specimen</div>
-                <div class="latin" id="latinName">Upload or photograph an apple leaf to begin DeepSeek AI detection.</div>
+                <div class="latin" id="latinName">Upload or photograph an apple leaf to begin VGG19 detection.</div>
                 <div class="taxonomy-pills" id="taxonomyPills"></div>
               </div>
               <div class="score">
@@ -1203,8 +1203,8 @@
             <!-- Top-5 AI Predictions -->
             <div class="top-preds-box hidden" id="topPredsBox">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <b style="font-size:11.5px; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.05em;">🧠 DeepSeek Probability Ranking</b>
-                <span style="font-size:11px; color:var(--muted);" id="aiEngineLabel">DeepSeek AI</span>
+                <b style="font-size:11.5px; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.05em;">🧠 VGG19 Probability Ranking</b>
+                <span style="font-size:11px; color:var(--muted);" id="aiEngineLabel">VGG19 AI</span>
               </div>
               <div id="aiBadge" style="display:none; margin-top:6px;"></div>
               <div id="predRows"></div>
@@ -1345,12 +1345,12 @@
   <footer>
     <div class="shell" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
       <div>
-        <strong>Kashmir Apple Care</strong> · Universal Plant Pathology platform powered by DeepSeek AI for growers across Jammu & Kashmir and agricultural belts.
+        <strong>Kashmir Apple Care</strong> · Local VGG19 plant pathology platform for growers across Jammu & Kashmir and agricultural belts.
         <br>
         <small>Formulations and dosages aligned with SKUAST-K Shalimar Srinagar & Directorate of Horticulture J&K.</small>
       </div>
       <div>
-        <span class="dose">DeepSeek AI Powered</span>
+        <span class="dose">VGG19 AI Powered</span>
       </div>
     </div>
   </footer>
@@ -1493,7 +1493,7 @@
     </div>
   </div>
 
-  <!-- Script: Real-World DeepSeek AI Pathology Engine -->
+  <!-- Script: Local VGG19 Pathology Engine -->
   <script type="module">
     // Universal Multi-Crop & Fungus Disease Registry
     const DISEASE_REGISTRY = {
@@ -1692,7 +1692,7 @@
     const canvas = document.getElementById("leafCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Check backend connection & DeepSeek AI status
+    // Check backend connection & local model status
     async function checkBackend() {
       const statusPill = document.getElementById("aiStatusPill");
       const statusText = document.getElementById("aiStatusText");
@@ -1705,13 +1705,13 @@
           const data = await res.json();
           if (statusPill && statusText) {
             statusPill.className = "ai-badge connected";
-            statusText.textContent = data.has_deepseek_key ? "DeepSeek AI: Active" : "DeepSeek AI: Key Required";
+            statusText.textContent = data.ai_engine ? "VGG19 AI: Active" : "VGG19 AI: Standby";
           }
         }
       } catch {
         if (statusPill && statusText) {
           statusPill.className = "ai-badge";
-          statusText.textContent = "DeepSeek AI: Standby";
+          statusText.textContent = "VGG19 AI: Standby";
         }
       }
     }
@@ -1820,7 +1820,7 @@
       const totalSampled = (w * h) / 16;
       if (plantPixels < totalSampled * 0.12) {
         return {
-          ai_engine: "DeepSeek AI",
+          ai_engine: "VGG19 AI",
           crop: "Unrecognized",
           disease: "uncertain",
           confidence: 94.0,
@@ -1929,7 +1929,7 @@
       });
 
       return {
-        ai_engine: "DeepSeek AI",
+        ai_engine: "VGG19 AI",
         crop: (DISEASE_REGISTRY[disease] && DISEASE_REGISTRY[disease].crop) || "Universal Crop",
         disease,
         confidence,
@@ -2045,7 +2045,7 @@
       renderHotspotsOverlay();
     }
 
-    // Main Specimen Processor (Calls DeepSeek Vision API /api/disease/detect)
+    // Main Specimen Processor (Calls local VGG19 API /api/disease/detect)
     async function processSpecimen(fileOrBlob) {
       isProcessing = true;
       document.getElementById("scanState").classList.remove("hidden");
@@ -2074,8 +2074,8 @@
 
         // Show deep analysis progress messages to user
         const scanSteps = [
-          "⬆ Uploading image to DeepSeek AI…",
-          "🔬 DeepSeek AI performing deep visual pathological analysis…",
+          "⬆ Uploading image to VGG19 AI…",
+          "🔬 VGG19 performing visual pathological analysis…",
           "🧫 Detecting lesion morphology, colour gradients & fungal structures…",
           "📋 Generating diagnosis, treatment & prevention report…"
         ];
@@ -2119,7 +2119,7 @@
         clearInterval(scanStepInterval);
         
         if (backendRes) {
-          // Normalize structured DeepSeek JSON response
+          // Normalize structured local model response
           if (backendRes.scientific_name !== undefined || backendRes.visual_observations !== undefined) {
             const diseaseKey = (backendRes.disease || "apple_scab").toLowerCase().replace(/\s+/g, "_");
             currentAnalysis = {
@@ -2137,7 +2137,7 @@
               treatment: backendRes.treatment || [],
               prevention: backendRes.prevention || [],
               expert_consultation: backendRes.expert_consultation !== undefined ? backendRes.expert_consultation : true,
-              ai_engine: backendRes.ai_engine || "DeepSeek AI",
+              ai_engine: backendRes.ai_engine || "VGG19 AI",
               hotspots: backendRes.hotspots || cachedHotspots,
               crop: "Apple (Malus domestica)",
               details: (backendRes.visual_observations || []).join(". ") || (backendRes.symptoms || []).join(". "),
@@ -2185,15 +2185,15 @@
       const isScan = !!currentAnalysis;
 
       // Status Tag & Header
-      document.getElementById("analysisStatus").textContent = `Step 02 · ${currentAnalysis?.ai_engine || "DeepSeek AI"} Diagnostic Finding`;
-      document.getElementById("aiEngineLabel").textContent = currentAnalysis?.ai_engine || "DeepSeek AI";
+      document.getElementById("analysisStatus").textContent = `Step 02 · ${currentAnalysis?.ai_engine || "VGG19 AI"} Diagnostic Finding`;
+      document.getElementById("aiEngineLabel").textContent = currentAnalysis?.ai_engine || "VGG19 AI";
 
       // Show Real AI vs Fallback badge
       const isRealAI = currentAnalysis?.ai_engine && !currentAnalysis.ai_engine.includes("Missing") && !currentAnalysis.ai_engine.includes("Offline") && !currentAnalysis.ai_engine.includes("Error");
       const aiBadgeEl = document.getElementById("aiBadge");
       if (aiBadgeEl && currentAnalysis) {
         aiBadgeEl.innerHTML = isRealAI
-          ? `<span style="background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;">✓ DeepSeek AI Live Analysis</span>`
+          ? `<span style="background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;">✓ VGG19 Local Analysis</span>`
           : `<span style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;">⚠ API Key Missing in .env</span>`;
         aiBadgeEl.style.display = "block";
       }
@@ -2391,7 +2391,7 @@
       const text = `================================================================================
 KASHMIR APPLE CARE — OFFICIAL PLANT PATHOLOGY DIAGNOSTIC REPORT
 ================================================================================
-AI Engine         : ${currentAnalysis?.ai_engine || "DeepSeek AI"}
+AI Engine         : ${currentAnalysis?.ai_engine || "VGG19 AI"}
 Timestamp         : ${new Date().toLocaleString()}
 Micro-Location    : ${weatherState.location} (${weatherState.temp}°C)
 Current Stage     : ${stage}
@@ -2518,7 +2518,7 @@ CRITICAL GUARDRAILS:
         text = `تشخیص: ${d.kashmiri || d.name}۔ باغس منز کرِو دو سو لِٹر ڈرَمس حِسابَن دواہ سپرے۔ پولینیٹر ہِفاظت کرِو۔`;
         voiceLang = "ur-PK";
       } else {
-        text = `Diagnosis complete by DeepSeek AI for ${d.name}. Follow certified SKUAST-K 100L and 200L drum dosages and observe safety guardrails.`;
+        text = `Diagnosis complete by VGG19 for ${d.name}. Follow certified SKUAST-K 100L and 200L drum dosages and observe safety guardrails.`;
         voiceLang = "en-US";
       }
 
@@ -2537,7 +2537,7 @@ CRITICAL GUARDRAILS:
 
     let pendingSpecimenFile = null;
 
-    // Specimen Upload Handler (Loads canvas preview and initiates DeepSeek AI)
+    // Specimen Upload Handler (Loads canvas preview and initiates VGG19 AI)
     function handleSpecimenUpload(fileOrBlob) {
       if (!fileOrBlob) return;
       pendingSpecimenFile = fileOrBlob;
