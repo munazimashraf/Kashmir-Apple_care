@@ -85,3 +85,28 @@ def test_leaf_held_in_hand():
     is_plant, reason, _ = check_is_plant(img)
     assert is_plant is True
     assert "Valid" in reason
+
+
+def test_weather_spray_forecast_endpoints():
+    async def _run():
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+            # 1. Test districts listing
+            dist_res = await client.get("/api/v1/weather/districts")
+            assert dist_res.status_code == 200
+            districts = dist_res.json()
+            assert any(d["name"].startswith("Shopian") for d in districts)
+            assert any(d["name"].startswith("Sopore") for d in districts)
+
+            # 2. Test 7-day spray forecast
+            fc_res = await client.get("/api/v1/weather/spray-forecast?district=Shopian")
+            assert fc_res.status_code == 200
+            fc_data = fc_res.json()
+            assert "Shopian" in fc_data["district"]
+            assert len(fc_data["forecast_days"]) == 7
+            first_day = fc_data["forecast_days"][0]
+            assert "status" in first_day
+            assert first_day["status"] in ["optimal", "marginal", "no_spray"]
+            assert "best_hours" in first_day
+            assert "skuast_directive" in first_day
+
+    asyncio.run(_run())
