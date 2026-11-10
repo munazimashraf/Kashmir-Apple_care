@@ -742,6 +742,12 @@ INSECT_PESTS = {
 
 
 def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) -> dict[str, Any]:
+    disease = {
+        "alternaria_leaf_blotch": "apple_alternaria_blotch",
+        "powdery_mildew": "apple_powdery_mildew",
+        "cedar_apple_rust": "apple_cedar_rust",
+        "black_rot": "apple_black_rot",
+    }.get(disease, disease)
     # Look up direct match or fallback to closest matching universal category
     rule = ADVISORIES.get(disease)
     if not rule:

@@ -31,12 +31,12 @@ from tqdm import tqdm
 
 LOGGER = logging.getLogger("applecare.train")
 CLASS_NAMES = [
-    "apple_scab",
     "alternaria_leaf_blotch",
-    "powdery_mildew",
+    "apple_scab",
     "black_rot",
     "cedar_apple_rust",
     "healthy",
+    "powdery_mildew",
 ]
 IMAGE_SIZE = 224
 

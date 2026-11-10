@@ -2121,9 +2121,16 @@
         if (backendRes) {
           // Normalize structured local model response
           if (backendRes.scientific_name !== undefined || backendRes.visual_observations !== undefined) {
-            const diseaseKey = (backendRes.disease || "apple_scab").toLowerCase().replace(/\s+/g, "_");
+            const rawDiseaseKey = (backendRes.disease || "apple_scab").toLowerCase().replace(/\s+/g, "_");
+            const diseaseKey = {
+              "alternaria_leaf_blotch": "apple_alternaria_blotch",
+              "powdery_mildew": "apple_powdery_mildew",
+              "cedar_apple_rust": "apple_cedar_rust",
+              "black_rot": "apple_black_rot",
+              "healthy_apple_leaf": "apple_healthy"
+            }[rawDiseaseKey] || rawDiseaseKey;
             currentAnalysis = {
-              disease: backendRes.disease || "Apple Scab",
+              disease: diseaseKey,
               disease_name: backendRes.disease || "Apple Scab",
               scientific_name: backendRes.scientific_name || "Venturia inaequalis",
               pathogen: backendRes.scientific_name || "Venturia inaequalis",

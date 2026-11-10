@@ -17,6 +17,7 @@ from app.core.config import get_settings
 from app.db.session import get_db
 from app.models.entities import Diagnosis, User
 from app.schemas.api import AppleDiseaseDetectResponse
+from app.services.advisory import build_advisory
 from app.services.inference import InferenceUnavailable, get_classifier
 
 logger = logging.getLogger("applecare.disease_api")
@@ -87,6 +88,11 @@ async def detect_disease(
     # 4. Local model analysis
     try:
         prediction = get_classifier().predict(content)
+        advisory = build_advisory(
+            disease=prediction["disease"],
+            growth_stage="Green Tip",
+            rain_within_12_hours=False,
+        )
         result = {
             "disease": prediction["disease_name"],
             "scientific_name": prediction["scientific_name"],
@@ -96,8 +102,11 @@ async def detect_disease(
             "visual_observations": [
                 f"Local VGG19 classifier confidence: {prediction['confidence']:.1f}%.",
             ],
-            "treatment": [],
-            "prevention": [],
+            "treatment": [
+                f"{item['trade_name']}: {item['dosage_100l']}"
+                for item in advisory["recommendations"]
+            ],
+            "prevention": advisory["guardrails"],
             "expert_consultation": prediction["confidence"] < 60,
             "ai_engine": "Local VGG19 trained on supplied apple leaf datasets",
             "hotspots": [],
