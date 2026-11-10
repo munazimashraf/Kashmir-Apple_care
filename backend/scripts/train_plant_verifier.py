@@ -28,31 +28,54 @@ def generate_synthetic_non_plant_image(size=(224, 224)) -> Image.Image:
     w, h = size
     choice = random.random()
 
-    if choice < 0.35:
+    if choice < 0.40:
         # 1. Solid plain or fast color (especially all shades of green, neon, lime, olive, mint)
-        if random.random() < 0.65:
-            # Green / lime / neon / fast color spectrum
-            g = random.randint(80, 255)
-            r = random.randint(0, min(255, int(g * random.uniform(0.1, 0.95))))
-            b = random.randint(0, min(255, int(g * random.uniform(0.1, 0.95))))
-            color = (r, g, b)
+        fast_greens = [
+            (0, 255, 0),      # Pure electric/phosphor green
+            (50, 255, 50),    # Fast neon lime
+            (34, 139, 34),    # Forest green swatch
+            (0, 128, 0),      # Standard HTML green
+            (46, 139, 87),    # Sea green
+            (107, 142, 35),   # Olive drab
+            (124, 252, 0),    # Lawn green
+            (127, 255, 0),    # Chartreuse
+            (0, 255, 127),    # Spring green
+            (0, 250, 154),    # Medium spring green
+            (144, 238, 144),  # Light pastel green
+            (154, 205, 50),   # Yellow green
+            (173, 255, 47),   # Green yellow
+            (32, 178, 170),   # Light sea green
+            (60, 179, 113),   # Medium sea green
+            (0, 100, 0),      # Dark green
+            (85, 107, 47),    # Dark olive green
+        ]
+        if random.random() < 0.70:
+            if random.random() < 0.50:
+                color = random.choice(fast_greens)
+            else:
+                # Random green/lime/neon spectrum
+                g = random.randint(70, 255)
+                r = random.randint(0, min(255, int(g * random.uniform(0.05, 0.95))))
+                b = random.randint(0, min(255, int(g * random.uniform(0.05, 0.95))))
+                color = (r, g, b)
         else:
-            # Any other random flat color (blue, red, gray, cyan, magenta, orange)
+            # Any other random flat color (blue, red, gray, cyan, magenta, orange, black, white)
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         
         img = Image.new("RGB", size, color=color)
-        # Add slight digital noise to some
-        if random.random() < 0.3:
+        # Add camera/sensor noise or slight lighting falloff to simulate a photo of a green wall / paper / cloth
+        if random.random() < 0.5:
             arr = np.asarray(img, dtype=np.int16)
-            noise = np.random.normal(0, random.uniform(2, 8), arr.shape).astype(np.int16)
+            noise_std = random.uniform(2, 18)
+            noise = np.random.normal(0, noise_std, arr.shape).astype(np.int16)
             arr = np.clip(arr + noise, 0, 255).astype(np.uint8)
             img = Image.fromarray(arr)
         return img
 
-    elif choice < 0.60:
-        # 2. Linear or radial synthetic fast color gradient
+    elif choice < 0.65:
+        # 2. Linear, diagonal, or radial synthetic fast color gradient
         c1 = np.array([random.randint(0, 100), random.randint(120, 255), random.randint(0, 100)], dtype=np.float32)
-        c2 = np.array([random.randint(0, 150), random.randint(80, 255), random.randint(0, 150)], dtype=np.float32)
+        c2 = np.array([random.randint(0, 160), random.randint(80, 255), random.randint(0, 160)], dtype=np.float32)
         arr = np.zeros((h, w, 3), dtype=np.uint8)
         axis = random.choice([0, 1])
         t = np.linspace(0, 1, w if axis == 1 else h, dtype=np.float32)
@@ -63,17 +86,23 @@ def generate_synthetic_non_plant_image(size=(224, 224)) -> Image.Image:
                 arr[i, :, :] = col.astype(np.uint8)
             else:
                 arr[:, i, :] = col.astype(np.uint8)
+        if random.random() < 0.4:
+            noise = np.random.normal(0, random.uniform(3, 15), arr.shape)
+            arr = np.clip(arr.astype(np.float32) + noise, 0, 255).astype(np.uint8)
         return Image.fromarray(arr)
 
-    elif choice < 0.80:
-        # 3. Geometric graphics / banner / document / card
-        bg_col = (random.randint(200, 255), random.randint(200, 255), random.randint(200, 255))
+    elif choice < 0.85:
+        # 3. Geometric graphics / banner / document / card / flat vector shapes
+        bg_col = (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255))
         img = Image.new("RGB", size, bg_col)
         draw = ImageDraw.Draw(img)
-        for _ in range(random.randint(2, 6)):
+        for _ in range(random.randint(2, 7)):
             x1, y1 = random.randint(0, w - 40), random.randint(0, h - 40)
             x2, y2 = random.randint(x1 + 10, w), random.randint(y1 + 10, h)
-            fill_col = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            if random.random() < 0.6:
+                fill_col = (random.randint(0, 80), random.randint(150, 255), random.randint(0, 80))
+            else:
+                fill_col = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             if random.random() < 0.5:
                 draw.rectangle([x1, y1, x2, y2], fill=fill_col)
             else:
@@ -130,13 +159,13 @@ def main():
     torch.manual_seed(42)
     random.shuffle(pv_paths)
 
-    # Sample 3,000 real leaves across all crops (Apple, Tomato, Grape, Corn, Pepper, Potato, etc.)
-    num_plant_samples = min(3000, len(pv_paths))
+    # Sample 5,000 real leaves across all crops (Apple, Tomato, Grape, Corn, Pepper, Potato, etc.)
+    num_plant_samples = min(5000, len(pv_paths))
     real_plant_samples = pv_paths[:num_plant_samples]
     print(f"Sampled {len(real_plant_samples)} real botanical leaf images for positive class (Class 1).")
 
     # 2. Generate Non-Plant / Fast Color Samples (Class 0)
-    num_neg_samples = 2500
+    num_neg_samples = 4500
     print(f"Synthesizing {num_neg_samples} negative samples (plain colors, neon greens, fast colors, graphics, patterns)...")
     negative_samples = [generate_synthetic_non_plant_image() for _ in range(num_neg_samples)]
 
@@ -268,6 +297,9 @@ def main():
         ("Neon Fast Green (0,255,0)", Image.new("RGB", (224, 224), (0, 255, 0))),
         ("Fast Lime Green (50,220,50)", Image.new("RGB", (224, 224), (50, 220, 50))),
         ("Dark Green Swatch (10,80,10)", Image.new("RGB", (224, 224), (10, 80, 10))),
+        ("Chartreuse Neon (127,255,0)", Image.new("RGB", (224, 224), (127, 255, 0))),
+        ("Spring Green (0,255,127)", Image.new("RGB", (224, 224), (0, 255, 127))),
+        ("Olive Drab (107,142,35)", Image.new("RGB", (224, 224), (107, 142, 35))),
         ("Real Leaf: Apple Scab", Image.open(real_plant_samples[0]).convert("RGB")),
         ("Real Leaf: PlantVillage #2", Image.open(real_plant_samples[1]).convert("RGB")),
     ]
