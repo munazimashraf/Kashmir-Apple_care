@@ -1,812 +1,255 @@
-from typing import Any
+"""SKUAST-Kashmir Apple Disease Advisory & Integrated Pest Management (IPM) Engine.
 
-# Comprehensive Multi-Crop & Universal Fungus / Disease Advisory Engine
-# SKUAST-K Kashmir & Central Plant Pathology Formulations with Dual Drum Dosages
-ADVISORIES: dict[str, dict[str, list[dict[str, Any]]]] = {
-    "healthy": {
-        "all": [
-            {
-                "product": "No chemical fungicide required",
-                "trade_name": "Preventative Crop Care & Balanced Nutrition",
-                "dosage_100l": "Nil",
-                "dosage_200l": "Nil",
-                "rainfastness": "N/A",
-                "phi_days": 0,
-                "note": "Continue weekly field scouting; ensure proper plant spacing and drip irrigation."
-            }
-        ]
-    },
+Formulates stage-specific chemical recommendations, dosages, cultural sanitation
+practices, and environmental/pollinator guardrails aligned with official SKUAST-K
+(Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir)
+annual spray schedules for Kashmir valley apple orchards.
+"""
+from __future__ import annotations
+
+from typing import Any, Dict, List
+
+
+SKUAST_ADVISORIES: Dict[str, Dict[str, Any]] = {
     "apple_scab": {
-        "early": [
-            {
-                "product": "Mancozeb 75 WP (Protectant)",
-                "trade_name": "Indofil M-45 / Dithane M-45",
-                "dosage_100l": "300g per 100L water",
-                "dosage_200l": "600g per 200L drum",
-                "rainfastness": "4 to 6 hours dry foliage required",
-                "phi_days": 30,
-                "note": "Forms protective barrier; apply immediately prior to rainfall infection periods."
-            },
-            {
-                "product": "Propineb 70 WP (Zinc Boost)",
-                "trade_name": "Antracol 70 WP (Bayer)",
-                "dosage_100l": "300g per 100L water",
-                "dosage_200l": "600g per 200L drum",
-                "rainfastness": "3 to 4 hours dry foliage",
-                "phi_days": 30,
-                "note": "Supplies 15.8% bio-available zinc for foliar greening."
-            }
+        "common_name": "Apple Scab",
+        "scientific_name": "Venturia inaequalis",
+        "kashmiri_name": "Tchoke",
+        "description": "Fungal infection causing velvety olive-green to black lesions on leaves and cracked corky scab lesions on fruit.",
+        "stages": {
+            "Green Tip": [
+                {"product": "Mancozeb 75 WP (Indofil M-45)", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+                {"product": "Propineb 70 WP (Antracol)", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+                {"product": "Captan 50 WP", "dosage": "300g / 100L water", "type": "Multi-site protective fungicide"},
+            ],
+            "Pink Bud": [
+                {"product": "Difenoconazole 25 EC (Score)", "dosage": "30ml / 100L water", "type": "Systemic triazole fungicide"},
+                {"product": "Flusilazole 40 EC (Cursor)", "dosage": "20ml / 100L water", "type": "Systemic sterol inhibitor"},
+                {"product": "Dodine 65 WP (Syllit)", "dosage": "60g / 100L water", "type": "Curative and translaminar fungicide"},
+            ],
+            "Full Bloom": [
+                {"product": "NO-SPRAY: Chemical fungicides discouraged during Full Bloom", "dosage": "N/A", "type": "Honeybee protection period"},
+            ],
+            "Petal Fall": [
+                {"product": "Dodine 65 WP", "dosage": "60g / 100L water", "type": "Curative and protective fungicide"},
+                {"product": "Zineb 68% + Hexaconazole 4% WP (Avatar)", "dosage": "100g / 100L water", "type": "Combination fungicide"},
+                {"product": "Trifloxystrobin + Tebuconazole (Nativo 75 WG)", "dosage": "40g / 100L water", "type": "Broad-spectrum systemic"},
+            ],
+            "Fruit Growth": [
+                {"product": "Kresoxim-methyl 44.3 SC (Ergon)", "dosage": "50ml / 100L water", "type": "Strobilurin class fungicide"},
+                {"product": "Metiram 55% + Pyraclostrobin 5% WG (Cabrio Top)", "dosage": "100g / 100L water", "type": "Dual protective & translaminar"},
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+            ],
+        },
+        "cultural_measures": [
+            "Prune inner canopy branches to increase sun penetration and promote rapid leaf drying.",
+            "Collect and destroy or deep-bury fallen autumn leaves to eradicate primary overwintering perithecia.",
+            "Apply a 5% agricultural Urea spray on orchard leaf litter immediately post-harvest to accelerate decomposition.",
         ],
-        "late": [
-            {
-                "product": "Difenoconazole 25 EC (Curative Systemic)",
-                "trade_name": "Score 25 EC (Syngenta)",
-                "dosage_100l": "30ml per 100L water",
-                "dosage_200l": "60ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Arrests active Venturia mycelium within 72 hours post-infection."
-            },
-            {
-                "product": "Dodine 65 WP (Eradicant & Kickback)",
-                "trade_name": "Syllit 65 WP",
-                "dosage_100l": "75g per 100L water",
-                "dosage_200l": "150g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "High knock-down curative action on primary foliar scab lesions."
-            }
-        ]
     },
-    "apple_powdery_mildew": {
-        "all": [
-            {
-                "product": "Hexaconazole 5 EC (Systemic Triazole)",
-                "trade_name": "Contaf 5 EC (Rallis Tata)",
-                "dosage_100l": "50ml per 100L water",
-                "dosage_200l": "100ml per 200L drum",
-                "rainfastness": "2 to 3 hours dry foliage",
-                "phi_days": 21,
-                "note": "Halts conidial germination and systemic haustorial growth."
-            },
-            {
-                "product": "Penconazole 10 EC (Sterol Biosynthesis Inhibitor)",
-                "trade_name": "Topas 10 EC (Syngenta)",
-                "dosage_100l": "50ml per 100L water",
-                "dosage_200l": "100ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Fast acropetal translocation to shoot tips."
-            },
-            {
-                "product": "Wettable Sulfur 80 WDG (Contact & Mite Suppressant)",
-                "trade_name": "Sulphotox 80 WDG / Sulfex",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 7,
-                "note": "Multi-site fungal inhibition; do not apply when ambient temp exceeds 30°C."
-            }
-        ]
+    "alternaria_leaf_blotch": {
+        "common_name": "Alternaria Leaf Blotch",
+        "scientific_name": "Alternaria mali",
+        "kashmiri_name": "Dag / Blotch",
+        "description": "Circular brownish necrotic spots surrounded by reddish-purple halos, coalescing under humid summer heat and causing premature defoliation.",
+        "stages": {
+            "Green Tip": [
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+                {"product": "Propineb 70 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+            ],
+            "Pink Bud": [
+                {"product": "Difenoconazole 25 EC", "dosage": "30ml / 100L water", "type": "Systemic triazole fungicide"},
+            ],
+            "Full Bloom": [
+                {"product": "NO-SPRAY: Protect active pollinating bees", "dosage": "N/A", "type": "Pollinator shield"},
+            ],
+            "Petal Fall": [
+                {"product": "Zineb 68% + Hexaconazole 4% WP", "dosage": "125g / 100L water", "type": "Combination protective & systemic"},
+                {"product": "Dodine 65 WP", "dosage": "60g / 100L water", "type": "Translaminar curative fungicide"},
+            ],
+            "Fruit Growth": [
+                {"product": "Metiram 55% + Pyraclostrobin 5% WG (Cabrio Top)", "dosage": "100g / 100L water", "type": "Translaminar protective"},
+                {"product": "Difenoconazole 25 EC", "dosage": "30ml / 100L water", "type": "Systemic fungicide"},
+                {"product": "Zineb 68% + Hexaconazole 4% WP", "dosage": "125g / 100L water", "type": "Combination fungicide"},
+            ],
+        },
+        "cultural_measures": [
+            "Maintain adequate spacing and summer prune water sprouts to enhance canopy aeration.",
+            "Avoid excessive nitrogenous fertilization which promotes succulent leaf susceptibility.",
+            "Ensure effective drainage in heavy soil blocks to mitigate humidity build-up in the orchard floor.",
+        ],
     },
-    "apple_alternaria_blotch": {
-        "all": [
-            {
-                "product": "Mancozeb 75 WP + Hexaconazole 5 SC",
-                "trade_name": "Avtar 75 WP / Companion",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 to 4 hours dry foliage",
-                "phi_days": 21,
-                "note": "Dual protectant-systemic action prevents necrotic leaf drop."
-            },
-            {
-                "product": "Metiram 55% + Pyraclostrobin 5% WG",
-                "trade_name": "Cabrio Top (BASF)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 15,
-                "note": "Broad-spectrum strobilurin improves leaf retention and fruit finish."
-            }
-        ]
+    "powdery_mildew": {
+        "common_name": "Powdery Mildew",
+        "scientific_name": "Podosphaera leucotricha",
+        "kashmiri_name": "Phophund / Sufaid Dag",
+        "description": "White powdery fungal mycelial growth on young leaves, shoots, and terminal buds, leading to leaf curling, stunting, and russeting.",
+        "stages": {
+            "Green Tip": [
+                {"product": "Wettable Sulphur 80 WP", "dosage": "250g / 100L water", "type": "Inorganic protective fungicide (avoid T > 30°C)"},
+            ],
+            "Pink Bud": [
+                {"product": "Penconazole 10 EC (Topas)", "dosage": "50ml / 100L water", "type": "Systemic triazole fungicide"},
+                {"product": "Hexaconazole 5 EC (Contaf)", "dosage": "50ml / 100L water", "type": "Systemic fungicide"},
+            ],
+            "Full Bloom": [
+                {"product": "NO-SPRAY during Full Bloom", "dosage": "N/A", "type": "Pollinator protection"},
+            ],
+            "Petal Fall": [
+                {"product": "Penconazole 10 EC", "dosage": "50ml / 100L water", "type": "Systemic ergosterol biosynthesis inhibitor"},
+                {"product": "Flusilazole 40 EC", "dosage": "20ml / 100L water", "type": "Systemic curative fungicide"},
+            ],
+            "Fruit Growth": [
+                {"product": "Penconazole 10 EC", "dosage": "50ml / 100L water", "type": "Systemic fungicide"},
+                {"product": "Myclobutanil 10 WP (Systhane)", "dosage": "50g / 100L water", "type": "Systemic protective & curative"},
+            ],
+        },
+        "cultural_measures": [
+            "Mechanically clip infected 'silver terminals' and white powdery shoots early morning into a collection bag and burn them.",
+            "Disinfect pruning secateurs in 5% sodium hypochlorite or methylated spirit between trees.",
+        ],
     },
-    "apple_marssonina_blotch": {
-        "all": [
-            {
-                "product": "Zineb 68% + Hexaconazole 4% WP",
-                "trade_name": "Taqat WP (Rallis)",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 20,
-                "note": "Effective against summer premature defoliation complexes."
-            },
-            {
-                "product": "Difenoconazole 25 EC",
-                "trade_name": "Score 25 EC",
-                "dosage_100l": "30ml per 100L water",
-                "dosage_200l": "60ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "High penetration prevents lesion coalescence."
-            }
-        ]
+    "black_rot": {
+        "common_name": "Black Rot (Frogeye Leaf Spot & Canker)",
+        "scientific_name": "Botryosphaeria obtusa",
+        "kashmiri_name": "Siyahi Dag / Sarun",
+        "description": "Circular purple spots enlarging into frogeye leaf spots with tan centers and dark concentric rings; cankers on limbs and black mummified fruit.",
+        "stages": {
+            "Green Tip": [
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+                {"product": "Copper Oxychloride 50 WP", "dosage": "300g / 100L water", "type": "Copper bactericide / fungicide"},
+            ],
+            "Pink Bud": [
+                {"product": "Thiophanate-methyl 70 WP (Roko)", "dosage": "100g / 100L water", "type": "Systemic broad-spectrum"},
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact"},
+            ],
+            "Full Bloom": [
+                {"product": "NO-SPRAY during Full Bloom", "dosage": "N/A", "type": "Bee safety"},
+            ],
+            "Petal Fall": [
+                {"product": "Captan 50 WP", "dosage": "300g / 100L water", "type": "Protective multi-site"},
+                {"product": "Thiophanate-methyl 70 WP", "dosage": "100g / 100L water", "type": "Systemic curative"},
+            ],
+            "Fruit Growth": [
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+                {"product": "Difenoconazole 25 EC", "dosage": "30ml / 100L water", "type": "Systemic triazole"},
+            ],
+        },
+        "cultural_measures": [
+            "Prune out dead branches, cankered limbs, and fire blight strikes 15cm into healthy green wood.",
+            "Apply Chaubattia paste (Copper carbonate 1: Red lead 1: Linseed oil 1.25) or Copper paste on all pruning wounds.",
+            "Remove and burn mummified apples hanging from trees or lying on the ground.",
+        ],
     },
-    "apple_cedar_rust": {
-        "all": [
-            {
-                "product": "Myclobutanil 10 WP (Systemic Rust Specialist)",
-                "trade_name": "Systhane 10 WP (Dow Agro)",
-                "dosage_100l": "40g per 100L water",
-                "dosage_200l": "80g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Eradicates aecial and pycnial rust stages."
-            },
-            {
-                "product": "Mancozeb 75 WP (Protective Barrier)",
-                "trade_name": "Indofil M-45",
-                "dosage_100l": "300g per 100L water",
-                "dosage_200l": "600g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 30,
-                "note": "Prevents basidiospore establishment on emerging leaves."
-            }
-        ]
+    "cedar_apple_rust": {
+        "common_name": "Cedar Apple Rust",
+        "scientific_name": "Gymnosporangium juniperi-virginianae",
+        "kashmiri_name": "Zang Dag / Rust",
+        "description": "Bright orange-yellow spots on upper leaf surface producing sticky pycnia and orange tubular aecia on the leaf underside.",
+        "stages": {
+            "Green Tip": [
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact fungicide"},
+            ],
+            "Pink Bud": [
+                {"product": "Myclobutanil 10 WP (Systhane)", "dosage": "50g / 100L water", "type": "Systemic triazole fungicide"},
+                {"product": "Difenoconazole 25 EC", "dosage": "30ml / 100L water", "type": "Systemic fungicide"},
+            ],
+            "Full Bloom": [
+                {"product": "NO-SPRAY during Full Bloom", "dosage": "N/A", "type": "Pollinator shield"},
+            ],
+            "Petal Fall": [
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact"},
+                {"product": "Trifloxystrobin + Tebuconazole (Nativo)", "dosage": "40g / 100L water", "type": "Systemic combination"},
+            ],
+            "Fruit Growth": [
+                {"product": "Difenoconazole 25 EC", "dosage": "30ml / 100L water", "type": "Systemic triazole"},
+                {"product": "Mancozeb 75 WP", "dosage": "300g / 100L water", "type": "Protective contact"},
+            ],
+        },
+        "cultural_measures": [
+            "Inspect and remove cedar/juniper galls located within 500 meters of the orchard perimeter.",
+            "Prune apple trees to encourage rapid drying of foliage during springtime infection periods.",
+        ],
     },
-    "apple_black_rot": {
-        "all": [
-            {
-                "product": "Captan 50 WP (Multi-site Contact Protectant)",
-                "trade_name": "Captaf 50 WP (Rallis)",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 14,
-                "note": "Controls Botryosphaeria frogeye foliar spots and fruit calyx rot."
-            },
-            {
-                "product": "Thiophanate Methyl 70 WP (Systemic Benzimidazole)",
-                "trade_name": "Roko 70 WP (Biostadt)",
-                "dosage_100l": "100g per 100L water",
-                "dosage_200l": "200g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Systemic healing of cankers and twig blights."
-            }
-        ]
+    "healthy": {
+        "common_name": "Healthy Apple Leaf",
+        "scientific_name": "Malus domestica (Clean foliage)",
+        "kashmiri_name": "Sehatmand Paan",
+        "description": "Clean, vigorous green leaf tissue with no observable pathogenic lesions, necrosis, or fungal mycelium.",
+        "stages": {
+            "all": [
+                {"product": "No chemical pesticide spray required", "dosage": "N/A", "type": "Foliage is clean and uninfected"},
+            ],
+        },
+        "cultural_measures": [
+            "Maintain weekly scouting: inspect 10 leaves on 10 random trees per orchard block.",
+            "Ensure balanced fertilization: soil test every 2 years to calibrate N, P, K, and micro-nutrients.",
+            "Maintain clean floor management, regular mowing, and weed-free strips along the tree row.",
+        ],
     },
-    "apple_european_red_mite": {
-        "all": [
-            {
-                "product": "Hexythiazox 5.45 EC (Ovicidal Acaricide)",
-                "trade_name": "Maiden 5.45 EC (Biostadt)",
-                "dosage_100l": "40ml per 100L water",
-                "dosage_200l": "80ml per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 21,
-                "note": "Kills mite eggs and early nymphs; preserves beneficial predatory typhlodromid mites."
-            },
-            {
-                "product": "Spiromesifen 22.9 SC (Lipid Biosynthesis Inhibitor)",
-                "trade_name": "Oberon 22.9 SC (Bayer)",
-                "dosage_100l": "40ml per 100L water",
-                "dosage_200l": "80ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Excellent knockdown for adult Panonychus ulmi populations."
-            }
-        ]
-    },
-    "apple_bitter_pit": {
-        "all": [
-            {
-                "product": "Calcium Chloride 77% (Foliar Calcium Replenishment)",
-                "trade_name": "Technical Grade Calcium Chloride Flakes",
-                "dosage_100l": "350g per 100L water",
-                "dosage_200l": "700g per 200L drum",
-                "rainfastness": "2 hours dry foliage",
-                "phi_days": 0,
-                "note": "Apply 4 to 5 foliar sprays at 12–15 day intervals during fruit expansion."
-            },
-            {
-                "product": "Chelated Calcium (EDTA Ca 10%)",
-                "trade_name": "Calmax / ChelaCa",
-                "dosage_100l": "150g per 100L water",
-                "dosage_200l": "300g per 200L drum",
-                "rainfastness": "1 to 2 hours dry foliage",
-                "phi_days": 0,
-                "note": "Rapid foliar absorption prevents corky sub-epidermal depressions."
-            }
-        ]
-    },
-    "apple_fire_blight": {
-        "all": [
-            {
-                "product": "Streptomycin Sulphate 90% + Tetracycline 10%",
-                "trade_name": "Streptocycline / Plantomycin",
-                "dosage_100l": "6g per 100L water",
-                "dosage_200l": "12g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 21,
-                "note": "Emergency antibiotic bactericide; prune blighted shoots 30cm below visible margins."
-            },
-            {
-                "product": "Copper Oxychloride 50 WP",
-                "trade_name": "Blitox 50 WP",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 30,
-                "note": "Disinfect pruning shears with 70% alcohol between cuts."
-            }
-        ]
-    },
-    # Tomato & Solanaceous Diseases
-    "tomato_late_blight": {
-        "all": [
-            {
-                "product": "Metalaxyl-M 4% + Mancozeb 64% WP",
-                "trade_name": "Ridomil Gold MZ 68 WG (Syngenta)",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 7,
-                "note": "Systemic translaminar protection against Phytophthora water-mold blight."
-            },
-            {
-                "product": "Cymoxanil 8% + Mancozeb 64% WP",
-                "trade_name": "Curzate M-8 (Corteva)",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "2 to 3 hours dry foliage",
-                "phi_days": 7,
-                "note": "Strong curative post-infection kickback for cool, damp blight outbreaks."
-            },
-            {
-                "product": "Dimethomorph 50% WP",
-                "trade_name": "Acrobat 50 WP (BASF)",
-                "dosage_100l": "100g per 100L water",
-                "dosage_200l": "200g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 5,
-                "note": "Inhibits cell wall formation in oomycete zoospores."
-            }
-        ]
-    },
-    "tomato_early_blight": {
-        "all": [
-            {
-                "product": "Chlorothalonil 75 WP (Broad-Spectrum Protectant)",
-                "trade_name": "Kavach 75 WP (Syngenta)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 7,
-                "note": "Multi-site mode of action prevents Alternaria target-board ring formation."
-            },
-            {
-                "product": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
-                "trade_name": "Amistar Top (Syngenta)",
-                "dosage_100l": "100ml per 100L water",
-                "dosage_200l": "200ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 5,
-                "note": "Exceptional dual systemic action controlling both early blight and anthracnose."
-            }
-        ]
-    },
-    "tomato_bacterial_spot": {
-        "all": [
-            {
-                "product": "Copper Hydroxide 77 WP (Fixed Copper Protectant)",
-                "trade_name": "Kocide 3000 (Corteva)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 3,
-                "note": "Copper ions disrupt Xanthomonas bacterial membranes."
-            },
-            {
-                "product": "Kasugamycin 3% SL (Bactericidal Antibiotic)",
-                "trade_name": "Kasu-B (Arysta)",
-                "dosage_100l": "150ml per 100L water",
-                "dosage_200l": "300ml per 200L drum",
-                "rainfastness": "2 hours dry foliage",
-                "phi_days": 7,
-                "note": "Systemic protein synthesis inhibition in phytopathogenic bacteria."
-            }
-        ]
-    },
-    "tomato_leaf_mold": {
-        "all": [
-            {
-                "product": "Fluxapyroxad + Pyraclostrobin",
-                "trade_name": "Priaxor (BASF)",
-                "dosage_100l": "60ml per 100L water",
-                "dosage_200l": "120ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 7,
-                "note": "Rapid suppression of Passalora conidial sporulation on leaf underside."
-            },
-            {
-                "product": "Mancozeb 75 WP",
-                "trade_name": "Indofil M-45",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 7,
-                "note": "Preventative leaf coating under high greenhouse humidity."
-            }
-        ]
-    },
-    "tomato_septoria_leaf_spot": {
-        "all": [
-            {
-                "product": "Chlorothalonil 75 WP",
-                "trade_name": "Kavach (Syngenta)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 7,
-                "note": "Prevents lower canopy leaf yellowing and Septoria spot spreading."
-            },
-            {
-                "product": "Difenoconazole 25 EC",
-                "trade_name": "Score 25 EC",
-                "dosage_100l": "30ml per 100L water",
-                "dosage_200l": "60ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 5,
-                "note": "Curative systemic triazole."
-            }
-        ]
-    },
-    "tomato_spider_mites": {
-        "all": [
-            {
-                "product": "Spiromesifen 22.9 SC",
-                "trade_name": "Oberon (Bayer)",
-                "dosage_100l": "40ml per 100L water",
-                "dosage_200l": "80ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 3,
-                "note": "Spray undersides of leaves where two-spotted spider mites congregate."
-            },
-            {
-                "product": "Abamectin 1.9 EC (Translaminar Miticide)",
-                "trade_name": "Vertimec (Syngenta)",
-                "dosage_100l": "40ml per 100L water",
-                "dosage_200l": "80ml per 200L drum",
-                "rainfastness": "2 hours dry foliage",
-                "phi_days": 3,
-                "note": "Controls active mites and leafminers."
-            }
-        ]
-    },
-    "tomato_target_spot": {
-        "all": [
-            {
-                "product": "Pyraclostrobin 20% WG",
-                "trade_name": "Insignia (BASF)",
-                "dosage_100l": "80g per 100L water",
-                "dosage_200l": "160g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 5,
-                "note": "Broad-spectrum control for Corynespora target spots."
-            }
-        ]
-    },
-    "tomato_yellow_leaf_curl": {
-        "all": [
-            {
-                "product": "Thiamethoxam 25 WG (Whitefly Vector Control)",
-                "trade_name": "Actara 25 WG (Syngenta)",
-                "dosage_100l": "40g per 100L water",
-                "dosage_200l": "80g per 200L drum",
-                "rainfastness": "2 hours dry foliage",
-                "phi_days": 7,
-                "note": "Controls Bemisia tabaci whiteflies transmitting TYLCV; install yellow sticky traps."
-            },
-            {
-                "product": "Neem Oil 10,000 ppm (Azadirachtin)",
-                "trade_name": "Econeem Plus",
-                "dosage_100l": "300ml per 100L water",
-                "dosage_200l": "600ml per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 0,
-                "note": "Organic vector deterrent and oviposition repellent."
-            }
-        ]
-    },
-    "potato_late_blight": {
-        "all": [
-            {
-                "product": "Mandipropamid 23.4% SC",
-                "trade_name": "Revus 250 SC (Syngenta)",
-                "dosage_100l": "80ml per 100L water",
-                "dosage_200l": "160ml per 200L drum",
-                "rainfastness": "1 hour rainfastness",
-                "phi_days": 7,
-                "note": "Exceptional rain-resistant oomycete protection for potato tubers and foliage."
-            },
-            {
-                "product": "Metalaxyl 8% + Mancozeb 64% WP",
-                "trade_name": "Ridomil Gold MZ 68 WG",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 10,
-                "note": "Standard field systemic for aggressive Phytophthora late blight."
-            }
-        ]
-    },
-    "potato_early_blight": {
-        "all": [
-            {
-                "product": "Mancozeb 75 WP",
-                "trade_name": "Indofil M-45",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 14,
-                "note": "Prevents Alternaria leaf spots and tuber dry rot."
-            },
-            {
-                "product": "Difenoconazole 25 EC",
-                "trade_name": "Score 25 EC",
-                "dosage_100l": "30ml per 100L water",
-                "dosage_200l": "60ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 7,
-                "note": "Curative triazole stops necrotic lesion spread."
-            }
-        ]
-    },
-    "grape_black_rot": {
-        "all": [
-            {
-                "product": "Myclobutanil 10 WP",
-                "trade_name": "Systhane 10 WP",
-                "dosage_100l": "40g per 100L water",
-                "dosage_200l": "80g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Prevents Guignardia black rot mummification of grape berry clusters."
-            },
-            {
-                "product": "Mancozeb 75 WP",
-                "trade_name": "Indofil M-45",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 28,
-                "note": "Early season cluster protection."
-            }
-        ]
-    },
-    "grape_downy_mildew": {
-        "all": [
-            {
-                "product": "Fosetyl-Al 80 WP (Systemic Phosphonate)",
-                "trade_name": "Aliette 80 WP (Bayer)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Two-way basipetal and acropetal translocation; boosts vine self-defense."
-            },
-            {
-                "product": "Copper Oxychloride 50 WP",
-                "trade_name": "Blitox 50 WP",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 21,
-                "note": "Contact shield against oil-spot leaf infections."
-            }
-        ]
-    },
-    "grape_powdery_mildew": {
-        "all": [
-            {
-                "product": "Penconazole 10 EC",
-                "trade_name": "Topas 10 EC",
-                "dosage_100l": "40ml per 100L water",
-                "dosage_200l": "80ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Prevents berry splitting and powdery fungal webbing."
-            },
-            {
-                "product": "Wettable Sulfur 80 WDG",
-                "trade_name": "Sulphotox",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 5,
-                "note": "Multi-site organic contact fungicide."
-            }
-        ]
-    },
-    "corn_common_rust": {
-        "all": [
-            {
-                "product": "Propiconazole 25 EC",
-                "trade_name": "Tilt 25 EC (Syngenta)",
-                "dosage_100l": "50ml per 100L water",
-                "dosage_200l": "100ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 21,
-                "note": "Eradicates Puccinia sorghi rust pustules on maize leaf blades."
-            },
-            {
-                "product": "Azoxystrobin 23 SC",
-                "trade_name": "Amistar (Syngenta)",
-                "dosage_100l": "80ml per 100L water",
-                "dosage_200l": "160ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Provides stay-green crop canopy effect."
-            }
-        ]
-    },
-    "corn_northern_leaf_blight": {
-        "all": [
-            {
-                "product": "Azoxystrobin + Difenoconazole",
-                "trade_name": "Amistar Top",
-                "dosage_100l": "100ml per 100L water",
-                "dosage_200l": "200ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 21,
-                "note": "Stops long cigar-shaped Exserohilum necrotic lesions."
-            }
-        ]
-    },
-    "squash_powdery_mildew": {
-        "all": [
-            {
-                "product": "Myclobutanil 10 WP",
-                "trade_name": "Systhane 10 WP",
-                "dosage_100l": "40g per 100L water",
-                "dosage_200l": "80g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 3,
-                "note": "Controls white powdery mycelia on cucurbit/squash vines."
-            },
-            {
-                "product": "Potassium Bicarbonate / Bio-Sulfur",
-                "trade_name": "Armicarb / Sulphotox",
-                "dosage_100l": "300g per 100L water",
-                "dosage_200l": "600g per 200L drum",
-                "rainfastness": "2 hours dry foliage",
-                "phi_days": 1,
-                "note": "Organic contact curative; alters leaf surface pH to kill spores."
-            }
-        ]
-    },
-    "strawberry_leaf_scorch": {
-        "all": [
-            {
-                "product": "Captan 50 WP",
-                "trade_name": "Captaf 50 WP",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 7,
-                "note": "Prevents purple-bordered scorch lesions on strawberry crowns and leaves."
-            }
-        ]
-    },
-    # Universal / Any Plant Fungal & Bacterial Diseases
-    "anthracnose_leaf_spot": {
-        "all": [
-            {
-                "product": "Tebuconazole 50% + Trifloxystrobin 25% WG",
-                "trade_name": "Nativo 75 WG (Bayer)",
-                "dosage_100l": "80g per 100L water",
-                "dosage_200l": "160g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Leading systemic broad-spectrum curative for Colletotrichum anthracnose rot."
-            },
-            {
-                "product": "Carbendazim 12% + Mancozeb 63% WP",
-                "trade_name": "SAAF WP (UPL)",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 14,
-                "note": "Dual contact-systemic benchmark fungicide."
-            }
-        ]
-    },
-    "botrytis_gray_mold": {
-        "all": [
-            {
-                "product": "Cyprodinil 37.5% + Fludioxonil 25% WG",
-                "trade_name": "Switch 62.5 WG (Syngenta)",
-                "dosage_100l": "100g per 100L water",
-                "dosage_200l": "200g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 7,
-                "note": "Targets Botrytis cinerea gray mold and blossom blight."
-            },
-            {
-                "product": "Iprodione 50 WP",
-                "trade_name": "Rovral 50 WP (FMC)",
-                "dosage_100l": "200g per 100L water",
-                "dosage_200l": "400g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 10,
-                "note": "Inhibits spore germination and fungal mycelium growth."
-            }
-        ]
-    },
-    "downy_mildew_universal": {
-        "all": [
-            {
-                "product": "Metalaxyl 8% + Mancozeb 64% WP",
-                "trade_name": "Ridomil Gold MZ 68 WG",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 10,
-                "note": "Systemic downy mildew control on cucurbits, brassicas, and grapes."
-            },
-            {
-                "product": "Copper Oxychloride 50 WP",
-                "trade_name": "Blitox 50 WP",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 21,
-                "note": "Protective copper barrier."
-            }
-        ]
-    },
-    "powdery_mildew_universal": {
-        "all": [
-            {
-                "product": "Hexaconazole 5 EC",
-                "trade_name": "Contaf 5 EC",
-                "dosage_100l": "50ml per 100L water",
-                "dosage_200l": "100ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 14,
-                "note": "Broad-spectrum powdery mildew cure across horticultural and cereal crops."
-            },
-            {
-                "product": "Wettable Sulfur 80 WDG",
-                "trade_name": "Sulphotox 80 WDG",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "4 hours dry foliage",
-                "phi_days": 5,
-                "note": "Organic multi-site contact fungicide."
-            }
-        ]
-    },
-    "rust_fungus_universal": {
-        "all": [
-            {
-                "product": "Propiconazole 25 EC",
-                "trade_name": "Tilt 25 EC",
-                "dosage_100l": "50ml per 100L water",
-                "dosage_200l": "100ml per 200L drum",
-                "rainfastness": "2 hours rainfastness",
-                "phi_days": 21,
-                "note": "Curative triazole eradicating foliar rust pustules."
-            },
-            {
-                "product": "Mancozeb 75 WP",
-                "trade_name": "Indofil M-45",
-                "dosage_100l": "250g per 100L water",
-                "dosage_200l": "500g per 200L drum",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 21,
-                "note": "Protective contact fungicide against fungal rust spores."
-            }
-        ]
-    },
-    "bacterial_blight_universal": {
-        "all": [
-            {
-                "product": "Copper Oxychloride 50 WP + Streptomycin Sulphate",
-                "trade_name": "Blitox 50 WP (250g) + Streptocycline (6g)",
-                "dosage_100l": "250g Blitox + 6g Streptocycline per 100L",
-                "dosage_200l": "500g Blitox + 12g Streptocycline per 200L",
-                "rainfastness": "3 hours dry foliage",
-                "phi_days": 14,
-                "note": "Dual bactericidal barrier against bacterial leaf spots, wilts, and blights."
-            }
-        ]
-    }
-}
-
-INSECT_PESTS = {
-    "woolly_apple_aphid",
-    "aphids",
-    "codling_moth",
-    "apple_maggot",
-    "leafroller",
-    "european_red_mite",
-    "apple_european_red_mite",
-    "two_spotted_spider_mite",
-    "tomato_spider_mites",
-    "tomato_yellow_leaf_curl",
-    "scale_insects",
 }
 
 
-def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) -> dict[str, Any]:
-    disease = {
-        "alternaria_leaf_blotch": "apple_alternaria_blotch",
-        "powdery_mildew": "apple_powdery_mildew",
-        "cedar_apple_rust": "apple_cedar_rust",
-        "black_rot": "apple_black_rot",
-    }.get(disease, disease)
-    # Look up direct match or fallback to closest matching universal category
-    rule = ADVISORIES.get(disease)
-    if not rule:
-        if "mildew" in disease:
-            rule = ADVISORIES["powdery_mildew_universal"]
-        elif "rust" in disease:
-            rule = ADVISORIES["rust_fungus_universal"]
-        elif "blight" in disease:
-            rule = ADVISORIES["tomato_early_blight"]
-        elif "rot" in disease or "blotch" in disease or "spot" in disease:
-            rule = ADVISORIES["anthracnose_leaf_spot"]
-        elif "mite" in disease:
-            rule = ADVISORIES["apple_european_red_mite"]
-        else:
-            rule = ADVISORIES["healthy"]
+def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) -> Dict[str, Any]:
+    """Generates the comprehensive SKUAST-K Kashmir disease advisory."""
+    info = SKUAST_ADVISORIES.get(disease)
+    
+    if not info:
+        # Fallback / uncertain
+        return {
+            "disease_common": "Uncertain / Unconfirmed Symptom",
+            "disease_scientific": "Requires Expert Verification",
+            "kashmiri_name": "Tashkhees Ghair Wazih",
+            "recommendations": [],
+            "cultural_measures": ["Consult a local SKUAST-K horticulture development officer (HDO) before chemical spraying."],
+            "guardrails": ["Low confidence: retake a clear, well-focused close-up photo in bright daylight."],
+        }
 
-    early_stages = {"Dormant", "Silver Tip", "Green Tip", "Pink Bud"}
-
-    # Full Bloom Honeybee Pollinator Shield: strictly NO chemical insecticides
-    if growth_stage == "Full Bloom" and disease in INSECT_PESTS:
-        products: list[dict[str, Any]] = []
+    # Fetch recommendations for the stage
+    stages_dict = info.get("stages", {})
+    if growth_stage in stages_dict:
+        products = stages_dict[growth_stage]
+    elif "all" in stages_dict:
+        products = stages_dict["all"]
+    elif "Fruit Growth" in stages_dict:
+        products = stages_dict["Fruit Growth"]
     else:
-        if "all" in rule:
-            raw_products = rule["all"]
-        elif growth_stage in early_stages and "early" in rule:
-            raw_products = rule["early"]
-        elif "late" in rule:
-            raw_products = rule["late"]
-        else:
-            raw_products = rule.get("all", [])
-        products = raw_products
+        products = []
 
-    guardrails: list[str] = []
-
-    # Rain & weather window
+    # Filter out empty or no-spray placeholder if needed
+    guardrails: List[str] = []
+    
+    # Weather safety
     if rain_within_12_hours:
-        guardrails.append("⚠️ POSTPONE APPLICATION: Rain is predicted within 12 hours. Chemical wash-off will occur, wasting spray and reducing efficacy.")
+        guardrails.append("⚠️ POSTPONE SPRAYING: Rain is forecast within 12 hours. Chemical wash-off will cause financial loss and inadequate control.")
     else:
-        guardrails.append("✅ FAVORABLE SPRAY WINDOW: No rain forecast in the next 12 hours. Ensure foliage is dry before spraying.")
+        guardrails.append("✅ DRY WINDOW: No rain forecast in the next 12 hours. Spray only on dry leaves when ambient temperature is below 28°C.")
 
-    # Pollinator protection
+    # Growth stage & pollinator safety
     if growth_stage == "Full Bloom":
-        guardrails.append("🐝 POLLINATOR SHIELD: Honeybees and wild pollinators are actively foraging. NO synthetic chemical insecticides are permitted during Full Bloom.")
+        guardrails.append("🐝 POLLINATOR SHIELD: Full Bloom detected. Strictly DO NOT spray chemical insecticides or acaricides to protect pollinating honeybees.")
     else:
-        guardrails.append("🐝 BEE-SAFE APPLICATION: Spray only in early morning or late dusk when pollinator flight ceases.")
+        guardrails.append("🐝 BEE-SAFE APPLICATION: Spray only after dusk or early morning; avoid spraying when ground weeds are flowering.")
 
-    # Disease-specific sanitation & boosters
-    if "mildew" in disease:
-        guardrails.append('✂️ MECHANICAL SANITATION: Prune out and incinerate infected shoots with visible powdery fungal felt before spraying.')
-    if "blight" in disease:
-        guardrails.append("🔥 SANITATION: Remove and deeply bury heavily blighted foliage; avoid overhead sprinkler irrigation.")
-    if "bitter_pit" in disease or growth_stage in {"Fruit Growth", "Fruit Development", "Walnut Stage"}:
-        guardrails.append("🧊 CALCIUM BOOSTER: Add Calcium Chloride 77% @ 3–4g/L water (600–800g / 200L drum) to prevent corky fruit cavities.")
+    # Calcium booster for fruit development
+    if growth_stage in {"Fruit Growth", "Fruit Development"}:
+        guardrails.append("🧊 STORAGE & QUALITY BOOSTER: Foliar spray of Calcium Chloride 3–4g / Litre of water (or Calcium Nitrate 4g/L) helps prevent Bitter Pit and physiological breakdown in cold storage.")
 
-    # Worker safety
-    guardrails.append("🛡️ OPERATOR PPE: Wear rubber gloves, eye goggles, boots, and an organic vapor face respirator during tank mixing and application.")
+    # Specific disease tips
+    if disease == "powdery_mildew":
+        guardrails.append("✂️ TERMINAL PRUNING: Mechanically prune out and bag white powdery 'silver terminals' early morning before spore dispersal.")
+    elif disease == "apple_scab":
+        guardrails.append("🔬 FUNGICIDE ROTATION: Alternate contact protectants (Mancozeb/Propineb) with systemic fungicides (Score/Dodine) to prevent fungal resistance.")
+    elif disease == "healthy":
+        guardrails.append("🌿 CLEAN ORCHARD: Foliage is healthy. Avoid unneeded chemical applications to preserve natural predatory mites and beneficial insects.")
 
     return {
-        "recommendations": products,
-        "guardrails": guardrails,
+        "disease_common": info.get("common_name", disease.replace("_", " ").title()),
+        "disease_scientific": info.get("scientific_name", ""),
+        "kashmiri_name": info.get("kashmiri_name", ""),
+        "description": info.get("description", ""),
         "growth_stage": growth_stage,
+        "recommendations": products,
+        "cultural_measures": info.get("cultural_measures", []),
+        "guardrails": guardrails,
     }

@@ -25,5 +25,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/models/applecare_mobilenetv3.tflite
+    - assets/models/applecare_vgg19.tflite
     - assets/models/classes.json

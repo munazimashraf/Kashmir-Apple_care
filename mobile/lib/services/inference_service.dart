@@ -17,7 +17,7 @@ class InferenceService {
   List<String> _classes = [];
 
   Future<void> load() async {
-    _interpreter = await Interpreter.fromAsset('assets/models/applecare_mobilenetv3.tflite');
+    _interpreter = await Interpreter.fromAsset('assets/models/applecare_vgg19.tflite');
     _classes = List<String>.from(jsonDecode(await rootBundle.loadString('assets/models/classes.json')));
   }
 

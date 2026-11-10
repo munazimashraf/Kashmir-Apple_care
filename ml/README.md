@@ -12,15 +12,9 @@ pip install -r ml/requirements.txt
 python ml/train_apple_model.py --data-dir data/apple --output-dir artifacts/applecare
 ```
 
-For the pretrained VGG19 backend model:
-
-```bash
-python ml/train_apple_model.py --data-dir data/apple --output-dir artifacts/applecare \
-  --architecture vgg19 --epochs 40 --device cpu --skip-tflite
-```
-
-The script writes a checkpoint, `metrics.json`, `classes.json`, and an ONNX
-model. For mobile export:
+The script fine-tunes the VGG19 classifier head while keeping its pretrained
+feature extractor frozen. It writes a checkpoint, `metrics.json`,
+`classes.json`, and an ONNX model. For mobile export:
 
 ```bash
 pip install -r ml/requirements-tflite.txt
@@ -28,6 +22,6 @@ python ml/train_apple_model.py --data-dir data/apple --output-dir artifacts/appl
 ```
 
 The training script invokes `onnx2tf` and TensorFlow's converter and writes a
-quantized `applecare_mobilenetv3.tflite`. Copy that model and `classes.json`
+quantized `applecare_vgg19.tflite`. Copy that model and `classes.json`
 into the Flutter app's assets after reviewing test metrics and validating
 representative Kashmir field images.

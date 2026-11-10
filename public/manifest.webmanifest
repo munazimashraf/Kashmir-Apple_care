@@ -1,0 +1,12 @@
+{
+  "name": "AppleCare Kashmir",
+  "short_name": "AppleCare",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5faf7",
+  "theme_color": "#064e3b",
+  "description": "Free offline orchard disease advisory for Kashmir apple growers.",
+  "icons": [
+    {"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}

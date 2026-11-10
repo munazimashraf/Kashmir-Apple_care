@@ -1,3 +1,4 @@
+from typing import Optional
 from uuid import UUID
 
 from fastapi import Depends, HTTPException
@@ -26,16 +27,12 @@ async def current_user(credentials: HTTPAuthorizationCredentials = Depends(secur
     return user
 
 
-async def optional_current_user(
-    credentials: HTTPAuthorizationCredentials | None = Depends(security_optional),
-    db: AsyncSession = Depends(get_db)
-) -> User | None:
-    if not credentials:
+async def optional_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_optional), db: AsyncSession = Depends(get_db)) -> Optional[User]:
+    if not credentials or not credentials.credentials:
         return None
     try:
         payload = jwt.decode(credentials.credentials, get_settings().jwt_secret, algorithms=["HS256"])
-        user_id = UUID(payload["sub"])
-        user = await db.scalar(select(User).where(User.id == user_id))
-        return user
+        user_id = UUID(payload.get("sub", ""))
+        return await db.scalar(select(User).where(User.id == user_id))
     except Exception:
         return None

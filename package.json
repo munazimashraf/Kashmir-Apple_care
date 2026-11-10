@@ -1,14 +1,14 @@
 {
-  "name": "kashmir-apple-care",
-  "version": "2.0.0",
+  "name": "applecare-kashmir",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Kashmir Apple Care — Production AI Apple Disease & SKUAST-K Advisory Platform",
+  "description": "AppleCare Kashmir AI leaf disease detector and SKUAST-K advisory prototype.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite --host 0.0.0.0"
+    "start": "vite preview --host 0.0.0.0"
   },
   "devDependencies": {
     "vite": "^7.2.2"

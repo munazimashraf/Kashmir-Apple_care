@@ -1,0 +1,107 @@
+{
+  "test_accuracy": 0.9803921568627451,
+  "val_accuracy": 0.9824231010671689,
+  "classification_report": {
+    "alternaria_leaf_blotch": {
+      "precision": 0.9929328621908127,
+      "recall": 0.9525423728813559,
+      "f1-score": 0.972318339100346,
+      "support": 295.0
+    },
+    "apple_scab": {
+      "precision": 0.946058091286307,
+      "recall": 0.9661016949152542,
+      "f1-score": 0.9559748427672956,
+      "support": 236.0
+    },
+    "black_rot": {
+      "precision": 0.9688888888888889,
+      "recall": 0.9688888888888889,
+      "f1-score": 0.9688888888888889,
+      "support": 225.0
+    },
+    "cedar_apple_rust": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 80.0
+    },
+    "healthy": {
+      "precision": 0.9917241379310345,
+      "recall": 0.9972260748959778,
+      "f1-score": 0.9944674965421854,
+      "support": 721.0
+    },
+    "powdery_mildew": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1-score": 0.9411764705882353,
+      "support": 24.0
+    },
+    "accuracy": 0.9803921568627451,
+    "macro avg": {
+      "precision": 0.9647488115309887,
+      "recall": 0.9807931719302462,
+      "f1-score": 0.9721376729811585,
+      "support": 1581.0
+    },
+    "weighted avg": {
+      "precision": 0.9807408859402071,
+      "recall": 0.9803921568627451,
+      "f1-score": 0.9804195276588975,
+      "support": 1581.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      281,
+      7,
+      1,
+      0,
+      3,
+      3
+    ],
+    [
+      0,
+      228,
+      6,
+      0,
+      2,
+      0
+    ],
+    [
+      2,
+      4,
+      218,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      80,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      0,
+      0,
+      719,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      24
+    ]
+  ],
+  "model_architecture": "MobileNetV3-Large-FineTuned",
+  "timestamp": "2026-11-10 20:54:36"
+}

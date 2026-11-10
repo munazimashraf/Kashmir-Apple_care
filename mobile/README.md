@@ -4,7 +4,7 @@ This client is intentionally artifact-driven. Before running it, train and
 review the model from `../ml/train_apple_model.py`, then copy:
 
 ```text
-artifacts/applecare/applecare_mobilenetv3.tflite -> assets/models/
+artifacts/applecare/applecare_vgg19.tflite -> assets/models/
 artifacts/applecare/classes.json                   -> assets/models/
 ```
 

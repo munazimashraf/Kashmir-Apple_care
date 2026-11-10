@@ -9,8 +9,6 @@ from app.core.config import get_settings
 class WeatherService:
     async def current_and_forecast(self, latitude: float, longitude: float) -> dict[str, Any]:
         settings = get_settings()
-        if not settings.openweather_api_key or settings.openweather_api_key == "development-unused":
-            raise RuntimeError("OpenWeather API key is not configured.")
         params = {
             "lat": latitude,
             "lon": longitude,

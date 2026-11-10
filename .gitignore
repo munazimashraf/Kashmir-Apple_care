@@ -5,4 +5,15 @@ dist
 .env.*
 !.env.example
 __pycache__/
-*.py[cod]
+*.pyc
+*.zip
+applecare_kashmir_complete/
+applecare.db
+backend/applecare.db
+data/apple/train
+data/apple/val
+data/apple/test
+data/apple/raw
+data/apple-plantvillage/
+
+

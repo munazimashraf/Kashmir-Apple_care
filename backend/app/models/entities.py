@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import Optional
 from uuid import UUID, uuid4
 
-from sqlalchemy import DateTime, Float, ForeignKey, Index, Integer, String, Text, Uuid, JSON, func
+from sqlalchemy import DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, Uuid, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
@@ -24,7 +27,7 @@ class Orchard(Base):
     name: Mapped[str] = mapped_column(String(120))
     latitude: Mapped[float] = mapped_column(Float)
     longitude: Mapped[float] = mapped_column(Float)
-    district: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    district: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     owner: Mapped[User] = relationship(back_populates="orchards")
 
 
@@ -32,7 +35,7 @@ class Diagnosis(Base):
     __tablename__ = "diagnoses"
     id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid4)
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    orchard_id: Mapped[UUID | None] = mapped_column(ForeignKey("orchards.id", ondelete="SET NULL"), nullable=True)
+    orchard_id: Mapped[Optional[UUID]] = mapped_column(ForeignKey("orchards.id", ondelete="SET NULL"), nullable=True)
     disease: Mapped[str] = mapped_column(String(80), index=True)
     confidence: Mapped[float] = mapped_column(Float)
     growth_stage: Mapped[str] = mapped_column(String(40))
@@ -45,11 +48,11 @@ class SprayLog(Base):
     __tablename__ = "spray_logs"
     id: Mapped[UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid4)
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    orchard_id: Mapped[UUID | None] = mapped_column(ForeignKey("orchards.id", ondelete="SET NULL"), nullable=True)
+    orchard_id: Mapped[Optional[UUID]] = mapped_column(ForeignKey("orchards.id", ondelete="SET NULL"), nullable=True)
     product: Mapped[str] = mapped_column(String(160))
     dosage: Mapped[str] = mapped_column(String(120))
     sprayed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
 
 class WeatherHistory(Base):
