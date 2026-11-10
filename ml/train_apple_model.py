@@ -36,7 +36,6 @@ CLASS_NAMES = [
     "powdery_mildew",
     "black_rot",
     "cedar_apple_rust",
-    "european_red_mite",
     "healthy",
 ]
 IMAGE_SIZE = 224
