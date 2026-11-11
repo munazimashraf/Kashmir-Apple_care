@@ -2563,30 +2563,33 @@
     }
 
     // Call Backend API with multiple fallback endpoints
+    async function fetchBackend(path, options = {}) {
+      const endpoints = [
+        path,
+        `http://127.0.0.1:8000${path.startsWith("/") ? "" : "/"}${path}`,
+        `http://localhost:8000${path.startsWith("/") ? "" : "/"}${path}`,
+      ];
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, options);
+          if (res.ok) return res;
+        } catch (_) {}
+      }
+      return null;
+    }
+
     async function runRealModel(file) {
       const form = new FormData();
       form.append("file", file);
       form.append("growth_stage", currentStage);
       form.append("rain_within_12_hours", String(weatherState.rainWithin12h));
 
-      const endpoints = [
-        "/api/v1/diagnoses/upload",
-        "http://127.0.0.1:8000/api/v1/diagnoses/upload",
-        "http://localhost:8000/api/v1/diagnoses/upload"
-      ];
-
-      for (const endpoint of endpoints) {
-        try {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            body: form,
-          });
-          if (response.ok) {
-            return await response.json();
-          }
-        } catch (err) {
-          // Try next endpoint
-        }
+      const resp = await fetchBackend("/api/v1/diagnoses/upload", {
+        method: "POST",
+        body: form,
+      });
+      if (resp) {
+        return await resp.json();
       }
 
       // Client-side automatic feature diagnosis fallback
@@ -2638,8 +2641,8 @@
         let data = null;
         // 1. Try FastAPI backend endpoint first
         try {
-          const resp = await fetch(`/api/v1/weather/spray-forecast?latitude=${lat}&longitude=${lon}&district=${encodeURIComponent(districtName)}`);
-          if (resp.ok) {
+          const resp = await fetchBackend(`/api/v1/weather/spray-forecast?latitude=${lat}&longitude=${lon}&district=${encodeURIComponent(districtName)}`);
+          if (resp) {
             data = await resp.json();
           }
         } catch (backendErr) {
@@ -3588,8 +3591,8 @@
     async function initSprayCalendar() {
       // 1. Try fetching latest calendar from backend API
       try {
-        const calResp = await fetch("/api/v1/advisory/calendar");
-        if (calResp.ok) {
+        const calResp = await fetchBackend("/api/v1/advisory/calendar");
+        if (calResp) {
           const remoteCal = await calResp.json();
           if (Array.isArray(remoteCal) && remoteCal.length > 0) {
             sprayCalendarStages = remoteCal;
