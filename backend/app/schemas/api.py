@@ -58,6 +58,8 @@ class DiagnoseResponse(BaseModel):
     disease_common: Optional[str] = None
     disease_scientific: Optional[str] = None
     kashmiri_name: Optional[str] = None
+    variety: Optional[str] = "Red Delicious"
+    root_type: Optional[str] = "Seedling (Standard Vigorous)"
     cultural_measures: list[str] = Field(default_factory=list)
     alternatives: list[dict] = Field(default_factory=list)
     heatmap: dict = Field(default_factory=dict)

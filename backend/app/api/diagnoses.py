@@ -24,6 +24,8 @@ router = APIRouter(prefix="/diagnoses", tags=["diagnoses"])
 async def diagnose(
     file: UploadFile = File(...),
     growth_stage: str = Form("Green Tip"),
+    variety: str = Form("Red Delicious"),
+    root_type: str = Form("Seedling (Standard Vigorous)"),
     rain_within_12_hours: bool = Form(False),
     user: Optional[User] = Depends(optional_current_user),
     db: AsyncSession = Depends(get_db),
@@ -73,6 +75,8 @@ async def diagnose(
         result["disease"] if not result["uncertain"] else "__uncertain__",
         growth_stage,
         rain_within_12_hours,
+        variety=variety,
+        root_type=root_type,
     )
 
     # Save to history if an authenticated user session is active

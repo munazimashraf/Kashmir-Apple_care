@@ -167,6 +167,128 @@
       max-width: 620px;
       margin-bottom: 22px;
     }
+    /* Orchard Profile (Variety & Rootstock) Card */
+    .orchard-profile-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .orchard-profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .orchard-profile-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .orchard-profile-badge {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #eef8f1;
+      border: 1px solid #cce8d5;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .orchard-profile-caption {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .orchard-active-summary {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--deep);
+      background: #f1f7f4;
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid #d3e5dc;
+    }
+    .profile-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .profile-label-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--deep);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .profile-subhint {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .profile-pills-wrap {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .variety-btn, .root-btn {
+      padding: 7px 13px;
+      border-radius: 99px;
+      background: #f8faf8;
+      color: var(--ink);
+      border: 1px solid #d9e6de;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .variety-btn:hover, .root-btn:hover {
+      background: #edf5f0;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .variety-btn.active, .root-btn.active {
+      background: var(--deep);
+      color: #ffffff;
+      border-color: var(--deep);
+      box-shadow: 0 3px 10px rgba(6,78,59,.25);
+    }
+    .profile-intel-box {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f6faf7;
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #244136;
+    }
+    .intel-icon {
+      font-size: 15px;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .intel-content {
+      flex: 1;
+    }
+
     .stage-card {
       background: #ffffff;
       border: 1px solid var(--line);
@@ -1484,6 +1606,57 @@
           Upload any apple leaf photo for instant AI diagnosis. The neural network automatically detects diseases, rejects inappropriate non-plant images (people, cars, objects), and outputs official SKUAST-K spray treatments.
         </p>
         
+        <!-- Section on Top of Growth Stage: Apple Variety & Root Type -->
+        <div class="orchard-profile-card">
+          <div class="orchard-profile-header">
+            <div class="orchard-profile-title">
+              <span class="orchard-profile-badge">🌳 Orchard Crop Profile</span>
+              <span class="orchard-profile-caption">Select Apple Variety & Root Type to calibrate disease susceptibility & spray volume</span>
+            </div>
+            <span class="orchard-active-summary" id="orchardActiveSummary">Red Delicious · Seedling</span>
+          </div>
+
+          <!-- Variety Selection -->
+          <div class="profile-section">
+            <div class="profile-label-row">
+              <label><span class="label-emoji">🍎</span> Apple Variety</label>
+              <span class="profile-subhint">Tailors pathogen susceptibility (Scab, Alternaria, Mildew)</span>
+            </div>
+            <div class="profile-pills-wrap" id="varietyPills">
+              <button type="button" class="variety-btn active" data-variety="Red Delicious">🍎 Red Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Royal Delicious">👑 Royal Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Gala / Super Chief">🌟 Gala / Super Chief</button>
+              <button type="button" class="variety-btn" data-variety="Golden Delicious">🍏 Golden Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Fuji">❄️ Fuji</button>
+              <button type="button" class="variety-btn" data-variety="Ambri (Kashmiri)">🌸 Ambri (Kashmiri)</button>
+              <button type="button" class="variety-btn" data-variety="Granny Smith">🍏 Granny Smith</button>
+            </div>
+          </div>
+
+          <!-- Root Type Selection -->
+          <div class="profile-section" style="margin-top: 12px;">
+            <div class="profile-label-row">
+              <label><span class="label-emoji">🌱</span> Rootstock / Root Type</label>
+              <span class="profile-subhint">Calibrates tree canopy volume & chemical tank dilution</span>
+            </div>
+            <div class="profile-pills-wrap" id="rootTypePills">
+              <button type="button" class="root-btn active" data-root="Seedling (Standard Vigorous)">🌳 Seedling (Standard Vigorous)</button>
+              <button type="button" class="root-btn" data-root="M9 (High-Density Dwarf)">🌿 M9 (High-Density Dwarf)</button>
+              <button type="button" class="root-btn" data-root="MM106 (Semi-Dwarf)">🪴 MM106 (Semi-Dwarf)</button>
+              <button type="button" class="root-btn" data-root="M26 (Semi-Dwarf)">🎋 M26 (Semi-Dwarf)</button>
+              <button type="button" class="root-btn" data-root="MM111 (Vigorous Clonal)">🌲 MM111 (Vigorous Clonal)</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Agronomic Intel Callout -->
+          <div class="profile-intel-box" id="profileIntelBox">
+            <span class="intel-icon">💡</span>
+            <div class="intel-content" id="profileIntelContent">
+              <b>Red Delicious on Seedling Rootstock:</b> Traditional vigorous canopy (~1500–2500 L/ha spray volume). High susceptibility to Apple Scab (Tchoke) & Alternaria; strictly maintain primary protective covers at Green Tip.
+            </div>
+          </div>
+        </div>
+
         <!-- Growth Stage Bar -->
         <div class="stage-card">
           <label>Current Growth Stage (Select for Stage-Specific Spray)</label>
@@ -1695,7 +1868,11 @@
                 <div class="eyebrow" style="color:#0284c7;">Step 03 · SKUAST-Kashmir Advisory</div>
                 <div class="skuast-header-title">Recommended Chemical Treatments</div>
               </div>
-              <span class="product-dosage" id="stageBadge">Green Tip</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+                <span class="product-dosage" id="stageBadge">Green Tip</span>
+                <span class="product-dosage" id="varietyBadge" style="background:#e0f2fe;color:#0369a1;border-color:#bae6fd;">Red Delicious</span>
+                <span class="product-dosage" id="rootBadge" style="background:#fef3c7;color:#92400e;border-color:#fde68a;">Seedling</span>
+              </div>
             </div>
 
             <!-- Products List -->
@@ -2155,9 +2332,29 @@
 
     let selectedSample = null;
     let currentStage = "Green Tip";
+    let currentVariety = localStorage.getItem("applecare_variety") || "Red Delicious";
+    let currentRootType = localStorage.getItem("applecare_root_type") || "Seedling (Standard Vigorous)";
     let cloudResult = null;
     let weatherState = { rainWithin12h: false, location: "Pulwama, Kashmir" };
     let audioTimer = null;
+
+    const VARIETY_INTEL = {
+      "Red Delicious": "Traditional Kashmir Delicious (Kala Kulu). High susceptibility to Apple Scab (Tchoke) & Alternaria. Maintain continuous protectant cover (Mancozeb/Propineb) during rainy spring ascospore discharge.",
+      "Royal Delicious": "Standard sweet dessert cultivar. Susceptible to Scab & Woolly Apple Aphid. Apply systemic protectants at Pink Bud and post-harvest urea.",
+      "Gala / Super Chief": "High-density early commercial variety. High susceptibility to Powdery Mildew and Fire Blight. Inspect spur shoots closely during early spring.",
+      "Golden Delicious": "Prone to fruit russeting. Strictly avoid copper-based fungicides after green tip and avoid harsh emulsifiable concentrates during wet bloom.",
+      "Fuji": "High sugar dessert variety. Prone to Cedar Apple Rust, late Alternaria blotch, and watercore near harvest.",
+      "Ambri (Kashmiri)": "Prized indigenous Kashmiri apple with delicate aromatic thin skin. Prioritize early Scab protection and foliar Calcium Chloride to prevent Bitter Pit.",
+      "Granny Smith": "Late green cooking apple. Moderate susceptibility to Powdery Mildew and Bitter Pit. Requires balanced zinc/boron micronutrient sprays."
+    };
+
+    const ROOT_INTEL = {
+      "Seedling (Standard Vigorous)": "Large deep-rooted canopy (~1500–2500 L/ha spray volume). Ensure tractor air-blast or high-pressure gun penetrates dense central leader branches.",
+      "M9 (High-Density Dwarf)": "High-Density Orchard (HDP) dwarf canopy requiring low-volume calibrated mist spraying (~350–500 L water/ha). Check drip fertigation & trellis support.",
+      "MM106 (Semi-Dwarf)": "Intermediate tree volume (~800–1200 L/ha spray volume). Well-suited to loamy valley soils; avoid poorly drained waterlogged spots to prevent collar rot.",
+      "M26 (Semi-Dwarf)": "Compact intermediate dwarf (~700–1000 L/ha spray volume). Excellent cold hardiness suited for higher altitude Kashmir karewa slopes.",
+      "MM111 (Vigorous Clonal)": "Drought-hardy clonal standard canopy (~1400–1800 L/ha spray volume). Deep root system resistant to collar rot and woolly aphid."
+    };
 
     const canvas = document.getElementById("leafCanvas");
     const ctx = canvas.getContext("2d");
@@ -2319,6 +2516,12 @@
         document.getElementById("confidence").textContent = "--%";
         document.getElementById("confidenceBar").style.width = "0%";
         document.getElementById("stageBadge").textContent = currentStage;
+        if (document.getElementById("varietyBadge")) {
+          document.getElementById("varietyBadge").textContent = currentVariety;
+        }
+        if (document.getElementById("rootBadge")) {
+          document.getElementById("rootBadge").textContent = currentRootType.split(" ")[0];
+        }
         document.getElementById("productsList").innerHTML = `
           <div style="color:var(--muted);font-size:13px;padding:12px 0;">
             Upload an apple leaf photo above to automatically receive SKUAST-K stage-specific fungicide recommendations and dosages.
@@ -2356,6 +2559,12 @@
       document.getElementById("confidence").textContent = conf;
       document.getElementById("confidenceBar").style.width = conf;
       document.getElementById("stageBadge").textContent = currentStage;
+      if (document.getElementById("varietyBadge")) {
+        document.getElementById("varietyBadge").textContent = currentVariety;
+      }
+      if (document.getElementById("rootBadge")) {
+        document.getElementById("rootBadge").textContent = currentRootType.split(" ")[0];
+      }
 
       // Products List
       const prodList = document.getElementById("productsList");
@@ -2395,6 +2604,14 @@
         alerts.push(`<div class="alert-box info">🧊 <span><b>Cold Storage & Bitter Pit Booster:</b> Foliar spray of Calcium Chloride 3–4g / Litre water (or Calcium Nitrate) prevents Bitter Pit and enhances storage firmness.</span></div>`);
       }
 
+      // Variety & Rootstock SKUAST-K Intelligence
+      if (VARIETY_INTEL[currentVariety]) {
+        alerts.push(`<div class="alert-box info">🍎 <span><b>Variety Advisory (${currentVariety}):</b> ${VARIETY_INTEL[currentVariety]}</span></div>`);
+      }
+      if (ROOT_INTEL[currentRootType]) {
+        alerts.push(`<div class="alert-box safe">🌱 <span><b>Rootstock & Canopy Calibration (${currentRootType}):</b> ${ROOT_INTEL[currentRootType]}</span></div>`);
+      }
+
       document.getElementById("guardrailAlerts").innerHTML = alerts.join("");
 
       // Report Text
@@ -2405,6 +2622,8 @@
         `Disease: ${name} (${latin})\n` +
         `Kashmiri: ${kashmiri}\n` +
         `AI Confidence: ${conf}\n` +
+        `Apple Variety: ${currentVariety}\n` +
+        `Rootstock / Canopy: ${currentRootType}\n` +
         `Growth Stage: ${currentStage}\n` +
         `Location: ${weatherState.location}\n` +
         `Weather Window: ${rainMsg}\n\n` +
@@ -2582,6 +2801,8 @@
       const form = new FormData();
       form.append("file", file);
       form.append("growth_stage", currentStage);
+      form.append("variety", currentVariety);
+      form.append("root_type", currentRootType);
       form.append("rain_within_12_hours", String(weatherState.rainWithin12h));
 
       const resp = await fetchBackend("/api/v1/diagnoses/upload", {
@@ -2935,6 +3156,8 @@
       history.unshift({
         disease: diseaseName,
         stage: currentStage,
+        variety: currentVariety,
+        root_type: currentRootType,
         time: new Date().toLocaleString()
       });
       localStorage.setItem("applecare_history", JSON.stringify(history.slice(0, 8)));
@@ -2950,13 +3173,56 @@
         list.innerHTML = history.map(item => `
           <div class="history-item">
             <b>${item.disease}</b>
-            <small>${item.stage} · ${item.time}</small>
+            <small>${item.variety || "Delicious"} · ${item.root_type ? item.root_type.split(" ")[0] : "Seedling"} · ${item.stage} · ${item.time}</small>
           </div>
         `).join("");
       }
     }
 
     // Event Listeners
+    // Variety Buttons
+    document.querySelectorAll(".variety-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".variety-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentVariety = btn.dataset.variety;
+        localStorage.setItem("applecare_variety", currentVariety);
+        updateOrchardProfileUI();
+        render();
+      });
+    });
+
+    // Root Type Buttons
+    document.querySelectorAll(".root-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".root-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentRootType = btn.dataset.root;
+        localStorage.setItem("applecare_root_type", currentRootType);
+        updateOrchardProfileUI();
+        render();
+      });
+    });
+
+    function updateOrchardProfileUI() {
+      document.querySelectorAll(".variety-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.variety === currentVariety);
+      });
+      document.querySelectorAll(".root-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.root === currentRootType);
+      });
+      const summaryEl = document.getElementById("orchardActiveSummary");
+      if (summaryEl) {
+        summaryEl.textContent = `${currentVariety} · ${currentRootType.split(" ")[0]}`;
+      }
+      const intelEl = document.getElementById("profileIntelContent");
+      if (intelEl) {
+        const vInfo = VARIETY_INTEL[currentVariety] || "";
+        const rInfo = ROOT_INTEL[currentRootType] || "";
+        intelEl.innerHTML = `<b>${currentVariety} on ${currentRootType}:</b> ${vInfo} ${rInfo}`;
+      }
+    }
+
     // Stage Buttons
     document.querySelectorAll(".stage-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -3854,7 +4120,8 @@
       }
 
       totalQtyEl.textContent = displayQty;
-      summaryEl.textContent = `${chemName} in ${waterLiters.toLocaleString()} Liters of water (Standard Rate: ${rateStr} / 100L)`;
+      const targetVol = currentRootType.includes("M9") ? "~350–500 L/ha (Dwarf Mist)" : currentRootType.includes("MM106") ? "~800–1200 L/ha (Semi-Dwarf)" : "~1500–2500 L/ha (Full Canopy)";
+      summaryEl.textContent = `${chemName} in ${waterLiters.toLocaleString()}L water (${currentVariety} on ${currentRootType.split(" ")[0]} · Benchmark Target: ${targetVol})`;
       
       if (chemName.toLowerCase().includes("urea")) {
         tipEl.textContent = "💡 Drench the ground leaf litter uniformly. Best applied during late October/November while leaves are still on branches.";
@@ -3993,6 +4260,7 @@
     }
 
     // Initialization (Clean initial state awaiting upload)
+    updateOrchardProfileUI();
     render();
     renderHistory();
     initSprayCalendar();

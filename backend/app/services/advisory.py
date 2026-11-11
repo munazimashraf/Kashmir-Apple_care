@@ -190,7 +190,13 @@ SKUAST_ADVISORIES: Dict[str, Dict[str, Any]] = {
 }
 
 
-def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) -> Dict[str, Any]:
+def build_advisory(
+    disease: str,
+    growth_stage: str,
+    rain_within_12_hours: bool,
+    variety: str = "Red Delicious",
+    root_type: str = "Seedling (Standard Vigorous)",
+) -> Dict[str, Any]:
     """Generates the comprehensive SKUAST-K Kashmir disease advisory."""
     info = SKUAST_ADVISORIES.get(disease)
     
@@ -200,6 +206,8 @@ def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) 
             "disease_common": "Uncertain / Unconfirmed Symptom",
             "disease_scientific": "Requires Expert Verification",
             "kashmiri_name": "Tashkhees Ghair Wazih",
+            "variety": variety,
+            "root_type": root_type,
             "recommendations": [],
             "cultural_measures": ["Consult a local SKUAST-K horticulture development officer (HDO) before chemical spraying."],
             "guardrails": ["Low confidence: retake a clear, well-focused close-up photo in bright daylight."],
@@ -243,12 +251,36 @@ def build_advisory(disease: str, growth_stage: str, rain_within_12_hours: bool) 
     elif disease == "healthy":
         guardrails.append("🌿 CLEAN ORCHARD: Foliage is healthy. Avoid unneeded chemical applications to preserve natural predatory mites and beneficial insects.")
 
+    # Variety-specific susceptibility intelligence
+    var_lower = (variety or "").lower()
+    if "gala" in var_lower or "chief" in var_lower:
+        guardrails.append("🍎 VARIETAL SENSITIVITY (Gala / Super Chief): High susceptibility to Powdery Mildew and early-season Fire Blight. Inspect young spur leaves diligently.")
+    elif "golden" in var_lower:
+        guardrails.append("🍏 VARIETAL SENSITIVITY (Golden Delicious): Highly prone to fruit russeting. Strictly avoid copper sprays and harsh emulsifiable concentrates after Pink Bud.")
+    elif "ambri" in var_lower:
+        guardrails.append("🌸 INDIGENOUS HERITAGE (Ambri Kashmiri): Prized aromatic Kashmiri apple with delicate thin skin. Prioritize early Scab (Tchoke) prevention and calcium sprays to prevent Bitter Pit.")
+    elif "fuji" in var_lower:
+        guardrails.append("❄️ VARIETAL SENSITIVITY (Fuji): Prone to Cedar Apple Rust, Alternaria blotch, and late watercore.")
+    elif "delicious" in var_lower:
+        guardrails.append("🍎 VARIETAL SENSITIVITY (Delicious Group): Highly susceptible to Apple Scab (Tchoke). Maintain continuous protective film before rain events.")
+
+    # Rootstock canopy & spray volume calibration
+    root_lower = (root_type or "").lower()
+    if "m9" in root_lower or "dwarf" in root_lower:
+        guardrails.append("🌿 CANOPY CALIBRATION (M9 High-Density): Dwarf canopy requires low-volume mist spray (350–500 L water/ha). Check drip fertigation and maintain trellis wire tension.")
+    elif "mm106" in root_lower:
+        guardrails.append("🪴 CANOPY CALIBRATION (MM106 Semi-Dwarf): Intermediate tree canopy requiring ~800–1200 L/ha spray volume. Avoid waterlogged soils to prevent collar rot.")
+    elif "seedling" in root_lower or "standard" in root_lower:
+        guardrails.append("🌳 CANOPY CALIBRATION (Seedling Vigorous): High canopy volume (1500–2500 L water/ha). Ensure tractor air-blast or gun pressure reaches top central leader branches.")
+
     return {
         "disease_common": info.get("common_name", disease.replace("_", " ").title()),
         "disease_scientific": info.get("scientific_name", ""),
         "kashmiri_name": info.get("kashmiri_name", ""),
         "description": info.get("description", ""),
         "growth_stage": growth_stage,
+        "variety": variety,
+        "root_type": root_type,
         "recommendations": products,
         "cultural_measures": info.get("cultural_measures", []),
         "guardrails": guardrails,
