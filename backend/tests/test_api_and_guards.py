@@ -199,4 +199,28 @@ def test_skuast_annual_spray_calendar_endpoints():
             assert calc_data["water_liters"] == 500.0
             assert "150" in calc_data["total_quantity"]
 
+            # 5. Pesticide Dealers & Distance Sorting
+            dealer_res = await client.get("/api/v1/advisory/dealers?latitude=33.72&longitude=74.83")
+            assert dealer_res.status_code == 200
+            dealers = dealer_res.json()
+            assert len(dealers) >= 15
+            assert dealers[0]["distance_km"] is not None
+            assert dealers[0]["distance_km"] < 5.0
+            assert "Shopian" in dealers[0]["district"]
+
+            # 6. SKUAST-K Expert Advisors & Helplines
+            exp_res = await client.get("/api/v1/advisory/experts?district=Shopian")
+            assert exp_res.status_code == 200
+            experts = exp_res.json()
+            assert len(experts) >= 5
+            assert any(e["is_tollfree"] for e in experts)
+            assert any("Shopian" in e["name"] for e in experts)
+
+            # 7. Online Buy Links for Treatment
+            buy_res = await client.get("/api/v1/advisory/buy-links?product=Mancozeb%2075%20WP")
+            assert buy_res.status_code == 200
+            buy_data = buy_res.json()
+            assert len(buy_data["stores"]) >= 4
+            assert any("bighaat" in s["url"].lower() for s in buy_data["stores"])
+
     asyncio.run(_run())
