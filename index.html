@@ -2051,10 +2051,528 @@
     }
     .hidden { display: none !important; }
 
+    /* =========================================================================
+       COMPREHENSIVE CROSS-DEVICE RESPONSIVE STYLES (PHONE, TABLET, LAPTOP, DESKTOP)
+       ========================================================================= */
+
+    /* Universal touch and overflow foundations */
+    html {
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* Modal Overlay & Responsive Cards */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.28);
+      position: relative;
+      max-height: 90vh;
+      max-height: 90dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      color: #475569;
+      font-weight: 700;
+      transition: all 0.15s ease;
+      z-index: 10;
+    }
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    [dir="rtl"] .modal-close-btn {
+      right: auto;
+      left: 16px;
+    }
+    .mobile-table-hint {
+      display: none;
+    }
+
+    /* -------------------------------------------------------------
+       TABLET & LAPTOP ADAPTATION (max-width: 1024px)
+       ------------------------------------------------------------- */
+    @media (max-width: 1024px) {
+      .shell {
+        padding: 0 18px;
+      }
+      .nav-links {
+        gap: 8px;
+      }
+      .nav-link {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+      .forecast-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .stage-bottom-grid {
+        grid-template-columns: 1fr;
+      }
+      .dealers-grid, .expert-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    /* -------------------------------------------------------------
+       TABLET PORTRAIT & MOBILE SCREENS (max-width: 900px)
+       ------------------------------------------------------------- */
     @media (max-width: 900px) {
-      .hero-grid, .work-grid { grid-template-columns: 1fr; }
-      .tips-grid { grid-template-columns: 1fr; }
-      .sample-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .work-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+      .sample-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .calendar-products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SMARTPHONE BREAKPOINT (max-width: 768px)
+       ------------------------------------------------------------- */
+    @media (max-width: 768px) {
+      /* Safe area insets for modern iPhones (notch & home bar) */
+      .topbar {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      footer {
+        padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+      }
+
+      /* Navigation Bar: Brand & Language on row 1, horizontal pill bar on row 2 */
+      .nav {
+        flex-wrap: wrap;
+        min-height: auto;
+        padding: 10px 0 8px;
+        gap: 10px;
+      }
+      .brand {
+        font-size: 17px;
+        gap: 8px;
+      }
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        border-radius: 10px;
+      }
+      .nav-badges {
+        margin-left: auto;
+      }
+      [dir="rtl"] .nav-badges {
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .nav-links {
+        order: 3;
+        width: 100%;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 2px 2px 6px;
+        margin: 0 -4px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-link {
+        flex: 0 0 auto;
+        font-size: 11.5px;
+        font-weight: 700;
+        padding: 6px 12px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 99px;
+        color: #334155;
+      }
+      .nav-link:active, .nav-link:hover {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #a7f3d0;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 24px 0 18px;
+      }
+      h1 {
+        font-size: 28px;
+        line-height: 1.15;
+      }
+      .hero-copy {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .orchard-profile-card, .stage-card {
+        padding: 14px;
+      }
+      .variety-btn, .root-btn, .stage-btn {
+        padding: 7px 11px;
+        font-size: 11.5px;
+        min-height: 36px;
+      }
+
+      /* Weather Panel on Mobile */
+      .panel.weather {
+        padding: 18px 14px;
+      }
+      .weather-actions {
+        width: 100%;
+      }
+      .weather-actions #locateBtn {
+        flex: 0 0 auto;
+      }
+      .weather-actions #districtSelect {
+        flex: 1 1 140px;
+        min-width: 130px;
+      }
+
+      /* 7-Day Forecast Section on Mobile */
+      .forecast-section {
+        margin-top: 18px;
+      }
+      .forecast-panel {
+        padding: 18px 14px;
+        border-radius: var(--radius-lg);
+      }
+      .forecast-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .forecast-top-right {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .week-summary-pill {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      #forecastDistrictSelect {
+        flex: 1;
+        min-width: 160px;
+      }
+
+      /* Forecast Cards Grid: 2 columns on 481-768px */
+      .forecast-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .day-card {
+        padding: 14px 12px;
+      }
+
+      /* Inspection / Upload Card */
+      .upload-card {
+        padding: 18px 14px;
+      }
+      .dropzone {
+        min-height: 200px;
+        padding: 20px 14px;
+      }
+      #leafCanvas {
+        max-height: 240px;
+      }
+      .upload-btn-row {
+        flex-direction: row;
+        gap: 8px;
+      }
+      .upload-btn-row label.btn.primary {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* Diagnostic & Advisory Results Cards */
+      .card {
+        padding: 18px 14px;
+      }
+      .skuast-badge-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .skuast-badge-header > div:last-child {
+        width: 100%;
+        justify-content: flex-start !important;
+      }
+      .audio-row {
+        gap: 6px;
+      }
+      .audio-btn {
+        flex: 1 1 calc(50% - 6px);
+        min-height: 38px;
+      }
+      .audio-status {
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      /* SKUAST Spray Calendar Section */
+      .calendar-section {
+        margin-top: 24px;
+        margin-bottom: 40px;
+      }
+      .calendar-panel {
+        padding: 18px 14px;
+        border-radius: var(--radius-lg);
+      }
+      .calendar-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .calendar-header h2 {
+        font-size: 19px;
+      }
+      .calendar-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+      }
+      .calendar-actions #importCalendarBtn {
+        grid-column: 1 / -1;
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+      }
+      .calendar-actions .btn {
+        padding: 8px 10px !important;
+        font-size: 11.5px !important;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* 8-Stage Timeline Navigation: Snap carousel on mobile */
+      .stage-timeline-nav {
+        gap: 6px;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .timeline-stage-btn {
+        scroll-snap-align: start;
+        padding: 8px 12px;
+      }
+
+      /* Stage Hero Banner */
+      .stage-hero-banner {
+        padding: 16px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .stage-hero-banner #bannerTankBtn {
+        width: 100%;
+        padding: 10px 14px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* Drawers (Tank Calc, Compatibility, Spray Log, Dealers, Expert) */
+      .drawer-card {
+        padding: 18px 14px;
+        border-radius: var(--radius-lg);
+        margin-top: 18px;
+      }
+      .drawer-close-btn {
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      [dir="rtl"] .drawer-close-btn {
+        right: auto;
+        left: 12px;
+      }
+      .tank-quick-btns {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .tank-quick-btns span {
+        grid-column: 1 / -1;
+      }
+      .tank-quick-btn {
+        text-align: center;
+        padding: 8px 6px;
+        font-size: 11.5px;
+      }
+      .calc-result-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px 14px;
+      }
+      .calc-result-box #calcLogBtn {
+        width: 100%;
+        padding: 12px 16px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* Quick Fertilizer Chips on Mobile */
+      .calc-quick-fert-chips {
+        gap: 5px;
+      }
+      .quick-fert-chip {
+        padding: 5px 9px;
+        font-size: 11px;
+        min-height: 30px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      /* Dealer & Expert Action Buttons */
+      .dealer-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .btn-action-call, .btn-action-wa, .btn-action-maps {
+        min-width: 0;
+        padding: 8px 4px;
+        font-size: 11px;
+      }
+
+      /* Modals on Mobile */
+      .modal-overlay {
+        padding: 10px;
+      }
+      .modal-card {
+        padding: 20px 14px !important;
+        border-radius: 18px;
+        max-height: 94dvh;
+      }
+      .modal-close-btn {
+        top: 12px;
+        right: 12px;
+      }
+      [dir="rtl"] .modal-close-btn {
+        left: 12px;
+      }
+      .mobile-table-hint {
+        display: block !important;
+      }
+      .buy-modal-card {
+        padding: 18px 14px !important;
+        border-radius: 18px;
+        max-height: 92dvh;
+      }
+
+      /* Prevent iOS Safari auto-zoom on input focus */
+      input[type="text"],
+      input[type="number"],
+      input[type="file"],
+      select,
+      select.input-select,
+      .lang-select {
+        font-size: 16px !important;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SMALL SMARTPHONES (max-width: 480px - iPhone SE, compact Android)
+       ------------------------------------------------------------- */
+    @media (max-width: 480px) {
+      .shell {
+        padding: 0 12px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .forecast-grid {
+        grid-template-columns: 1fr;
+      }
+      .calendar-products-grid {
+        grid-template-columns: 1fr;
+      }
+      .sample-grid {
+        grid-template-columns: 1fr;
+      }
+      .dosage-badges-row {
+        gap: 4px;
+        padding: 8px 4px;
+      }
+      .dosage-col-label {
+        font-size: 9.5px;
+      }
+      .dosage-col-val {
+        font-size: 11px;
+      }
+      .cultural-card, .precautions-card {
+        padding: 14px 12px;
+      }
+      .tank-quick-btns {
+        grid-template-columns: 1fr;
+      }
+      .dealer-actions {
+        grid-template-columns: 1fr;
+      }
+      .calendar-actions {
+        grid-template-columns: 1fr;
+      }
+      .brand {
+        font-size: 15.5px;
+      }
     }
   </style>
 </head>
@@ -2239,9 +2757,9 @@
   </section>
 
   <!-- Interactive Day Detail Modal -->
-  <div id="dayDetailModal" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
-    <div style="background:#ffffff;border-radius:20px;max-width:560px;width:100%;padding:26px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;max-height:90vh;overflow-y:auto;">
-      <button id="closeDetailModal" style="position:absolute;top:18px;right:18px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#475569;font-weight:700;">✕</button>
+  <div id="dayDetailModal" class="hidden modal-overlay">
+    <div class="modal-card detail-modal-card" style="max-width:560px;padding:26px;">
+      <button id="closeDetailModal" class="modal-close-btn" title="Close">✕</button>
       <div id="modalContent">
         <!-- Rendered dynamically on card click -->
       </div>
@@ -2249,9 +2767,9 @@
   </div>
 
   <!-- Import SKUAST-K Spray Calendar Modal -->
-  <div id="importCalendarModal" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
-    <div style="background:#ffffff;border-radius:20px;max-width:640px;width:100%;padding:26px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;max-height:90vh;overflow-y:auto;">
-      <button id="closeImportModalBtn" style="position:absolute;top:18px;right:18px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#475569;font-weight:700;">✕</button>
+  <div id="importCalendarModal" class="hidden modal-overlay">
+    <div class="modal-card import-modal-card" style="max-width:640px;padding:26px;">
+      <button id="closeImportModalBtn" class="modal-close-btn" title="Close">✕</button>
       
       <div class="eyebrow" style="color:#047857;">🏛️ SKUAST-Kashmir Directorate of Extension</div>
       <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0 6px; color: var(--deep);">Import SKUAST-K Apple Spray Calendar</h3>
@@ -2314,11 +2832,11 @@
   </div>
 
   <!-- Printable Master Calendar Modal -->
-  <div id="printableCalendarModal" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;">
-    <div style="background:#ffffff;border-radius:18px;max-width:960px;width:100%;padding:28px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);position:relative;max-height:92vh;overflow-y:auto;">
-      <button id="closePrintableModalBtn" style="position:absolute;top:18px;right:18px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#475569;font-weight:700;">✕</button>
+  <div id="printableCalendarModal" class="hidden modal-overlay">
+    <div class="modal-card printable-modal-card" style="max-width:960px;padding:28px;">
+      <button id="closePrintableModalBtn" class="modal-close-btn" title="Close">✕</button>
       
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--line); padding-bottom: 14px; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--line); padding-bottom: 14px; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
         <div>
           <div style="font-size: 11px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.05em;">SKUAST-Kashmir Official Apple Spray Schedule (2024–2026)</div>
           <h2 style="font-size: 20px; font-weight: 800; margin: 2px 0 0; color: var(--deep);">Complete 8-Stage Orchard Protection & Foliar Fertilizer Chart</h2>
@@ -2328,7 +2846,11 @@
         </button>
       </div>
 
-      <div id="printableCalendarTableWrap" style="overflow-x: auto;">
+      <div class="mobile-table-hint" style="font-size: 11px; color: #047857; margin-bottom: 8px; font-weight: 700; background: #ecfdf5; padding: 6px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+        👉 Swipe table horizontally to view all stages, timings, and dosages
+      </div>
+
+      <div id="printableCalendarTableWrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
         <!-- Rendered dynamically -->
       </div>
     </div>
