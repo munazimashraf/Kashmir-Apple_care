@@ -3302,6 +3302,7 @@
       const customUrl = localStorage.getItem("applecare_api_url") || "";
       const endpoints = [
         path,
+        `https://kashmir-apple-care.onrender.com${path.startsWith("/") ? "" : "/"}${path}`,
         ...(customUrl ? [`${customUrl.replace(/\/$/, "")}${path.startsWith("/") ? "" : "/"}${path}`] : []),
         `http://127.0.0.1:8000${path.startsWith("/") ? "" : "/"}${path}`,
         `http://localhost:8000${path.startsWith("/") ? "" : "/"}${path}`,
