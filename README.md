@@ -1,4 +1,4 @@
-# AppleCare Kashmir — AI Leaf Disease Diagnosis & SKUAST-K Advisory
+# AppleCare Kashmir — AI Leaf Disease Diagnosis
 
 Free-first, offline-capable disease diagnosis and advisory platform tailored for apple growers in Kashmir. Aligned with the official **SKUAST-K (Sher-e-Kashmir University of Agricultural Sciences and Technology of Kashmir)** annual apple spray schedule.
 
