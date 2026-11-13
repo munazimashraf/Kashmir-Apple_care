@@ -22,6 +22,7 @@ alembic>=1.13.0,<2.0.0
 # Image Processing & Computer Vision Feature Extraction
 pillow>=10.0.0,<13.0.0
 numpy>=1.24.0,<3.0.0
+onnxruntime>=1.18.0,<2.0.0
 
 # HTTP Client & Weather Services
 httpx>=0.27.0,<1.0.0
