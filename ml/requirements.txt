@@ -1,6 +1,7 @@
 torch>=2.2,<3
 torchvision>=0.17,<1
 scikit-learn>=1.4,<2
+xgboost>=2.0,<4
 numpy>=1.26,<2
 Pillow>=10,<12
 onnx>=1.16,<2

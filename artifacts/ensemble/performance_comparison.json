@@ -1,0 +1,373 @@
+{
+  "VGG-16": {
+    "model_name": "VGG-16",
+    "architecture": "VGG-16 (Simonyan & Zisserman)",
+    "type": "Deep Sequential CNN (16 layers)",
+    "parameters_millions": 138.36,
+    "model_size_mb": 528.0,
+    "latency_ms": 0.014102017437970196,
+    "accuracy": 90.74,
+    "precision_macro": 91.49,
+    "precision_weighted": 91.49,
+    "recall_macro": 90.74,
+    "recall_weighted": 90.74,
+    "f1_macro": 90.76,
+    "f1_weighted": 90.76,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 100.0,
+        "recall": 88.89,
+        "f1_score": 94.12,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 93.33,
+        "recall": 77.78,
+        "f1_score": 84.85,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 94.74,
+        "recall": 100.0,
+        "f1_score": 97.3,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 77.27,
+        "recall": 94.44,
+        "f1_score": 85.0,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 89.47,
+        "recall": 94.44,
+        "f1_score": 91.89,
+        "support": 18.0
+      }
+    }
+  },
+  "VGG-19": {
+    "model_name": "VGG-19",
+    "architecture": "VGG-19 (Deep 19-layer Stack)",
+    "type": "Deep Sequential CNN (19 layers)",
+    "parameters_millions": 143.67,
+    "model_size_mb": 548.0,
+    "latency_ms": 0.009620631182635273,
+    "accuracy": 79.63,
+    "precision_macro": 79.23,
+    "precision_weighted": 79.23,
+    "recall_macro": 79.63,
+    "recall_weighted": 79.63,
+    "f1_macro": 78.8,
+    "f1_weighted": 78.8,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 82.35,
+        "recall": 77.78,
+        "f1_score": 80.0,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 70.59,
+        "recall": 66.67,
+        "f1_score": 68.57,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 88.24,
+        "recall": 83.33,
+        "f1_score": 85.71,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 75.0,
+        "recall": 100.0,
+        "f1_score": 85.71,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 69.23,
+        "recall": 50.0,
+        "f1_score": 58.06,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 90.0,
+        "recall": 100.0,
+        "f1_score": 94.74,
+        "support": 18.0
+      }
+    }
+  },
+  "ResNet-50": {
+    "model_name": "ResNet-50",
+    "architecture": "ResNet-50 (He et al., Deep Residual)",
+    "type": "Residual Highway CNN (50 layers)",
+    "parameters_millions": 25.56,
+    "model_size_mb": 97.8,
+    "latency_ms": 0.017035890508581092,
+    "accuracy": 93.52,
+    "precision_macro": 93.64,
+    "precision_weighted": 93.64,
+    "recall_macro": 93.52,
+    "recall_weighted": 93.52,
+    "f1_macro": 93.49,
+    "f1_weighted": 93.49,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 88.89,
+        "recall": 88.89,
+        "f1_score": 88.89,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 100.0,
+        "recall": 94.44,
+        "f1_score": 97.14,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 94.74,
+        "recall": 100.0,
+        "f1_score": 97.3,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 90.0,
+        "recall": 100.0,
+        "f1_score": 94.74,
+        "support": 18.0
+      }
+    }
+  },
+  "XGBoost (Standalone)": {
+    "model_name": "XGBoost (Standalone)",
+    "architecture": "XGBoost on Multi-Backbone Features (3072-dim)",
+    "type": "Gradient Boosted Decision Trees",
+    "parameters_millions": 0.45,
+    "model_size_mb": 3.2,
+    "latency_ms": 0.43,
+    "accuracy": 85.19,
+    "precision_macro": 85.34,
+    "precision_weighted": 85.34,
+    "recall_macro": 85.19,
+    "recall_weighted": 85.19,
+    "f1_macro": 84.97,
+    "f1_weighted": 84.97,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 86.67,
+        "recall": 72.22,
+        "f1_score": 78.79,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 81.25,
+        "recall": 72.22,
+        "f1_score": 76.47,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 90.0,
+        "recall": 100.0,
+        "f1_score": 94.74,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 75.0,
+        "recall": 83.33,
+        "f1_score": 78.95,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 85.0,
+        "recall": 94.44,
+        "f1_score": 89.47,
+        "support": 18.0
+      }
+    }
+  },
+  "Hard-Voting Ensemble": {
+    "model_name": "Hard-Voting Ensemble",
+    "architecture": "Majority Rule Ensemble (VGG16 + VGG19 + ResNet50 + XGBoost)",
+    "type": "Homogeneous & Heterogeneous Majority Consensus",
+    "parameters_millions": 308.04,
+    "model_size_mb": 1177.0,
+    "latency_ms": 0.48,
+    "accuracy": 89.81,
+    "precision_macro": 89.8,
+    "precision_weighted": 89.8,
+    "recall_macro": 89.81,
+    "recall_weighted": 89.81,
+    "f1_macro": 89.76,
+    "f1_weighted": 89.76,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 88.89,
+        "recall": 88.89,
+        "f1_score": 88.89,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 88.24,
+        "recall": 83.33,
+        "f1_score": 85.71,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 94.74,
+        "recall": 100.0,
+        "f1_score": 97.3,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 83.33,
+        "recall": 83.33,
+        "f1_score": 83.33,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 89.47,
+        "recall": 94.44,
+        "f1_score": 91.89,
+        "support": 18.0
+      }
+    }
+  },
+  "Soft-Voting Ensemble": {
+    "model_name": "Soft-Voting Ensemble",
+    "architecture": "Weighted Soft-Voting (Probability Calibration)",
+    "type": "Bayesian Posterior Probability Blending",
+    "parameters_millions": 308.04,
+    "model_size_mb": 1177.0,
+    "latency_ms": 0.48,
+    "accuracy": 90.74,
+    "precision_macro": 91.03,
+    "precision_weighted": 91.03,
+    "recall_macro": 90.74,
+    "recall_weighted": 90.74,
+    "f1_macro": 90.75,
+    "f1_weighted": 90.75,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 93.75,
+        "recall": 83.33,
+        "f1_score": 88.24,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 94.12,
+        "recall": 88.89,
+        "f1_score": 91.43,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 94.74,
+        "recall": 100.0,
+        "f1_score": 97.3,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 80.0,
+        "recall": 88.89,
+        "f1_score": 84.21,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 89.47,
+        "recall": 94.44,
+        "f1_score": 91.89,
+        "support": 18.0
+      }
+    }
+  },
+  "Stacking Ensemble (XGBoost Meta-Learner)": {
+    "model_name": "Stacking Ensemble (XGBoost Meta-Learner)",
+    "architecture": "Stacking (Level 0: CNNs -> Level 1: XGBoost)",
+    "type": "Hierarchical Meta-Learning Stacking",
+    "parameters_millions": 308.1,
+    "model_size_mb": 1178.5,
+    "latency_ms": 0.19,
+    "accuracy": 93.52,
+    "precision_macro": 94.44,
+    "precision_weighted": 94.44,
+    "recall_macro": 93.52,
+    "recall_weighted": 93.52,
+    "f1_macro": 93.67,
+    "f1_weighted": 93.67,
+    "per_class": {
+      "alternaria_leaf_blotch": {
+        "precision": 100.0,
+        "recall": 88.89,
+        "f1_score": 94.12,
+        "support": 18.0
+      },
+      "apple_scab": {
+        "precision": 100.0,
+        "recall": 88.89,
+        "f1_score": 94.12,
+        "support": 18.0
+      },
+      "black_rot": {
+        "precision": 85.71,
+        "recall": 100.0,
+        "f1_score": 92.31,
+        "support": 18.0
+      },
+      "cedar_apple_rust": {
+        "precision": 100.0,
+        "recall": 94.44,
+        "f1_score": 97.14,
+        "support": 18.0
+      },
+      "healthy": {
+        "precision": 80.95,
+        "recall": 94.44,
+        "f1_score": 87.18,
+        "support": 18.0
+      },
+      "powdery_mildew": {
+        "precision": 100.0,
+        "recall": 94.44,
+        "f1_score": 97.14,
+        "support": 18.0
+      }
+    }
+  }
+}

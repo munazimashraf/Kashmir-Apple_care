@@ -1,0 +1,15 @@
+{
+  "classes": [
+    "alternaria_leaf_blotch",
+    "apple_scab",
+    "black_rot",
+    "cedar_apple_rust",
+    "healthy",
+    "powdery_mildew"
+  ],
+  "latencies_ms": {
+    "VGG-16": 0.014102017437970196,
+    "VGG-19": 0.009620631182635273,
+    "ResNet-50": 0.017035890508581092
+  }
+}
