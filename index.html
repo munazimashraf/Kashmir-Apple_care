@@ -3297,10 +3297,12 @@
       return { isPlant: true, reason: "Valid plant leaf", predictedKey, confidence };
     }
 
-    // Call Backend API with multiple fallback endpoints
+    // Call Backend API with multiple fallback endpoints (Supports Vercel proxy & remote backends)
     async function fetchBackend(path, options = {}) {
+      const customUrl = localStorage.getItem("applecare_api_url") || "";
       const endpoints = [
         path,
+        ...(customUrl ? [`${customUrl.replace(/\/$/, "")}${path.startsWith("/") ? "" : "/"}${path}`] : []),
         `http://127.0.0.1:8000${path.startsWith("/") ? "" : "/"}${path}`,
         `http://localhost:8000${path.startsWith("/") ? "" : "/"}${path}`,
       ];
