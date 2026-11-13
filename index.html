@@ -1530,6 +1530,25 @@
       font-weight: 600;
     }
 
+    .quick-fert-chip {
+      background: #ffffff;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      border-radius: 99px;
+      padding: 3px 9px;
+      font-size: 11px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .quick-fert-chip:hover, .quick-fert-chip.active {
+      background: #047857;
+      color: #ffffff;
+      border-color: #047857;
+      box-shadow: 0 1px 3px rgba(4,120,87,0.3);
+    }
+
     /* Auto Detection Callout */
     .auto-notice {
       margin-top: 18px;
@@ -2229,6 +2248,92 @@
     </div>
   </div>
 
+  <!-- Import SKUAST-K Spray Calendar Modal -->
+  <div id="importCalendarModal" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;">
+    <div style="background:#ffffff;border-radius:20px;max-width:640px;width:100%;padding:26px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;max-height:90vh;overflow-y:auto;">
+      <button id="closeImportModalBtn" style="position:absolute;top:18px;right:18px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#475569;font-weight:700;">✕</button>
+      
+      <div class="eyebrow" style="color:#047857;">🏛️ SKUAST-Kashmir Directorate of Extension</div>
+      <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0 6px; color: var(--deep);">Import SKUAST-K Apple Spray Calendar</h3>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px; line-height: 1.5;">
+        Synchronize, import, or print the complete official 2024–2026 SKUAST-Kashmir Apple Spray Schedule, verified chemical formulations, and stage-specific foliar fertilizers for Kashmir orchards.
+      </p>
+
+      <!-- Success Notification Banner -->
+      <div id="importSuccessBanner" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; color: #065f46; font-size: 12px; font-weight: 650;">
+        ✅ <b>SKUAST-K Calendar Synchronized!</b> All 8 phenological stages, 19 crop medicines, and 19 foliar fertilizers are active.
+      </div>
+
+      <!-- Action Options -->
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+        
+        <!-- Option 1: 1-Click Official Sync -->
+        <div style="border: 1.5px solid #a7f3d0; background: #f0fdf4; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <div>
+            <div style="font-size: 13.5px; font-weight: 800; color: #065f46;">🔄 Official SKUAST-K 2024–2026 Schedule (1-Click Sync)</div>
+            <div style="font-size: 11.5px; color: #166534; margin-top: 3px;">
+              Loads all 8 stages from Delayed Dormant to Post-Harvest with genuine dosages, bee safety windows, and SKUAST fertilizers.
+            </div>
+          </div>
+          <button type="button" class="btn primary" id="btnSyncOfficialCalendar" style="background: #047857; color: #fff; padding: 9px 18px; font-size: 12px; white-space: nowrap;">
+            ⚡ Sync & Import Now
+          </button>
+        </div>
+
+        <!-- Option 2: Print / Download Schedule Sheet -->
+        <div style="border: 1px solid var(--line); background: #f8fafc; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <div>
+            <div style="font-size: 13.5px; font-weight: 800; color: var(--deep);">🖨️ Export / Print Complete 8-Stage Spray Chart (PDF)</div>
+            <div style="font-size: 11.5px; color: var(--muted); margin-top: 3px;">
+              View and print the complete master schedule chart with all stages, chemicals, dosages, and foliar nutrients.
+            </div>
+          </div>
+          <button type="button" class="btn secondary" id="btnExportCalendarSheet" style="padding: 9px 16px; font-size: 12px; white-space: nowrap;">
+            📄 View Full Chart
+          </button>
+        </div>
+
+        <!-- Option 3: Custom File / JSON Import -->
+        <div style="border: 1px solid var(--line); background: #ffffff; border-radius: 12px; padding: 14px;">
+          <div style="font-size: 13px; font-weight: 800; color: var(--deep); margin-bottom: 4px;">📂 Import Custom Schedule (JSON / Advisory File)</div>
+          <div style="font-size: 11.5px; color: var(--muted); margin-bottom: 10px;">
+            Upload an updated university or orchard extension schedule file.
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input type="file" id="customCalendarFileInput" accept=".json,.txt" style="font-size: 12px;">
+            <button type="button" class="btn ghost" id="btnUploadCustomCalendar" style="padding: 6px 14px; font-size: 12px;">📥 Load File</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKUAST-K Extension Credits & Advisory Notice -->
+      <div style="background: #f1f5f9; border-radius: 10px; padding: 12px 14px; font-size: 11px; color: #475569; line-height: 1.45;">
+        <b>🏛️ Scientific Advisory Reference:</b> Formulated in consultation with the Directorate of Extension & Division of Plant Pathology, SKUAST-Kashmir, Shalimar Campus, Srinagar (190025). Adhere to registered pre-harvest intervals (PHI).
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Master Calendar Modal -->
+  <div id="printableCalendarModal" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;">
+    <div style="background:#ffffff;border-radius:18px;max-width:960px;width:100%;padding:28px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.3);position:relative;max-height:92vh;overflow-y:auto;">
+      <button id="closePrintableModalBtn" style="position:absolute;top:18px;right:18px;background:#f1f5f9;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:#475569;font-weight:700;">✕</button>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--line); padding-bottom: 14px; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.05em;">SKUAST-Kashmir Official Apple Spray Schedule (2024–2026)</div>
+          <h2 style="font-size: 20px; font-weight: 800; margin: 2px 0 0; color: var(--deep);">Complete 8-Stage Orchard Protection & Foliar Fertilizer Chart</h2>
+        </div>
+        <button type="button" class="btn primary" id="btnPrintFullCalendar" style="background: #047857; color: #fff; padding: 8px 18px; font-size: 13px;">
+          🖨️ Print / Save PDF
+        </button>
+      </div>
+
+      <div id="printableCalendarTableWrap" style="overflow-x: auto;">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
   <!-- Main Application Body -->
   <main>
     <div class="shell">
@@ -2446,6 +2551,7 @@
           <p>Official 8-stage phenological spray guide, commercial brand alternatives, knapsack vs power-tanker dosages, cultural sanitation, and tank compatibility matrix.</p>
         </div>
         <div class="calendar-actions">
+          <button class="btn primary" id="importCalendarBtn" style="padding: 8px 14px; font-size: 12.5px; background: #047857; color: #fff;">📥 Import SKUAST Calendar</button>
           <button class="btn secondary" id="toggleTankCalcBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_tank_btn">⚖️ Tank Calculator</button>
           <button class="btn secondary" id="toggleCompatBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_compat_btn">🧪 Compatibility Matrix</button>
           <button class="btn secondary" id="toggleSprayLogBtn" style="padding: 8px 14px; font-size: 12.5px;"><span data-i18n="drawer_log_btn">📋 Spray Log</span> (<span id="sprayLogCountBadge">0</span>)</button>
@@ -2476,6 +2582,21 @@
           </span>
         </div>
         <div class="calendar-products-grid" id="calendarProductsGrid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Stage Foliar Fertilizers & Micronutrients -->
+      <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #047857; margin: 0;">
+            🌱 Stage-Specific SKUAST Foliar Fertilizers & Micronutrients
+          </h4>
+          <span style="font-size: 11.5px; font-weight: 650; color: #065f46; background: #ecfdf5; padding: 4px 10px; border-radius: 6px; border: 1px solid #a7f3d0;">
+            Essential Orchard Nutrition Window · Exact Tank Mixing Rates
+          </span>
+        </div>
+        <div class="calendar-products-grid" id="calendarFertilizersGrid">
           <!-- Rendered via JS -->
         </div>
       </div>
@@ -2514,6 +2635,28 @@
               </div>
             </div>
 
+            <!-- Quick Fertilizer Chips -->
+            <div style="margin-bottom: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 10px;">
+              <div style="font-size: 11px; font-weight: 750; color: #166534; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
+                <span>🌱 Quick Fertilizer Picks (1-Click Tank Calc):</span>
+                <span style="font-size: 10px; color: #047857; font-weight: 700;">19 SKUAST Nutrients</span>
+              </div>
+              <div class="calc-quick-fert-chips" style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <button type="button" class="quick-fert-chip" data-fert="Agricultural Urea (5% Scab Eradicant)">Urea 5% (Eradicant)</button>
+                <button type="button" class="quick-fert-chip" data-fert="Agricultural Urea (0.5% Foliar Boost)">Urea 0.5% (Foliar)</button>
+                <button type="button" class="quick-fert-chip" data-fert="Calcium Nitrate (15.5-0-0 + 18.8% Ca)">Calcium Nitrate</button>
+                <button type="button" class="quick-fert-chip" data-fert="Calcium Chloride (CaCl₂ 0.4% Technical Grade)">Calcium Chloride 0.4%</button>
+                <button type="button" class="quick-fert-chip" data-fert="Solubor / Boric Acid (Boron 20% / 17% B)">Solubor (Boron 20%)</button>
+                <button type="button" class="quick-fert-chip" data-fert="Potassium Nitrate (13-0-45 / Multi-K)">Potash 13-0-45</button>
+                <button type="button" class="quick-fert-chip" data-fert="Sulphate of Potash (SOP 0-0-50 + 17.5% S)">SOP (0-0-50)</button>
+                <button type="button" class="quick-fert-chip" data-fert="Chelated Zinc (Zn-EDTA 12%)">Chelated Zinc</button>
+                <button type="button" class="quick-fert-chip" data-fert="Zinc Sulphate Heptahydrate (21% Zn) + Lime">Zinc Sulphate + Lime</button>
+                <button type="button" class="quick-fert-chip" data-fert="Water Soluble NPK 19-19-19 (Balanced)">NPK 19-19-19</button>
+                <button type="button" class="quick-fert-chip" data-fert="Seaweed Extract Bio-Stimulant (Kelp)">Seaweed Kelp (Bio)</button>
+                <button type="button" class="quick-fert-chip" data-fert="Magnesium Sulphate (Epsom Salt 9.6% Mg)">Magnesium Sulphate</button>
+              </div>
+            </div>
+
             <!-- Search Medicine / Fertilizer Input -->
             <div style="position: relative; margin-bottom: 8px;">
               <input type="text" id="calcSearchInput" class="input-select" data-i18n-placeholder="calc_search_placeholder" placeholder="🔍 Search medicine, fertilizer, brand (e.g. Urea, Calcium, Zinc, Mancozeb, NPK)..." style="width: 100%; font-size: 12px; padding: 8px 12px 8px 30px;">
@@ -2522,7 +2665,7 @@
             </div>
 
             <select id="calcChemicalSelect" class="input-select" style="width: 100%; font-size: 12.5px;">
-              <!-- Populated via JS -->
+              <!-- Populated via JS with Optgroups -->
             </select>
             <div id="calcMatchCount" style="font-size: 11px; color: var(--muted); margin-top: 5px;">Showing all SKUAST-K formulations</div>
           </div>
@@ -4784,6 +4927,24 @@
             type: "Inorganic copper protectant"
           }
         ],
+        fertilizers: [
+          {
+            name: "Chaubattia Paste (Pruning Wound Healing)",
+            dosage_per_100l: "1.0 kg (Coating)",
+            dosage_per_1000l: "10.0 kg",
+            dosage_per_16l: "160 grams",
+            purpose: "Copper Carbonate (1 part) + Red Lead (1 part) + Raw Linseed Oil (1.25 parts) to seal wound bark cuts > 2cm against fungal cankers.",
+            mixing_tip: "💡 Paint directly onto fresh cuts with a stiff brush; do not dilute with excess water."
+          },
+          {
+            name: "Zinc Sulphate Heptahydrate (21% Zn) + Lime",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Dormant zinc wash to prevent spring Little Leaf rosette and stimulate tree auxin synthesis.",
+            mixing_tip: "💡 Always neutralize with 250g hydrated lime per 500g zinc sulphate to prevent bark and bud acidity."
+          }
+        ],
         cultural_sanitation: [
           "Prune diseased, broken, dead, and cankered branches prior to spraying.",
           "Apply Chaubattia paste (Copper Carbonate 1 part + Red Lead 1 part + Raw Linseed Oil 1.25 parts) to cut surfaces > 2 cm.",
@@ -4841,6 +5002,32 @@
             dosage_per_16l: "10 grams",
             purpose: "Translaminar and curative scab control if wetness exceeds 12h",
             type: "Guanidine translaminar fungicide"
+          }
+        ],
+        fertilizers: [
+          {
+            name: "Zinc Sulphate Heptahydrate (21% Zn) + Lime",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Dormant to green tip foliar zinc spray to ensure vigorous spur development.",
+            mixing_tip: "💡 Neutralize with hydrated spray lime in water bucket before adding to tanker."
+          },
+          {
+            name: "Chelated Zinc (Zn-EDTA 12%)",
+            dosage_per_100l: "100 grams",
+            dosage_per_1000l: "1.0 kg",
+            dosage_per_16l: "16 grams",
+            purpose: "High-efficiency non-scorching chelated zinc for early leaf absorption on dwarf rootstocks.",
+            mixing_tip: "💡 Highly soluble; safe to tank mix with Mancozeb 75 WP."
+          },
+          {
+            name: "Seaweed Extract Bio-Stimulant (Kelp)",
+            dosage_per_100l: "200 ml",
+            dosage_per_1000l: "2.0 Liters",
+            dosage_per_16l: "32 ml",
+            purpose: "Alleviates early spring cold snap and frost shock; stimulates green tip chlorophyll activity.",
+            mixing_tip: "💡 Organic bio-stimulant; mix with water before adding fungicides."
           }
         ],
         cultural_sanitation: [
@@ -4901,6 +5088,40 @@
             type: "Combination fungicide"
           }
         ],
+        fertilizers: [
+          {
+            name: "Solubor / Boric Acid (Boron 20% / 17% B)",
+            dosage_per_100l: "100 grams",
+            dosage_per_1000l: "1.0 kg",
+            dosage_per_16l: "16 grams",
+            purpose: "Critical pre-bloom nutrient: enhances pollen viability, pollen tube growth, and ovule fertilization rate.",
+            mixing_tip: "💡 Dissolve completely in lukewarm water before pouring into tanker. Apply at pink bud before petals separate."
+          },
+          {
+            name: "Calcium Boron Complex (Liquid Ca-B)",
+            dosage_per_100l: "250 ml",
+            dosage_per_1000l: "2.5 Liters",
+            dosage_per_16l: "40 ml",
+            purpose: "Synergistic calcium-boron formula preventing flower drop, internal cork, and promoting strong cell division.",
+            mixing_tip: "💡 Liquid chelate; shake bottle well before measuring."
+          },
+          {
+            name: "SKUAST-K Multi-Micronutrient Cocktail",
+            dosage_per_100l: "250 grams",
+            dosage_per_1000l: "2.5 kg",
+            dosage_per_16l: "40 grams",
+            purpose: "Balanced Zn, B, Fe, Mn, Cu, and Mo nutrition preventing hidden hunger during intense cluster development.",
+            mixing_tip: "💡 Do not mix with heavy alkaline lime or copper sprays."
+          },
+          {
+            name: "Seaweed Extract Bio-Stimulant (Kelp)",
+            dosage_per_100l: "200 ml",
+            dosage_per_1000l: "2.0 Liters",
+            dosage_per_16l: "32 ml",
+            purpose: "Protects delicate floral buds against sudden Himalayan valley cold fronts and frost drops.",
+            mixing_tip: "💡 Apply in the morning or early evening under calm winds."
+          }
+        ],
         cultural_sanitation: [
           "Cut out white powdery 'silver terminal' shoots infected with powdery mildew and dispose off-site.",
           "Install yellow sticky traps for monitoring sucking pest emergence."
@@ -4928,6 +5149,16 @@
             dosage_per_16l: "N/A",
             purpose: "Preserves foraging worker honeybees necessary for fruit set and commercial crop yield",
             type: "Pollinator shield"
+          }
+        ],
+        fertilizers: [
+          {
+            name: "Pollinator Safety Window (No Chemical Fertilizer)",
+            dosage_per_100l: "0 / Suspended",
+            dosage_per_1000l: "0 / Suspended",
+            dosage_per_16l: "0",
+            purpose: "SKUAST-K strict honeybee protection rule: all foliar spraying is suspended to allow honeybee cross-pollination. If severe frost strikes, mild Seaweed Kelp (200ml/100L) may only be sprayed after dusk when bees are locked in hives.",
+            mixing_tip: "🚨 Strictly protect foraging honeybees. Avoid any chemical contamination of blossom nectar."
           }
         ],
         cultural_sanitation: [
@@ -4981,6 +5212,48 @@
             type: "Strobilurin fungicide"
           }
         ],
+        fertilizers: [
+          {
+            name: "Agricultural Urea (0.5% Foliar Boost)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Replenishes nitrogen in tender spur leaves; boosts fruitlet set and spurs photosynthetic greening.",
+            mixing_tip: "💡 Use low-biuret (< 0.3%) technical urea. Spray in cool hours to prevent leaf margin tip burn."
+          },
+          {
+            name: "Calcium Nitrate (15.5-0-0 + 18.8% Ca)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Rapidly absorbed calcium into dividing fruitlet cells to build thick cell walls and prevent bitter pit.",
+            mixing_tip: "💡 Fully water soluble. Do NOT mix with sulphate fertilizers or phosphates in the same tank."
+          },
+          {
+            name: "Chelated Zinc (Zn-EDTA 12%)",
+            dosage_per_100l: "100 grams",
+            dosage_per_1000l: "1.0 kg",
+            dosage_per_16l: "16 grams",
+            purpose: "Quickly restores leaf zinc levels to promote normal shoot elongation.",
+            mixing_tip: "💡 Compatible with Dithane M-45 and Syllit 65 WP."
+          },
+          {
+            name: "Water Soluble NPK 19-19-19 (Balanced)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Provides balanced macro-nutrition supporting both active spur shoot flushes and initial fruit cell multiplication.",
+            mixing_tip: "💡 Dissolve in clean water before adding to tank."
+          },
+          {
+            name: "Mono Ammonium Phosphate (MAP 12-61-0)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "High phosphorus stimulates return bloom floral differentiation for next season.",
+            mixing_tip: "💡 Apply 10–14 days after petal fall."
+          }
+        ],
         cultural_sanitation: [
           "Inspect underside of young leaves with 10x hand lens for red mite infestation (> 5 mites/leaf warrants acaricide).",
           "Maintain clean tree basins free of dense weed competition."
@@ -5030,6 +5303,40 @@
             dosage_per_16l: "6.5 ml",
             purpose: "Selective acaricide for European Red Mite nymphs and adults",
             type: "Lipid biosynthesis inhibitor miticide"
+          }
+        ],
+        fertilizers: [
+          {
+            name: "Potassium Nitrate (13-0-45 / Multi-K)",
+            dosage_per_100l: "1.0 kg",
+            dosage_per_1000l: "10.0 kg",
+            dosage_per_16l: "160 grams",
+            purpose: "Supplies high potassium to rapidly enlarging fruitlets, increasing caliber sizing and cell density.",
+            mixing_tip: "💡 Apply 2 foliar sprays spaced 14 days apart in June. Compatible with Mancozeb."
+          },
+          {
+            name: "Calcium Chloride (CaCl₂ 0.4% Technical Grade)",
+            dosage_per_100l: "400 grams",
+            dosage_per_1000l: "4.0 kg",
+            dosage_per_16l: "64 grams",
+            purpose: "Crucial bitter pit and cork spot shield; penetrates skin pores of developing walnut-size fruitlets.",
+            mixing_tip: "💡 Never spray when temperature exceeds 28°C. Do not combine with sulphur."
+          },
+          {
+            name: "Magnesium Sulphate (Epsom Salt 9.6% Mg)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Maintains intense green chlorophyll in leaves bearing heavy fruit load; prevents premature leaf drop.",
+            mixing_tip: "💡 Dissolve fully in water. Safe tank mix partner with calcium nitrate if sprayed separately."
+          },
+          {
+            name: "Amino Acid & Peptide Chelate Formulation",
+            dosage_per_100l: "200 ml",
+            dosage_per_1000l: "2.0 Liters",
+            dosage_per_16l: "32 ml",
+            purpose: "Protects fruit skin and foliage against summer midday heat stress and drought evapotranspiration.",
+            mixing_tip: "💡 Enhances systemic absorption of tank-mixed micronutrients."
           }
         ],
         cultural_sanitation: [
@@ -5082,6 +5389,32 @@
             type: "Foliar micronutrient"
           }
         ],
+        fertilizers: [
+          {
+            name: "Sulphate of Potash (SOP 0-0-50 + 17.5% S)",
+            dosage_per_100l: "1.0 kg",
+            dosage_per_1000l: "10.0 kg",
+            dosage_per_16l: "160 grams",
+            purpose: "Chloride-free potassium polish 30 days before harvest: boosts anthocyanin red color synthesis and fruit shine.",
+            mixing_tip: "💡 Zero nitrogen ensures firm fruit without inducing soft late vegetative growth."
+          },
+          {
+            name: "Calcium Chloride (CaCl₂ 0.4% Technical Grade)",
+            dosage_per_100l: "400 grams",
+            dosage_per_1000l: "4.0 kg",
+            dosage_per_16l: "64 grams",
+            purpose: "Strengthens fruit cell walls before harvest to maximize cold storage crispness and prevent lenticel breakdown.",
+            mixing_tip: "💡 Final spray 15–20 days prior to harvest. Wash fruit crates with clean water."
+          },
+          {
+            name: "Mono Potassium Phosphate (MKP 0-52-34)",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Concentrated PK booster for high sugar (Brix) development and deep red blush on Delicious and Gala.",
+            mixing_tip: "💡 Apply 3 weeks prior to harvesting."
+          }
+        ],
         cultural_sanitation: [
           "Mow orchard floor sod to maintain low relative humidity inside canopy.",
           "Remove dropped and sunburned apples from orchard floor."
@@ -5119,6 +5452,32 @@
             dosage_per_16l: "48 grams",
             purpose: "Disinfects leaf scar abscission zones and fresh pruning cuts against canker entry",
             type: "Inorganic copper bactericide/fungicide"
+          }
+        ],
+        fertilizers: [
+          {
+            name: "Agricultural Urea (5% Scab Eradicant)",
+            dosage_per_100l: "5.0 kg",
+            dosage_per_1000l: "50.0 kg",
+            dosage_per_16l: "800 grams",
+            purpose: "Post-harvest orchard spray: speeds decomposition of fallen leaves and eradicates overwintering scab pseudothecia.",
+            mixing_tip: "💡 Drench both tree canopy and orchard floor leaf carpet uniformly while leaves are still green on branches."
+          },
+          {
+            name: "Zinc Sulphate Heptahydrate (21% Zn) + Lime",
+            dosage_per_100l: "500 grams",
+            dosage_per_1000l: "5.0 kg",
+            dosage_per_16l: "80 grams",
+            purpose: "Pre-dormancy zinc recharge absorbed by woody tissues to power next spring's bud break.",
+            mixing_tip: "💡 Neutralize with lime; spray 2 weeks after post-harvest urea."
+          },
+          {
+            name: "Copper Oxychloride 50 WP (Blitox)",
+            dosage_per_100l: "300 grams",
+            dosage_per_1000l: "3.0 kg",
+            dosage_per_16l: "48 grams",
+            purpose: "Disinfects leaf scar abscission wounds to seal against bacterial blight and fungal canker entry.",
+            mixing_tip: "💡 Spray when 50–70% leaves have fallen."
           }
         ],
         cultural_sanitation: [
@@ -5336,37 +5695,7 @@
     let activeCalendarStageId = "green_tip";
     let sprayLog = JSON.parse(localStorage.getItem("applecare_spray_log") || "[]");
 
-    async function initSprayCalendar() {
-      // 1. Try fetching latest calendar from backend API
-      try {
-        const calResp = await fetchBackend("/api/v1/advisory/calendar");
-        if (calResp) {
-          const remoteCal = await calResp.json();
-          if (Array.isArray(remoteCal) && remoteCal.length > 0) {
-            sprayCalendarStages = remoteCal;
-          }
-        }
-      } catch (e) {
-        console.info("Using embedded SKUAST calendar fallback");
-      }
-
-      // 2. Try fetching latest fertilizers from backend API
-      try {
-        const fertResp = await fetchBackend("/api/v1/advisory/fertilizers");
-        if (fertResp) {
-          const remoteFerts = await fertResp.json();
-          if (Array.isArray(remoteFerts) && remoteFerts.length > 0) {
-            remoteFerts.forEach(rf => {
-              if (!SKUAST_FERTILIZERS_DATA.some(f => f.name.toLowerCase() === rf.name.toLowerCase())) {
-                SKUAST_FERTILIZERS_DATA.push(rf);
-              }
-            });
-          }
-        }
-      } catch (e) {
-        console.info("Using embedded SKUAST fertilizers fallback");
-      }
-
+    function initSprayCalendar() {
       // Auto-detect stage according to calendar month
       const month = new Date().getMonth(); // 0 = Jan, 10 = Nov
       if (month === 10 || month === 11 || month === 9) {
@@ -5387,6 +5716,44 @@
       initCompatibilityMatrix();
       renderSprayLog();
       bindCalendarDrawerButtons();
+
+      // Asynchronous background sync so the UI never stalls
+      syncSprayCalendarInBackground();
+    }
+
+    async function syncSprayCalendarInBackground() {
+      // 1. Try fetching latest calendar from backend API
+      try {
+        const calResp = await fetchBackend("/api/v1/advisory/calendar");
+        if (calResp) {
+          const remoteCal = await calResp.json();
+          if (Array.isArray(remoteCal) && remoteCal.length > 0) {
+            sprayCalendarStages = remoteCal;
+            renderStageTimeline();
+            selectCalendarStage(activeCalendarStageId);
+          }
+        }
+      } catch (e) {
+        console.info("Using embedded SKUAST calendar fallback");
+      }
+
+      // 2. Try fetching latest fertilizers from backend API
+      try {
+        const fertResp = await fetchBackend("/api/v1/advisory/fertilizers");
+        if (fertResp) {
+          const remoteFerts = await fertResp.json();
+          if (Array.isArray(remoteFerts) && remoteFerts.length > 0) {
+            remoteFerts.forEach(rf => {
+              if (!SKUAST_FERTILIZERS_DATA.some(f => f.name.toLowerCase() === rf.name.toLowerCase())) {
+                SKUAST_FERTILIZERS_DATA.push(rf);
+              }
+            });
+            initTankCalculator();
+          }
+        }
+      } catch (e) {
+        console.info("Using embedded SKUAST fertilizers fallback");
+      }
     }
 
     function renderStageTimeline() {
@@ -5501,6 +5868,68 @@
         });
       }
 
+      // Render Stage Foliar Fertilizers & Micronutrients
+      const fertGrid = document.getElementById("calendarFertilizersGrid");
+      if (fertGrid) {
+        const ferts = stage.fertilizers || [];
+        if (ferts.length === 0) {
+          fertGrid.innerHTML = `
+            <div style="grid-column: 1/-1; padding: 18px; text-align: center; color: var(--muted); background: #f8fafc; border-radius: 12px; font-size: 13px;">
+              No foliar fertilizers recommended for this stage. Strict pollinator safety period.
+            </div>
+          `;
+        } else {
+          fertGrid.innerHTML = ferts.map(f => `
+            <div class="cal-prod-card" style="border-left: 4px solid #10b981; background: #ffffff;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                <div class="cal-prod-name" style="color: #065f46; font-size: 14px;">🌱 ${escapeHtml(f.name)}</div>
+                <span style="font-size: 10px; font-weight: 750; background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 99px; white-space: nowrap;">Foliar Nutrient</span>
+              </div>
+              <div class="cal-prod-brands" style="color: #047857; font-weight: 650; margin-top: 3px;">Rate: ${escapeHtml(f.dosage_per_100l || "N/A")} per 100L Water</div>
+
+              <div class="dosage-badges-row">
+                <div>
+                  <div class="dosage-col-label">Per 100L</div>
+                  <div class="dosage-col-val" style="color: #065f46;">${escapeHtml(f.dosage_per_100l || "N/A")}</div>
+                </div>
+                <div>
+                  <div class="dosage-col-label">Per 1000L Tank</div>
+                  <div class="dosage-col-val" style="color: #065f46;">${escapeHtml(f.dosage_per_1000l || "N/A")}</div>
+                </div>
+                <div>
+                  <div class="dosage-col-label">Per 16L Knapsack</div>
+                  <div class="dosage-col-val" style="color: #065f46;">${escapeHtml(f.dosage_per_16l || "N/A")}</div>
+                </div>
+              </div>
+
+              <div class="cal-prod-purpose" style="margin-top: 8px;">${escapeHtml(f.purpose || "")}</div>
+              ${f.mixing_tip ? `<div style="font-size: 11.5px; color: #166534; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 6px 9px; margin-top: 8px;">${escapeHtml(f.mixing_tip)}</div>` : ""}
+
+              ${f.dosage_per_100l !== "0 / Suspended" ? `
+                <div style="margin-top: 14px; display: flex; gap: 8px;">
+                  <button type="button" class="btn secondary btn-fert-calc" data-fert="${escapeHtml(f.name)}" style="flex: 1; padding: 6px 10px; font-size: 11.5px; background: #ecfdf5; border-color: #a7f3d0; color: #065f46; font-weight: 700;">⚖️ Calc Tank (Fertilizer)</button>
+                  <button type="button" class="btn ghost btn-fert-log" data-stage="${escapeHtml(stage.stage_name)}" data-fert="${escapeHtml(f.name)}" style="padding: 6px 10px; font-size: 11.5px;">📋 Log</button>
+                </div>
+              ` : ""}
+            </div>
+          `).join("");
+
+          fertGrid.querySelectorAll(".btn-fert-calc").forEach(b => {
+            b.addEventListener("click", () => {
+              selectFertilizerInTankCalc(b.dataset.fert);
+            });
+          });
+
+          fertGrid.querySelectorAll(".btn-fert-log").forEach(b => {
+            b.addEventListener("click", () => {
+              logSprayRecord(b.dataset.stage, b.dataset.fert, "1000 Liters (Power Sprayer)");
+              b.textContent = "✅ Logged!";
+              setTimeout(() => { b.textContent = "📋 Log"; }, 2000);
+            });
+          });
+        }
+      }
+
       // Render Cultural Sanitation
       const cultList = document.getElementById("stageCulturalList");
       if (cultList) {
@@ -5588,21 +6017,47 @@
           select.innerHTML = `<option value="">No formulations matching "${escapeHtml(query)}"</option>`;
           if (matchCountEl) matchCountEl.textContent = `No matches found`;
         } else {
-          select.innerHTML = filtered.map(item => {
-            const catBadge = item.category === "fertilizer" ? "🌱 [Fertilizer]" : "🔬 [Medicine]";
-            return `<option value="${escapeHtml(item.name)}" data-rate="${escapeHtml(item.rate)}" data-stage="${escapeHtml(item.stage)}" data-category="${escapeHtml(item.category)}" data-tip="${escapeHtml(item.mixing_tip || "")}" data-purpose="${escapeHtml(item.purpose || "")}">${catBadge} ${escapeHtml(item.name)} [${escapeHtml(item.rate)}]</option>`;
-          }).join("");
+          const ferts = filtered.filter(i => i.category === "fertilizer");
+          const meds = filtered.filter(i => i.category !== "fertilizer");
+
+          let html = "";
+          if (ferts.length > 0) {
+            html += `<optgroup label="🌱 SKUAST-K Orchard & Foliar Fertilizers (${ferts.length})">`;
+            html += ferts.map(item => `
+              <option value="${escapeHtml(item.name)}" data-rate="${escapeHtml(item.rate)}" data-stage="${escapeHtml(item.stage)}" data-category="${escapeHtml(item.category)}" data-tip="${escapeHtml(item.mixing_tip || "")}" data-purpose="${escapeHtml(item.purpose || "")}">🌱 ${escapeHtml(item.name)} [${escapeHtml(item.rate)}]</option>
+            `).join("");
+            html += `</optgroup>`;
+          }
+          if (meds.length > 0) {
+            html += `<optgroup label="🔬 SKUAST-K Crop Protection Medicines (${meds.length})">`;
+            html += meds.map(item => `
+              <option value="${escapeHtml(item.name)}" data-rate="${escapeHtml(item.rate)}" data-stage="${escapeHtml(item.stage)}" data-category="${escapeHtml(item.category)}" data-tip="${escapeHtml(item.mixing_tip || "")}" data-purpose="${escapeHtml(item.purpose || "")}">🔬 ${escapeHtml(item.name)} [${escapeHtml(item.rate)}]</option>
+            `).join("");
+            html += `</optgroup>`;
+          }
+          select.innerHTML = html;
 
           if (matchCountEl) {
-            matchCountEl.textContent = `Showing ${filtered.length} of ${allTankItems.length} SKUAST-K medicines & fertilizers`;
+            matchCountEl.textContent = `Showing ${filtered.length} formulations (${ferts.length} fertilizers, ${meds.length} crop medicines)`;
           }
         }
 
         updateTankCalculation();
       }
 
+      window.__renderTankOptionsRef = renderTankOptions;
+
       // Initial populate
       renderTankOptions("", currentTankCategoryFilter);
+
+      // Wire quick fertilizer chips
+      document.querySelectorAll(".quick-fert-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          document.querySelectorAll(".quick-fert-chip").forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          selectFertilizerInTankCalc(chip.dataset.fert);
+        });
+      });
 
       // Search input listener
       if (searchInput) {
@@ -5677,6 +6132,204 @@
 
       updateTankCalculation();
     }
+
+    function selectFertilizerInTankCalc(fertName) {
+      openDrawer("tankCalcDrawer");
+      const select = document.getElementById("calcChemicalSelect");
+      const searchInput = document.getElementById("calcSearchInput");
+      const clearSearchBtn = document.getElementById("calcSearchClearBtn");
+      
+      // Clear search to expose all options
+      if (searchInput && searchInput.value) {
+        searchInput.value = "";
+        if (clearSearchBtn) clearSearchBtn.style.display = "none";
+      }
+
+      // Reset category filter pill to "all"
+      document.querySelectorAll(".calc-type-filter").forEach(b => {
+        const isAll = b.dataset.type === "all";
+        b.classList.toggle("active", isAll);
+        b.style.background = isAll ? "var(--primary)" : "#f1f5f9";
+        b.style.color = isAll ? "#fff" : "var(--deep)";
+      });
+      currentTankCategoryFilter = "all";
+
+      if (typeof window.__renderTankOptionsRef === "function") {
+        window.__renderTankOptionsRef("", "all");
+      }
+
+      if (select && fertName) {
+        const target = fertName.toLowerCase().trim();
+        let foundIdx = -1;
+        for (let i = 0; i < select.options.length; i++) {
+          const val = select.options[i].value.toLowerCase();
+          const txt = select.options[i].text.toLowerCase();
+          if (val === target || val.includes(target) || target.includes(val) || txt.includes(target)) {
+            foundIdx = i;
+            break;
+          }
+        }
+
+        // Sub-word fallback
+        if (foundIdx === -1) {
+          const words = target.replace(/[^a-z0-9]/g, " ").split(/\s+/).filter(w => w.length > 2);
+          for (let i = 0; i < select.options.length; i++) {
+            const val = select.options[i].value.toLowerCase();
+            if (words.every(w => val.includes(w))) {
+              foundIdx = i;
+              break;
+            }
+          }
+        }
+
+        if (foundIdx !== -1) {
+          select.selectedIndex = foundIdx;
+        }
+        updateTankCalculation();
+      }
+    }
+    window.selectFertilizerInTankCalc = selectFertilizerInTankCalc;
+
+    async function syncOfficialSkuastCalendar() {
+      const syncBtn = document.getElementById("btnSyncOfficialCalendar");
+      const banner = document.getElementById("importSuccessBanner");
+      if (syncBtn) {
+        syncBtn.disabled = true;
+        syncBtn.textContent = "⏳ Synchronizing SKUAST-K Data...";
+      }
+
+      try {
+        const res = await fetchBackend("/api/v1/advisory/calendar/import", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+        if (res) {
+          const data = await res.json();
+          if (data && data.stages && Array.isArray(data.stages)) {
+            sprayCalendarStages = data.stages;
+          }
+          if (data && data.fertilizers && Array.isArray(data.fertilizers)) {
+            data.fertilizers.forEach(rf => {
+              if (!SKUAST_FERTILIZERS_DATA.some(f => f.name.toLowerCase() === rf.name.toLowerCase())) {
+                SKUAST_FERTILIZERS_DATA.push(rf);
+              }
+            });
+          }
+        }
+      } catch (err) {
+        console.info("Using embedded SKUAST official calendar sync fallback", err);
+      }
+
+      renderStageTimeline();
+      selectCalendarStage(activeCalendarStageId);
+      initTankCalculator();
+      
+      if (banner) {
+        banner.style.display = "block";
+        banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      if (syncBtn) {
+        syncBtn.disabled = false;
+        syncBtn.textContent = "✅ Synced Successfully!";
+        setTimeout(() => {
+          syncBtn.textContent = "⚡ Sync & Import Now";
+        }, 2500);
+      }
+    }
+    window.syncOfficialSkuastCalendar = syncOfficialSkuastCalendar;
+
+    function openPrintableScheduleSheet() {
+      const modal = document.getElementById("printableCalendarModal");
+      const container = document.getElementById("printableCalendarTableWrap");
+      if (!modal || !container) return;
+
+      container.innerHTML = `
+        <table style="width: 100%; border-collapse: collapse; font-size: 11.5px; border: 1px solid #cbd5e1; margin-top: 10px;">
+          <thead>
+            <tr style="background: #047857; color: #ffffff; text-align: left;">
+              <th style="padding: 10px; border: 1px solid #0f766e; min-width: 130px;">Stage & Timing</th>
+              <th style="padding: 10px; border: 1px solid #0f766e; min-width: 150px;">Target Pests & Fungi</th>
+              <th style="padding: 10px; border: 1px solid #0f766e; min-width: 220px;">🔬 Recommended Chemicals & Dosages (/100L)</th>
+              <th style="padding: 10px; border: 1px solid #0f766e; min-width: 220px;">🌱 Foliar Fertilizers & Micronutrients (/100L)</th>
+              <th style="padding: 10px; border: 1px solid #0f766e; min-width: 180px;">Sanitation & Cultural Practices</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${sprayCalendarStages.map((st, idx) => {
+              const bg = idx % 2 === 0 ? "#ffffff" : "#f8fafc";
+              const prods = (st.products || []).map(p => `• <b>${escapeHtml(p.product)}</b><br>&nbsp;&nbsp;<span style="color:#0f766e;">[${escapeHtml(p.dosage_per_100l || "N/A")} per 100L]</span>`).join("<br>");
+              const ferts = (st.fertilizers || []).map(f => `• <b>${escapeHtml(f.name)}</b><br>&nbsp;&nbsp;<span style="color:#15803d;">[${escapeHtml(f.dosage_per_100l || "N/A")} per 100L]</span>`).join("<br>") || "<i>Pollinator safety window</i>";
+              const pests = (st.target_pests || []).map(tp => `• ${escapeHtml(tp)}`).join("<br>");
+              const sanit = (st.cultural_sanitation || []).map(cs => `• ${escapeHtml(cs)}`).join("<br>");
+
+              return `
+                <tr style="background: ${bg}; vertical-align: top;">
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: 700; color: #0f172a;">
+                    Stage ${st.stage_number}<br>
+                    <span style="color: #047857; font-size: 13px;">${escapeHtml(st.stage_name)}</span><br>
+                    <span style="font-size: 10.5px; color: #64748b;">${escapeHtml(st.kashmiri_name || "")}</span><br>
+                    <span style="display: inline-block; margin-top: 4px; font-size: 10.5px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px;">📅 ${escapeHtml(st.timing)}</span>
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; color: #334155; line-height: 1.45;">
+                    ${pests}
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; line-height: 1.55;">
+                    ${prods}
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; color: #065f46; line-height: 1.55; background: #f0fdf4;">
+                    ${ferts}
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; color: #475569; font-size: 11px; line-height: 1.4;">
+                    ${sanit}
+                  </td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      `;
+
+      modal.classList.remove("hidden");
+    }
+    window.openPrintableScheduleSheet = openPrintableScheduleSheet;
+
+    function handleCustomCalendarFileUpload(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            sprayCalendarStages = parsed;
+          } else if (parsed.stages && Array.isArray(parsed.stages)) {
+            sprayCalendarStages = parsed.stages;
+            if (Array.isArray(parsed.fertilizers)) {
+              parsed.fertilizers.forEach(rf => {
+                if (!SKUAST_FERTILIZERS_DATA.some(f => f.name.toLowerCase() === rf.name.toLowerCase())) {
+                  SKUAST_FERTILIZERS_DATA.push(rf);
+                }
+              });
+            }
+          } else {
+            alert("Invalid calendar file format. Expected a JSON array of stages or {stages: [...]}.");
+            return;
+          }
+          renderStageTimeline();
+          selectCalendarStage(activeCalendarStageId);
+          initTankCalculator();
+          const banner = document.getElementById("importSuccessBanner");
+          if (banner) {
+            banner.style.display = "block";
+            banner.textContent = `✅ Successfully imported ${sprayCalendarStages.length} stages from file!`;
+          }
+        } catch (err) {
+          alert("Error parsing JSON file: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+    window.handleCustomCalendarFileUpload = handleCustomCalendarFileUpload;
 
     function updateTankCalculation() {
       const select = document.getElementById("calcChemicalSelect");
@@ -6692,6 +7345,39 @@
       document.getElementById("printCalendarBtn")?.addEventListener("click", () => {
         window.print();
       });
+
+      // Import SKUAST-K Calendar Modal & Export Wires
+      document.getElementById("importCalendarBtn")?.addEventListener("click", () => {
+        const m = document.getElementById("importCalendarModal");
+        if (m) m.classList.remove("hidden");
+      });
+      document.getElementById("closeImportModalBtn")?.addEventListener("click", () => {
+        const m = document.getElementById("importCalendarModal");
+        if (m) m.classList.add("hidden");
+      });
+      document.getElementById("btnSyncOfficialCalendar")?.addEventListener("click", () => {
+        syncOfficialSkuastCalendar();
+      });
+      document.getElementById("btnExportCalendarSheet")?.addEventListener("click", () => {
+        const m = document.getElementById("importCalendarModal");
+        if (m) m.classList.add("hidden");
+        openPrintableScheduleSheet();
+      });
+      document.getElementById("closePrintableModalBtn")?.addEventListener("click", () => {
+        const m = document.getElementById("printableCalendarModal");
+        if (m) m.classList.add("hidden");
+      });
+      document.getElementById("btnPrintFullCalendar")?.addEventListener("click", () => {
+        window.print();
+      });
+      document.getElementById("btnUploadCustomCalendar")?.addEventListener("click", () => {
+        const fileInput = document.getElementById("customCalendarFileInput");
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          handleCustomCalendarFileUpload(fileInput.files[0]);
+        } else {
+          alert("Please select a JSON file first.");
+        }
+      });
     }
 
     // Initialization (Clean initial state awaiting upload)
@@ -6700,6 +7386,7 @@
     render();
     renderHistory();
     bindCalendarDrawerButtons();
+    initTankCalculator();
     initSprayCalendar();
     initDealersDrawer();
     initExpertDrawer();

@@ -199,6 +199,14 @@ def test_skuast_annual_spray_calendar_endpoints():
             assert len(compat) >= 5
             assert any("incompatible" in c["status"] for c in compat)
 
+            # 4. Import Spray Calendar Endpoint
+            import_res = await client.post("/api/v1/advisory/calendar/import")
+            assert import_res.status_code == 200
+            import_data = import_res.json()
+            assert import_data["status"] == "success"
+            assert import_data["imported_stages_count"] == 8
+            assert import_data["imported_fertilizers_count"] >= 19
+
             # 4. Tank calculator
             calc_res = await client.get("/api/v1/advisory/tank-calculator?chemical=Score&water_liters=500")
             assert calc_res.status_code == 200

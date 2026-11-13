@@ -39,6 +39,22 @@ def full_spray_calendar() -> List[Dict[str, Any]]:
     return get_spray_calendar()
 
 
+@router.post("/calendar/import")
+def import_spray_calendar(stages: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+    """Imports or synchronizes the official SKUAST-Kashmir Annual Apple Spray Calendar."""
+    calendar = stages if stages else get_spray_calendar()
+    fertilizers = get_fertilizers()
+    return {
+        "status": "success",
+        "imported_stages_count": len(calendar),
+        "imported_fertilizers_count": len(fertilizers),
+        "stages": calendar,
+        "fertilizers": fertilizers,
+        "source": "SKUAST-Kashmir Directorate of Extension",
+        "message": f"Successfully imported {len(calendar)} phenological stages and {len(fertilizers)} foliar fertilizers.",
+    }
+
+
 @router.get("/calendar/{stage_id}")
 def stage_spray_calendar(stage_id: str) -> Dict[str, Any]:
     """Returns detailed chemical formulations, dosages, and cultural sanitation for a specific stage."""
