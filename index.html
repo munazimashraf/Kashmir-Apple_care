@@ -1973,27 +1973,33 @@
     .lang-selector-wrap {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #f1f5f9;
-      border: 1px solid var(--line);
+      gap: 5px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       border-radius: 999px;
-      padding: 4px 10px;
-      transition: border-color 0.15s ease, background 0.15s ease;
+      padding: 2px 8px;
+      height: 27px;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
     .lang-selector-wrap:hover {
       border-color: var(--primary);
-      background: #f8fafc;
+      box-shadow: 0 2px 5px rgba(4,120,87,0.12);
     }
     .lang-select {
       border: none;
       background: transparent;
-      font-size: 12px;
+      font-size: 11px !important;
       font-weight: 700;
-      color: var(--deep);
+      color: #334155;
       cursor: pointer;
       outline: none;
       font-family: inherit;
-      padding: 1px 2px;
+      padding: 0 2px 0 0;
+      line-height: 1;
+    }
+    .lang-select:focus {
+      color: var(--primary);
     }
     body.ur-mode, body.ks-mode {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Nastaliq Urdu", "Noto Sans Arabic", Tahoma, sans-serif;
@@ -2518,14 +2524,20 @@
         max-height: 92dvh;
       }
 
-      /* Prevent iOS Safari auto-zoom on input focus */
+      /* Prevent iOS Safari auto-zoom on input focus while keeping language selector compact */
       input[type="text"],
       input[type="number"],
       input[type="file"],
-      select,
-      select.input-select,
-      .lang-select {
+      select:not(.lang-select),
+      select.input-select {
         font-size: 16px !important;
+      }
+      .lang-select {
+        font-size: 11px !important;
+      }
+      .lang-selector-wrap {
+        padding: 2px 7px;
+        height: 25px;
       }
     }
 
@@ -2586,7 +2598,7 @@
         <span data-i18n="brand_title">AppleCare Kashmir</span>
       </div>
       <div class="nav-links">
-        <a href="#dropZone" class="nav-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
+        <a href="#dropzone" class="nav-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
         <a href="#sprayForecastSection" class="nav-link" data-i18n="nav_forecast">🌦️ 7-Day Forecast</a>
         <a href="#sprayCalendarSection" class="nav-link" data-i18n="nav_calendar">📅 Spray Calendar</a>
         <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink" data-i18n="nav_tank">⚖️ Tank Calc</a>
@@ -2595,11 +2607,11 @@
       </div>
       <div class="nav-badges">
         <div class="lang-selector-wrap" title="Select Application Language / زبان منتخب کریں">
-          <span style="font-size: 13px;">🌐</span>
+          <span style="font-size: 11px; opacity: 0.8;">🌐</span>
           <select id="appLangSelect" aria-label="Language Selector" class="lang-select">
-            <option value="en">English (EN)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="ks">کٲشُر (Kashmiri)</option>
+            <option value="en">English</option>
+            <option value="ur">اردو</option>
+            <option value="ks">کٲشُر</option>
           </select>
         </div>
       </div>
