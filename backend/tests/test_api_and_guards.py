@@ -161,6 +161,14 @@ def test_weather_spray_forecast_endpoints():
             assert "best_hours" in first_day
             assert "skuast_directive" in first_day
 
+            # 3. Test reverse geocoding for GPS location display
+            geo_res = await client.get("/api/v1/weather/reverse-geocode?latitude=33.7182&longitude=74.8322")
+            assert geo_res.status_code == 200
+            geo_data = geo_res.json()
+            assert "name" in geo_data
+            assert "Shopian" in geo_data["name"]
+            assert geo_data["district"] == "Shopian"
+
     asyncio.run(_run())
 
 

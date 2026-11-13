@@ -1523,6 +1523,12 @@
     .btn.ghost:hover {
       background: #f7faf8;
     }
+    .btn.ghost.active {
+      background: #ecfdf5;
+      color: #065f46;
+      border-color: #a7f3d0;
+      font-weight: 600;
+    }
 
     /* Auto Detection Callout */
     .auto-notice {
@@ -2799,6 +2805,7 @@
         weather_detecting: "Detecting location…",
         weather_querying: "Querying forecast…",
         weather_alert_window: "Checking 12-hour spray safety window…",
+        gps_locating: "📍 Acquiring GPS & location name…",
         btn_gps: "⌖ Use GPS",
         opt_select_district: "Select District",
         weather_not_updated: "Not updated",
@@ -2915,6 +2922,7 @@
         weather_detecting: "مقام کی تلاش جاری ہے…",
         weather_querying: "موسمی رپورٹ حاصل ہو رہی ہے…",
         weather_alert_window: "12 گھنٹے کی محفوظ اسپرے ونڈو چیک ہو رہی ہے…",
+        gps_locating: "📍 GPS اور مقام کا نام معلوم ہو رہا ہے…",
         btn_gps: "⌖ GPS استعمال کریں",
         opt_select_district: "ضلع منتخب کریں",
         weather_not_updated: "تازہ نہیں ہوا",
@@ -3031,6 +3039,7 @@
         weather_detecting: "جائے ژھانڈان…",
         weather_querying: "موسمی رپورٹ حٲصل گژھان…",
         weather_alert_window: "12 گنٛٹن ہُنٛد سپرے موسم چیک گژھان…",
+        gps_locating: "📍 GPS تہٕ جائے ہُنٛد ناو ژھانڈان…",
         btn_gps: "⌖ GPS اِستعمال کٔرِو",
         opt_select_district: "ضلع ژارِو",
         weather_not_updated: "اپڈیٹ گژھن باقٕے",
@@ -4149,6 +4158,74 @@
       }
     });
 
+    // Kashmir Horticultural Geo Hubs & Tehsils
+    const KASHMIR_GEO_HUBS = [
+      { name: "Shopian", district: "Shopian", urdu: "شوپیاں", lat: 33.7182, lon: 74.8322 },
+      { name: "Sopore", district: "Baramulla", urdu: "سوپور", lat: 34.2981, lon: 74.4716 },
+      { name: "Baramulla", district: "Baramulla", urdu: "بارہمولہ", lat: 34.2088, lon: 74.3436 },
+      { name: "Pulwama", district: "Pulwama", urdu: "پلوامہ", lat: 33.8731, lon: 74.8987 },
+      { name: "Anantnag", district: "Anantnag", urdu: "اننت ناگ", lat: 33.7311, lon: 75.1487 },
+      { name: "Kulgam", district: "Kulgam", urdu: "کولگام", lat: 33.6450, lon: 75.0180 },
+      { name: "Srinagar", district: "Srinagar", urdu: "سری نگر", lat: 34.0837, lon: 74.7973 },
+      { name: "Budgam", district: "Budgam", urdu: "بڈگام", lat: 34.0150, lon: 74.7170 },
+      { name: "Kupwara", district: "Kupwara", urdu: "کپوارہ", lat: 34.5262, lon: 74.2546 },
+      { name: "Ganderbal", district: "Ganderbal", urdu: "گاندربل", lat: 34.2165, lon: 74.7816 },
+      { name: "Bandipora", district: "Bandipora", urdu: "بانڈی پورہ", lat: 34.4226, lon: 74.6477 },
+      { name: "Pattan", district: "Baramulla", urdu: "پٹن", lat: 34.1594, lon: 74.5574 },
+      { name: "Bijbehara", district: "Anantnag", urdu: "بیجبہاڑہ", lat: 33.7972, lon: 75.1051 },
+      { name: "Handwara", district: "Kupwara", urdu: "ہندوارہ", lat: 34.3980, lon: 74.2828 },
+      { name: "Tral", district: "Pulwama", urdu: "ترال", lat: 33.9312, lon: 75.1134 },
+      { name: "Zainapora", district: "Shopian", urdu: "زینہ پورہ", lat: 33.7431, lon: 74.9821 },
+      { name: "Pahalgam", district: "Anantnag", urdu: "پہلگام", lat: 34.0163, lon: 75.3188 },
+      { name: "Charar-i-Sharief", district: "Budgam", urdu: "چرار شریف", lat: 33.8624, lon: 74.7661 },
+      { name: "Rafiabad", district: "Baramulla", urdu: "رفیع آباد", lat: 34.3312, lon: 74.3855 },
+      { name: "Kangan", district: "Ganderbal", urdu: "کنگن", lat: 34.2633, lon: 74.9033 },
+      { name: "Uri", district: "Baramulla", urdu: "اوڑی", lat: 34.0858, lon: 74.0416 },
+      { name: "Beerwah", district: "Budgam", urdu: "بیروہ", lat: 34.0167, lon: 74.5978 },
+      { name: "Chadoora", district: "Budgam", urdu: "چاڈورہ", lat: 33.9500, lon: 74.8000 }
+    ];
+
+    const KASHMIR_GEO_NAMES_URDU = {
+      "Shopian": "شوپیاں",
+      "Sopore": "سوپور",
+      "Baramulla": "بارہمولہ",
+      "Pulwama": "پلوامہ",
+      "Anantnag": "اننت ناگ",
+      "Kulgam": "کولگام",
+      "Srinagar": "سری نگر",
+      "Budgam": "بڈگام",
+      "Badgam": "بڈگام",
+      "Kupwara": "کپوارہ",
+      "Ganderbal": "گاندربل",
+      "Bandipora": "بانڈی پورہ",
+      "Pattan": "پٹن",
+      "Bijbehara": "بیجبہاڑہ",
+      "Handwara": "ہندوارہ",
+      "Tral": "ترال",
+      "Zainapora": "زینہ پورہ",
+      "Pahalgam": "پہلگام",
+      "Charar-i-Sharief": "چرار شریف",
+      "Rafiabad": "رفیع آباد",
+      "Kangan": "کنگن",
+      "Uri": "اوڑی",
+      "Beerwah": "بیروہ",
+      "Chadoora": "چاڈورہ",
+      "Kashmir": "کشمیر"
+    };
+
+    function getNearestKashmirHub(lat, lon) {
+      let nearest = null;
+      let minDist = Infinity;
+      for (const hub of KASHMIR_GEO_HUBS) {
+        const d = calculateClientDistanceKm(lat, lon, hub.lat, hub.lon);
+        if (d < minDist) {
+          minDist = d;
+          nearest = { ...hub, dist_km: d };
+        }
+      }
+      return nearest;
+    }
+
     // Weather from Open-Meteo & 7-Day Forecast sync
     async function updateWeather(lat, lon, source="GPS") {
       try {
@@ -4166,7 +4243,11 @@
         const temp = Math.round(json.current.temperature_2m);
         
         weatherState = { rainWithin12h, location: source };
-        document.getElementById("weatherLocation").textContent = source;
+        const locEl = document.getElementById("weatherLocation");
+        if (locEl) {
+          locEl.removeAttribute("data-i18n");
+          locEl.textContent = source;
+        }
         document.getElementById("weatherTemp").textContent = `${temp}°C`;
         document.getElementById("weatherSummary").textContent = rainWithin12h ? "Rain forecast in next 12h" : "Clear dry foliage window";
         document.getElementById("weatherIcon").textContent = rainWithin12h ? "🌦️" : "☀️";
@@ -4191,17 +4272,191 @@
       }
     }
 
-    // Geolocation
-    function requestGpsWeather() {
-      if (navigator.geolocation) {
-        document.getElementById("weatherLocation").textContent = "Requesting GPS…";
-        navigator.geolocation.getCurrentPosition(
-          pos => updateWeather(pos.coords.latitude, pos.coords.longitude, "GPS Location"),
-          () => updateWeather(33.8731, 75.1487, "Pulwama, Kashmir (Default)")
-        );
-      } else {
-        updateWeather(33.8731, 75.1487, "Pulwama, Kashmir");
+    // Resolve Place Name from Coordinates
+    async function resolveGpsPlaceName(lat, lon) {
+      const isUrdu = currentAppLang === "ur" || currentAppLang === "ks";
+
+      // 1. Try Backend Reverse Geocode API
+      try {
+        const resp = await fetchBackend(`/api/v1/weather/reverse-geocode?latitude=${lat}&longitude=${lon}`);
+        if (resp && resp.ok) {
+          const data = await resp.json();
+          if (data && data.name) {
+            const short = data.short_name || data.name;
+            const urdu = data.urdu_name || KASHMIR_GEO_NAMES_URDU[short] || short;
+            return {
+              display_name: isUrdu && urdu ? `${urdu}، کشمیر` : data.name,
+              short_name: isUrdu && urdu ? urdu : short,
+              district: data.district || "Kashmir"
+            };
+          }
+        }
+      } catch (e) {
+        console.warn("Backend geocode lookup skipped:", e);
       }
+
+      // 2. Try Client-side Photon Reverse Geocode (free OSM, CORS enabled)
+      try {
+        const pResp = await fetch(`https://photon.komoot.io/reverse?lat=${lat}&lon=${lon}`);
+        if (pResp.ok) {
+          const pData = await pResp.json();
+          const feat = pData.features && pData.features[0];
+          if (feat && feat.properties) {
+            const p = feat.properties;
+            const village = p.village || p.hamlet;
+            const town = p.town;
+            const city = p.city;
+            const district = p.district;
+            const locality = p.locality;
+            let county = (p.county || "").replace(/\s+tehsil$/i, "").trim();
+
+            const primary = village || town || city || locality || district || p.name;
+            let secondary = "";
+            if (county && county.toLowerCase() !== (primary || "").toLowerCase()) {
+              secondary = county;
+            } else if (district && district.toLowerCase() !== (primary || "").toLowerCase()) {
+              secondary = district;
+            }
+
+            let name = "";
+            let short = primary || secondary || "Orchard";
+            if (primary && secondary) {
+              name = `${primary}, ${secondary}`;
+            } else if (primary) {
+              name = (p.state && p.state.toLowerCase().includes("kashmir")) ? `${primary}, Kashmir` : primary;
+            } else if (secondary) {
+              name = `${secondary}, Kashmir`;
+            }
+
+            if (name) {
+              const urduShort = KASHMIR_GEO_NAMES_URDU[short] || KASHMIR_GEO_NAMES_URDU[county] || short;
+              return {
+                display_name: isUrdu && urduShort !== short ? `${urduShort}، کشمیر` : name,
+                short_name: isUrdu && urduShort !== short ? urduShort : short,
+                district: county || district || "Kashmir"
+              };
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Photon lookup skipped:", err);
+      }
+
+      // 3. Fallback to Nearest Kashmir Hub (instant Haversine)
+      const nearest = getNearestKashmirHub(lat, lon);
+      if (nearest && nearest.dist_km <= 45.0) {
+        const urduHub = nearest.urdu || nearest.name;
+        return {
+          display_name: isUrdu ? `${urduHub}، کشمیر` : `${nearest.name}, Kashmir`,
+          short_name: isUrdu ? urduHub : nearest.name,
+          district: nearest.district || nearest.name
+        };
+      }
+
+      // 4. Global fallback coordinates
+      return {
+        display_name: `GPS (${lat.toFixed(3)}°N, ${lon.toFixed(3)}°E)`,
+        short_name: `${lat.toFixed(2)}, ${lon.toFixed(2)}`,
+        district: "GPS Location"
+      };
+    }
+
+    // Synchronize GPS Option to Dropdowns
+    function syncGpsLocationToDropdowns(lat, lon, locationName) {
+      const dSel = document.getElementById("districtSelect");
+      const fSel = document.getElementById("forecastDistrictSelect");
+      const cleanName = locationName.replace(/\s*\([^)]*\)/g, "").trim();
+      const val = `${Number(lat).toFixed(4)},${Number(lon).toFixed(4)},${cleanName}`;
+      localStorage.setItem("applecare_district", val);
+
+      [dSel, fSel].forEach(sel => {
+        if (!sel) return;
+        let gpsOpt = sel.querySelector("option[data-gps='true']");
+        if (!gpsOpt) {
+          gpsOpt = document.createElement("option");
+          gpsOpt.setAttribute("data-gps", "true");
+          if (sel.options.length > 1) {
+            sel.insertBefore(gpsOpt, sel.options[1]);
+          } else {
+            sel.appendChild(gpsOpt);
+          }
+        }
+        gpsOpt.value = val;
+        gpsOpt.textContent = `📍 ${cleanName} (GPS)`;
+        sel.value = val;
+      });
+    }
+
+    // Geolocation with Name Display
+    async function requestGpsWeather() {
+      const locEl = document.getElementById("weatherLocation");
+      const locateBtn = document.getElementById("locateBtn");
+      const forecastGpsBtn = document.getElementById("forecastGpsBtn");
+      const isUrdu = currentAppLang === "ur" || currentAppLang === "ks";
+
+      if (!navigator.geolocation) {
+        alert(isUrdu ? "آپ کے براؤزر میں GPS سپورٹ موجود نہیں ہے۔ برائے مہربانی ڈراپ ڈاؤن سے ضلع منتخب کریں۔" : "Geolocation is not supported by your browser. Please select your district from the dropdown.");
+        return;
+      }
+
+      if (locEl) {
+        locEl.removeAttribute("data-i18n");
+        locEl.textContent = isUrdu ? "📍 GPS اور مقام کا نام معلوم ہو رہا ہے…" : "📍 Acquiring GPS & location name…";
+      }
+      if (locateBtn) {
+        locateBtn.disabled = true;
+        locateBtn.innerHTML = `<span>⌛</span> ${isUrdu ? "GPS تلاش…" : "Locating…"}`;
+      }
+      if (forecastGpsBtn) {
+        forecastGpsBtn.disabled = true;
+        forecastGpsBtn.innerHTML = `<span>⌛</span> ${isUrdu ? "GPS تلاش…" : "Locating…"}`;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          // 1. Resolve place name
+          const resolved = await resolveGpsPlaceName(lat, lon);
+          const locationName = resolved.display_name;
+          const shortName = resolved.short_name || locationName;
+
+          // 2. Fetch and render weather with resolved name
+          await updateWeather(lat, lon, `${locationName} (GPS)`);
+
+          // 3. Update District Selectors with custom GPS option
+          syncGpsLocationToDropdowns(lat, lon, locationName);
+
+          // 4. Update Button visual states
+          if (locateBtn) {
+            locateBtn.disabled = false;
+            locateBtn.classList.add("active");
+            locateBtn.innerHTML = `<span>✓</span> ${shortName}`;
+          }
+          if (forecastGpsBtn) {
+            forecastGpsBtn.disabled = false;
+            forecastGpsBtn.classList.add("active");
+            forecastGpsBtn.innerHTML = `<span>✓</span> ${shortName}`;
+          }
+        },
+        (err) => {
+          console.warn("GPS Geolocation error:", err);
+          if (locateBtn) {
+            locateBtn.disabled = false;
+            locateBtn.classList.remove("active");
+            locateBtn.innerHTML = `<span>⌖</span> ${isUrdu ? "GPS استعمال کریں" : "Use GPS"}`;
+          }
+          if (forecastGpsBtn) {
+            forecastGpsBtn.disabled = false;
+            forecastGpsBtn.classList.remove("active");
+            forecastGpsBtn.innerHTML = `<span>⌖</span> GPS`;
+          }
+          updateWeather(33.7182, 75.1548, "Shopian, Kashmir (Default)");
+          alert(isUrdu ? "GPS مقام تک رسائی حاصل نہیں ہو سکی۔ مقام کی اجازت چیک کریں۔" : "Could not access GPS location. Please check browser location permissions or choose your district from the dropdown.");
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
     }
 
     // Save and Render Local History
@@ -4391,13 +4646,30 @@
     // District Selector Synchronization
     function syncDistrictChange(val) {
       if (!val) return;
-      const [lat, lon, name] = val.split(",");
+      const parts = val.split(",");
+      const lat = parts[0];
+      const lon = parts[1];
+      const rawName = parts.slice(2).join(",").trim();
+      const displayName = rawName.toLowerCase().includes("kashmir") || rawName.includes("(") ? rawName : `${rawName}, Kashmir`;
       localStorage.setItem("applecare_district", val);
       const dSel = document.getElementById("districtSelect");
       const fSel = document.getElementById("forecastDistrictSelect");
       if (dSel) dSel.value = val;
       if (fSel) fSel.value = val;
-      updateWeather(Number(lat), Number(lon), `${name}, Kashmir`);
+
+      const locateBtn = document.getElementById("locateBtn");
+      const forecastGpsBtn = document.getElementById("forecastGpsBtn");
+      const isGps = val.includes("(GPS)");
+      if (locateBtn && !isGps) {
+        locateBtn.classList.remove("active");
+        locateBtn.innerHTML = `<span>⌖</span> ${currentAppLang === "ur" ? "GPS استعمال کریں" : "Use GPS"}`;
+      }
+      if (forecastGpsBtn && !isGps) {
+        forecastGpsBtn.classList.remove("active");
+        forecastGpsBtn.innerHTML = `<span>⌖</span> GPS`;
+      }
+
+      updateWeather(Number(lat), Number(lon), displayName);
     }
 
     document.getElementById("districtSelect").addEventListener("change", (e) => {
@@ -6071,8 +6343,10 @@
             });
             currentDealers.sort((a, b) => a.distance_km - b.distance_km);
 
+            const nearest = getNearestKashmirHub(lat, lon);
+            const placeLabel = nearest && nearest.dist_km <= 45 ? nearest.name : `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
             gpsBtn.disabled = false;
-            gpsBtn.innerHTML = `<span>✓</span> GPS Active (${lat.toFixed(3)}, ${lon.toFixed(3)})`;
+            gpsBtn.innerHTML = `<span>✓</span> GPS Active: ${placeLabel}`;
             gpsBtn.classList.add("active");
 
             // Update live Google Maps search link with coordinates
@@ -6432,11 +6706,33 @@
 
     const savedDistrict = localStorage.getItem("applecare_district");
     if (savedDistrict) {
-      document.getElementById("districtSelect").value = savedDistrict;
+      const parts = savedDistrict.split(",");
+      const lat = Number(parts[0]);
+      const lon = Number(parts[1]);
+      const rawName = parts.slice(2).join(",").trim();
+      const displayName = rawName.toLowerCase().includes("kashmir") || rawName.includes("(") ? rawName : `${rawName}, Kashmir`;
+
+      const dSel = document.getElementById("districtSelect");
       const fSel = document.getElementById("forecastDistrictSelect");
-      if (fSel) fSel.value = savedDistrict;
-      const [lat, lon, name] = savedDistrict.split(",");
-      updateWeather(Number(lat), Number(lon), `${name}, Kashmir`);
+
+      let exists = false;
+      if (dSel) {
+        for (let i = 0; i < dSel.options.length; i++) {
+          if (dSel.options[i].value === savedDistrict) {
+            exists = true;
+            break;
+          }
+        }
+      }
+
+      if (!exists && lat && lon && rawName) {
+        syncGpsLocationToDropdowns(lat, lon, rawName);
+      } else {
+        if (dSel) dSel.value = savedDistrict;
+        if (fSel) fSel.value = savedDistrict;
+      }
+
+      updateWeather(lat, lon, displayName);
     } else {
       const defaultDistrict = "33.7182,75.1548,Shopian";
       document.getElementById("districtSelect").value = defaultDistrict;

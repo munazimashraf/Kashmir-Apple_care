@@ -41,3 +41,13 @@ def list_districts() -> List[Dict[str, Any]]:
         }
         for key, val in KASHMIR_DISTRICTS.items()
     ]
+
+
+@router.get("/reverse-geocode")
+async def reverse_geocode(
+    latitude: float = Query(..., ge=-90, le=90),
+    longitude: float = Query(..., ge=-180, le=180),
+) -> Dict[str, Any]:
+    """Reverse geocode GPS coordinates to place/orchard belt name."""
+    svc = WeatherService()
+    return await svc.reverse_geocode(latitude, longitude)

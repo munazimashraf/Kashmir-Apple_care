@@ -12,6 +12,7 @@ with official SKUAST-Kashmir Apple Spray guidelines:
 from __future__ import annotations
 
 import logging
+import math
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, List, Optional
 import httpx
@@ -30,6 +31,66 @@ KASHMIR_DISTRICTS: Dict[str, Dict[str, Any]] = {
     "kupwara": {"name": "Kupwara", "lat": 34.5262, "lon": 74.2546, "elevation_m": 1615},
     "ganderbal": {"name": "Ganderbal", "lat": 34.2165, "lon": 74.7816, "elevation_m": 1619},
 }
+
+KASHMIR_GEO_HUBS: List[Dict[str, Any]] = [
+    {"name": "Shopian", "district": "Shopian", "urdu": "شوپیاں", "lat": 33.7182, "lon": 74.8322},
+    {"name": "Sopore", "district": "Baramulla", "urdu": "سوپور", "lat": 34.2981, "lon": 74.4716},
+    {"name": "Baramulla", "district": "Baramulla", "urdu": "بارہمولہ", "lat": 34.2088, "lon": 74.3436},
+    {"name": "Pulwama", "district": "Pulwama", "urdu": "پلوامہ", "lat": 33.8731, "lon": 74.8987},
+    {"name": "Anantnag", "district": "Anantnag", "urdu": "اننت ناگ", "lat": 33.7311, "lon": 75.1487},
+    {"name": "Kulgam", "district": "Kulgam", "urdu": "کولگام", "lat": 33.6450, "lon": 75.0180},
+    {"name": "Srinagar", "district": "Srinagar", "urdu": "سری نگر", "lat": 34.0837, "lon": 74.7973},
+    {"name": "Budgam", "district": "Budgam", "urdu": "بڈگام", "lat": 34.0150, "lon": 74.7170},
+    {"name": "Kupwara", "district": "Kupwara", "urdu": "کپوارہ", "lat": 34.5262, "lon": 74.2546},
+    {"name": "Ganderbal", "district": "Ganderbal", "urdu": "گاندربل", "lat": 34.2165, "lon": 74.7816},
+    {"name": "Bandipora", "district": "Bandipora", "urdu": "بانڈی پورہ", "lat": 34.4226, "lon": 74.6477},
+    {"name": "Pattan", "district": "Baramulla", "urdu": "پٹن", "lat": 34.1594, "lon": 74.5574},
+    {"name": "Bijbehara", "district": "Anantnag", "urdu": "بیجبہاڑہ", "lat": 33.7972, "lon": 75.1051},
+    {"name": "Handwara", "district": "Kupwara", "urdu": "ہندوارہ", "lat": 34.3980, "lon": 74.2828},
+    {"name": "Tral", "district": "Pulwama", "urdu": "ترال", "lat": 33.9312, "lon": 75.1134},
+    {"name": "Zainapora", "district": "Shopian", "urdu": "زینہ پورہ", "lat": 33.7431, "lon": 74.9821},
+    {"name": "Pahalgam", "district": "Anantnag", "urdu": "پہلگام", "lat": 34.0163, "lon": 75.3188},
+    {"name": "Charar-i-Sharief", "district": "Budgam", "urdu": "چرار شریف", "lat": 33.8624, "lon": 74.7661},
+    {"name": "Rafiabad", "district": "Baramulla", "urdu": "رفیع آباد", "lat": 34.3312, "lon": 74.3855},
+    {"name": "Kangan", "district": "Ganderbal", "urdu": "کنگن", "lat": 34.2633, "lon": 74.9033},
+]
+
+DISTRICT_URDU_MAP: Dict[str, str] = {
+    "Shopian": "شوپیاں",
+    "Sopore": "سوپور",
+    "Baramulla": "بارہمولہ",
+    "Pulwama": "پلوامہ",
+    "Anantnag": "اننت ناگ",
+    "Kulgam": "کولگام",
+    "Srinagar": "سری نگر",
+    "Budgam": "بڈگام",
+    "Badgam": "بڈگام",
+    "Kupwara": "کپوارہ",
+    "Ganderbal": "گاندربل",
+    "Bandipora": "بانڈی پورہ",
+    "Pattan": "پٹن",
+    "Bijbehara": "بیجبہاڑہ",
+    "Handwara": "ہندوارہ",
+    "Tral": "ترال",
+    "Zainapora": "زینہ پورہ",
+    "Pahalgam": "پہلگام",
+    "Charar-i-Sharief": "چرار شریف",
+    "Rafiabad": "رفیع آباد",
+    "Kangan": "کنگن",
+    "Kashmir": "کشمیر",
+}
+
+
+def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Haversine distance calculation in kilometers between two GPS points."""
+    r = 6371.0
+    d_lat = math.radians(lat2 - lat1)
+    d_lon = math.radians(lon2 - lon1)
+    a = (
+        math.sin(d_lat / 2) ** 2
+        + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(d_lon / 2) ** 2
+    )
+    return 2 * r * math.asin(math.sqrt(max(0.0, min(1.0, a))))
 
 
 class WeatherService:
@@ -72,6 +133,97 @@ class WeatherService:
             LOGGER.warning("Failed to fetch live weather from Open-Meteo: %s. Using climatological forecast.", exc)
 
         return self._build_fallback_forecast(display_name, elevation, latitude, longitude)
+
+    async def reverse_geocode(self, latitude: float, longitude: float) -> Dict[str, Any]:
+        """Reverse geocode GPS coordinates to place/orchard belt name with Kashmir-tailored resolution."""
+        nearest_hub = None
+        min_dist = float("inf")
+        for hub in KASHMIR_GEO_HUBS:
+            d = haversine_km(latitude, longitude, hub["lat"], hub["lon"])
+            if d < min_dist:
+                min_dist = d
+                nearest_hub = hub
+
+        # 1. Attempt live reverse geocoding via Photon (OSM data)
+        try:
+            url = f"https://photon.komoot.io/reverse?lat={latitude}&lon={longitude}"
+            async with httpx.AsyncClient(timeout=3.5) as client:
+                resp = await client.get(url, headers={"User-Agent": "KashmirAppleCare/2.0"})
+                if resp.status_code == 200:
+                    data = resp.json()
+                    features = data.get("features", [])
+                    if features:
+                        props = features[0].get("properties", {})
+                        village = props.get("village") or props.get("hamlet")
+                        town = props.get("town")
+                        city = props.get("city")
+                        district = props.get("district")
+                        locality = props.get("locality")
+                        county = (props.get("county") or "").strip()
+                        if county.lower().endswith(" tehsil"):
+                            county = county[:-7].strip()
+
+                        primary = village or town or city or locality or district or props.get("name")
+                        secondary = ""
+                        if county and county.lower() != (primary or "").lower():
+                            secondary = county
+                        elif district and district.lower() != (primary or "").lower():
+                            secondary = district
+
+                        if primary and secondary:
+                            display_name = f"{primary}, {secondary}"
+                        elif primary:
+                            display_name = (
+                                f"{primary}, Kashmir"
+                                if "kashmir" in (props.get("state") or "").lower()
+                                else primary
+                            )
+                        elif secondary:
+                            display_name = f"{secondary}, Kashmir"
+                        else:
+                            display_name = None
+
+                        if display_name:
+                            short = primary or secondary or "Kashmir"
+                            urdu = DISTRICT_URDU_MAP.get(short, DISTRICT_URDU_MAP.get(county, short))
+                            return {
+                                "latitude": latitude,
+                                "longitude": longitude,
+                                "name": display_name,
+                                "short_name": short,
+                                "district": county or (nearest_hub["district"] if nearest_hub else "Kashmir"),
+                                "urdu_name": urdu,
+                                "nearest_hub_km": round(min_dist, 1) if nearest_hub else None,
+                                "source": "photon",
+                            }
+        except Exception as exc:
+            LOGGER.warning("Photon reverse geocoding failed: %s", exc)
+
+        # 2. Nearest Kashmir hub fallback (if within 45 km radius)
+        if nearest_hub and min_dist <= 45.0:
+            name = f"{nearest_hub['name']}, Kashmir"
+            return {
+                "latitude": latitude,
+                "longitude": longitude,
+                "name": name,
+                "short_name": nearest_hub["name"],
+                "district": nearest_hub["district"],
+                "urdu_name": nearest_hub["urdu"],
+                "nearest_hub_km": round(min_dist, 1),
+                "source": "hub_haversine",
+            }
+
+        # 3. Fallback coordinates
+        return {
+            "latitude": latitude,
+            "longitude": longitude,
+            "name": f"GPS ({latitude:.3f}°N, {longitude:.3f}°E)",
+            "short_name": f"{latitude:.2f}, {longitude:.2f}",
+            "district": "Custom Location",
+            "urdu_name": "جی پی ایس مقام",
+            "nearest_hub_km": round(min_dist, 1) if nearest_hub else None,
+            "source": "coordinates",
+        }
 
     def _process_open_meteo_data(
         self,
