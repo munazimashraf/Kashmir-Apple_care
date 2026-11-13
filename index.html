@@ -2645,8 +2645,13 @@
   </div>
 
   <footer>
-    <div class="shell">
-      AppleCare Kashmir AI Diagnostic System · Aligned with SKUAST-Kashmir Apple Spray Schedule 2024–2026. Verify local label registrations and consult your area Horticulture Development Officer (HDO) before field spraying.
+    <div class="shell" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <div>
+        AppleCare Kashmir AI Diagnostic System · Aligned with SKUAST-Kashmir Apple Spray Schedule 2024–2026. Verify local label registrations and consult your area Horticulture Development Officer (HDO) before field spraying.
+      </div>
+      <div style="font-weight: 700; color: var(--deep); font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 20px; background: rgba(4, 120, 87, 0.08); border-radius: 9999px; border: 1px solid rgba(4, 120, 87, 0.22); margin-top: 4px;">
+        <span>🍎</span> Developed by <span style="color: var(--primary); font-weight: 800;">Munazim Ashraf Bhat</span>
+      </div>
     </div>
   </footer>
 
@@ -3150,7 +3155,9 @@
         `\n\nURDU SUMMARY:\n` +
         `${name} کی تشخیص مکمل ہے۔ تجویز کردہ مقدار اور لیبل کی ہدایات پر عمل کریں۔\n\n` +
         `KASHMIRI SUMMARY:\n` +
-        `${name} چیک کرُن مکمل۔ بارش آسہٕ تہٕ سپرے ملتوی کٔرِو، تہٕ لیبل ہدایات مُطابق عمل کٔرِو۔`;
+        `${name} چیک کرُن مکمل۔ بارش آسہٕ تہٕ سپرے ملتوی کٔرِو، تہٕ لیبل ہدایات مُطابق عمل کٔرِو۔\n\n` +
+        `DEVELOPER:\n` +
+        `Developed by Munazim Ashraf Bhat · Kashmir Apple Care AI System`;
     }
 
     // Client-side quick plant vs non-plant color verification (with human skin tone & texture detection)
