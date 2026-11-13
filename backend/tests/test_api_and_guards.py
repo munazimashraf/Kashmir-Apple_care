@@ -199,6 +199,20 @@ def test_skuast_annual_spray_calendar_endpoints():
             assert calc_data["water_liters"] == 500.0
             assert "150" in calc_data["total_quantity"]
 
+            # Tank Calculator with SKUAST Fertilizer
+            fert_calc_res = await client.get("/api/v1/advisory/tank-calculator?chemical=Urea&water_liters=1000")
+            assert fert_calc_res.status_code == 200
+            fert_calc_data = fert_calc_res.json()
+            assert "50" in fert_calc_data["total_quantity"] or "kg" in fert_calc_data["total_quantity"]
+            assert fert_calc_data.get("category") == "fertilizer"
+
+            # Fertilizers List API
+            ferts_res = await client.get("/api/v1/advisory/fertilizers?search=Calcium")
+            assert ferts_res.status_code == 200
+            ferts = ferts_res.json()
+            assert len(ferts) >= 2
+            assert any("Bitter Pit" in f["purpose"] for f in ferts)
+
             # 5. Pesticide Dealers & Distance Sorting
             dealer_res = await client.get("/api/v1/advisory/dealers?latitude=33.72&longitude=74.83")
             assert dealer_res.status_code == 200

@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Query
 
 from app.services.advisory import (
     get_spray_calendar,
+    get_fertilizers,
     get_compatibility_rules,
     calculate_tank_mix,
     get_pesticide_dealers,
@@ -12,6 +13,24 @@ from app.services.advisory import (
 )
 
 router = APIRouter(prefix="/advisory", tags=["advisory"])
+
+
+@router.get("/fertilizers")
+def list_fertilizers(
+    category: Optional[str] = Query(None, description="Optional category filter (e.g. fertilizer, biostimulant)"),
+    search: Optional[str] = Query(None, description="Optional keyword search (e.g. Urea, Calcium, Zinc, Boron, NPK)")
+) -> List[Dict[str, Any]]:
+    """Returns official SKUAST-K apple orchard fertilizers, foliar nutrients, and trace minerals with tank calibrations."""
+    fertilizers = get_fertilizers()
+    if category:
+        fertilizers = [f for f in fertilizers if category.lower() in f.get("category", "").lower()]
+    if search:
+        s = search.lower()
+        fertilizers = [
+            f for f in fertilizers
+            if s in f.get("name", "").lower() or s in f.get("purpose", "").lower() or s in f.get("stage", "").lower()
+        ]
+    return fertilizers
 
 
 @router.get("/calendar")

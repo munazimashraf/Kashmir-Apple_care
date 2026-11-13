@@ -719,9 +719,208 @@ CHEMICAL_COMPATIBILITY_RULES: List[Dict[str, Any]] = [
 ]
 
 
+SKUAST_FERTILIZERS: List[Dict[str, Any]] = [
+    {
+        "name": "Agricultural Urea (5% Scab Eradicant)",
+        "category": "fertilizer",
+        "dosage_per_100l": "5.0 kg",
+        "dosage_per_1000l": "50.0 kg",
+        "dosage_per_16l": "800 grams",
+        "stage": "Post-Harvest / Pre-Leaf Fall (Oct–Nov)",
+        "purpose": "Eradicates overwintering apple scab pseudothecia; accelerates fallen leaf decay and tree nitrogen reserve replenishment.",
+        "mixing_tip": "Drench both tree canopy and fallen orchard leaf litter uniformly. Best applied in late October while leaves are still hanging on branches."
+    },
+    {
+        "name": "Agricultural Urea (0.5% Foliar Boost)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Fruit Growth (June)",
+        "purpose": "Corrects pale green foliage and early summer spur nitrogen deficiency during active canopy expansion.",
+        "mixing_tip": "Ensure pure agricultural urea (low biuret < 0.3%). Spray during early morning or late afternoon to prevent leaf tip burn."
+    },
+    {
+        "name": "Calcium Chloride (CaCl₂ 0.4% Technical Grade)",
+        "category": "fertilizer",
+        "dosage_per_100l": "400 grams",
+        "dosage_per_1000l": "4.0 kg",
+        "dosage_per_16l": "64 grams",
+        "stage": "Fruit Growth & Pre-Harvest (July–August)",
+        "purpose": "Direct fruit calcium absorption to prevent Bitter Pit, cork spot, watercore, and boost cold storage crispness.",
+        "mixing_tip": "Apply 4–5 foliar sprays at 12–15 day intervals. Avoid spraying during intense midday heat above 28°C to prevent leaf scorch."
+    },
+    {
+        "name": "Calcium Nitrate (15.5-0-0 + 18.8% Ca)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Fruit Growth (June–July)",
+        "purpose": "Enhances cell wall firmness, fruit sizing, and tree vigor in low-calcium acidic valley soils.",
+        "mixing_tip": "Fully water soluble. Do NOT mix with sulphate-containing fertilizers or phosphates in the same tank to prevent insoluble precipitation."
+    },
+    {
+        "name": "Solubor / Boric Acid (Boron 20% / 17% B)",
+        "category": "fertilizer",
+        "dosage_per_100l": "100 grams",
+        "dosage_per_1000l": "1.0 kg",
+        "dosage_per_16l": "16 grams",
+        "stage": "Pink Bud & Pre-Bloom",
+        "purpose": "Crucial for pollen grain germination, pollen tube elongation, ovule fertilization, and internal cork prevention.",
+        "mixing_tip": "Dissolve completely in lukewarm water before pouring into spray tank. Apply at tight cluster or pink bud stage before blossoms open."
+    },
+    {
+        "name": "Zinc Sulphate Heptahydrate (21% Zn) + Lime",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Delayed Dormant / Silver Tip",
+        "purpose": "Cures Zinc deficiency 'Little Leaf' and rosette formation; stimulates natural plant auxin (IAA) production.",
+        "mixing_tip": "Always neutralize with 250g hydrated spray lime per 500g zinc sulphate to prevent foliar acidity and leaf burn."
+    },
+    {
+        "name": "Chelated Zinc (Zn-EDTA 12%)",
+        "category": "fertilizer",
+        "dosage_per_100l": "100 grams",
+        "dosage_per_1000l": "1.0 kg",
+        "dosage_per_16l": "16 grams",
+        "stage": "Petal Fall & Fruitlet Growth",
+        "purpose": "High-efficiency non-scorching foliar zinc for high-density M9 and MM106 trellis orchards.",
+        "mixing_tip": "Compatible with most neutral organic fungicides. Readily absorbed through tender young spring foliage."
+    },
+    {
+        "name": "Potassium Nitrate (13-0-45 / Multi-K)",
+        "category": "fertilizer",
+        "dosage_per_100l": "1.0 kg",
+        "dosage_per_1000l": "10.0 kg",
+        "dosage_per_16l": "160 grams",
+        "stage": "Fruit Sizing & Maturation (July–August)",
+        "purpose": "Drives rapid potassium uptake into fruit pulp for larger caliber size, high sugar (Brix), and intense red coloration.",
+        "mixing_tip": "Apply 2 sprays during fruit swelling stage. Compatible with Mancozeb and Captan."
+    },
+    {
+        "name": "Sulphate of Potash (SOP 0-0-50 + 17.5% S)",
+        "category": "fertilizer",
+        "dosage_per_100l": "1.0 kg",
+        "dosage_per_1000l": "10.0 kg",
+        "dosage_per_16l": "160 grams",
+        "stage": "Pre-Harvest (August–September)",
+        "purpose": "Chloride-free potassium polish for superior fruit skin finish, wax bloom, and drought/cold resilience.",
+        "mixing_tip": "Nitrogen-free formulation ideal 30 days before harvest to color Delicious apples without causing soft vegetative growth."
+    },
+    {
+        "name": "Water Soluble NPK 19-19-19 (Balanced)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Petal Fall & Early Fruit Growth (May–June)",
+        "purpose": "Balanced multi-nutrient nutrition supporting simultaneous vegetative shoot flush and fruitlet cell division.",
+        "mixing_tip": "High purity water-soluble salt. Premix in clean bucket of water before pouring into power tanker."
+    },
+    {
+        "name": "Mono Ammonium Phosphate (MAP 12-61-0)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Petal Fall (May)",
+        "purpose": "High-concentration phosphorus jump-starts feeder root flushes and initiates spur floral bud differentiation for next year's crop.",
+        "mixing_tip": "Prevents alternate bearing by ensuring robust return bloom. Spray when leaves are fully expanded."
+    },
+    {
+        "name": "Mono Potassium Phosphate (MKP 0-52-34)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Pre-Harvest (August)",
+        "purpose": "Zero-nitrogen PK booster suppresses vegetative growth and stimulates anthocyanin red color synthesis in apple peel.",
+        "mixing_tip": "Increases fruit sugar content and shelf life. Apply 3–4 weeks before anticipated harvest."
+    },
+    {
+        "name": "Magnesium Sulphate (Epsom Salt 9.6% Mg)",
+        "category": "fertilizer",
+        "dosage_per_100l": "500 grams",
+        "dosage_per_1000l": "5.0 kg",
+        "dosage_per_16l": "80 grams",
+        "stage": "Fruit Growth (June–July)",
+        "purpose": "Prevents interveinal leaf chlorosis and premature defoliation on heavy crop load branches.",
+        "mixing_tip": "Essential for active chlorophyll synthesis. Apply when older leaves show interveinal yellowing."
+    },
+    {
+        "name": "Chelated Iron (Fe-EDTA 12% Fe)",
+        "category": "fertilizer",
+        "dosage_per_100l": "150 grams",
+        "dosage_per_1000l": "1.5 kg",
+        "dosage_per_16l": "24 grams",
+        "stage": "Spring Active Growth",
+        "purpose": "Cures lime-induced iron chlorosis (yellow leaves with dark green veins) prevalent in high-pH Kashmir karewa soils.",
+        "mixing_tip": "Chelated form stays stable in alkaline valley soils. Spray during early morning under mild temperatures."
+    },
+    {
+        "name": "Manganese Sulphate (30.5% Mn)",
+        "category": "fertilizer",
+        "dosage_per_100l": "200 grams",
+        "dosage_per_1000l": "2.0 kg",
+        "dosage_per_16l": "32 grams",
+        "stage": "Early Summer (June)",
+        "purpose": "Corrects manganese deficiency interveinal speckling on apple foliage in calcareous orchard soils.",
+        "mixing_tip": "Dissolve fully in water. Neutralize with 100g lime if spraying on tender young leaves."
+    },
+    {
+        "name": "SKUAST-K Multi-Micronutrient Cocktail",
+        "category": "fertilizer",
+        "dosage_per_100l": "250 grams",
+        "dosage_per_1000l": "2.5 kg",
+        "dosage_per_16l": "40 grams",
+        "stage": "Pink Bud & Post-Petal Fall",
+        "purpose": "Balanced formulation of Zn, B, Fe, Mn, Cu, and Mo to prevent hidden micronutrient hunger in high-density orchards.",
+        "mixing_tip": "Specially formulated for Kashmir temperate soils. Do not tank-mix with heavy alkaline sprays or copper."
+    },
+    {
+        "name": "Calcium Boron Complex (Liquid Ca-B)",
+        "category": "fertilizer",
+        "dosage_per_100l": "250 ml",
+        "dosage_per_1000l": "2.5 Liters",
+        "dosage_per_16l": "40 ml",
+        "stage": "Pink Bud & Fruitlet Growth",
+        "purpose": "Synergistic calcium and boron formulation prevents blossom drop, fruit cracking, and internal cork.",
+        "mixing_tip": "Liquid chelated suspension. Shake container thoroughly before measuring into sprayer."
+    },
+    {
+        "name": "Seaweed Extract Bio-Stimulant (Kelp)",
+        "category": "fertilizer",
+        "dosage_per_100l": "200 ml",
+        "dosage_per_1000l": "2.0 Liters",
+        "dosage_per_16l": "32 ml",
+        "stage": "Pink Bud / Post-Hail / Post-Frost",
+        "purpose": "Alleviates Kashmir spring cold snap/frost stress; enhances natural pollination rate and root mineral uptake.",
+        "mixing_tip": "Natural organic bio-stimulant. Excellent tank mix partner for foliar micronutrients."
+    },
+    {
+        "name": "Amino Acid & Peptide Chelate Formulation",
+        "category": "fertilizer",
+        "dosage_per_100l": "200 ml",
+        "dosage_per_1000l": "2.0 Liters",
+        "dosage_per_16l": "32 ml",
+        "stage": "Fruit Growth & Summer Stress",
+        "purpose": "Speeds nutrient absorption across leaf wax cuticles; aids recovery after hail damage or severe weather stress.",
+        "mixing_tip": "Enhances systemic absorption of tank-mixed micro-nutrients."
+    }
+]
+
+
 def get_spray_calendar() -> List[Dict[str, Any]]:
     """Returns the full 8-stage SKUAST-Kashmir Apple Spray Calendar."""
     return SKUAST_ANNUAL_SPRAY_CALENDAR
+
+
+def get_fertilizers() -> List[Dict[str, Any]]:
+    """Returns official SKUAST-K foliar and orchard fertilizers with tank mixing calibrations."""
+    return SKUAST_FERTILIZERS
 
 
 def get_compatibility_rules() -> List[Dict[str, Any]]:
@@ -731,12 +930,42 @@ def get_compatibility_rules() -> List[Dict[str, Any]]:
 
 def calculate_tank_mix(chemical_name: str, water_liters: float) -> Dict[str, Any]:
     """Calculates exact required chemical weight or volume for any spray tank capacity."""
-    # Find product in calendar
+    # First search fertilizers
+    for fert in SKUAST_FERTILIZERS:
+        if chemical_name.lower() in fert["name"].lower():
+            dos_str = fert["dosage_per_100l"]
+            rate = 0.0
+            unit = "grams"
+            try:
+                parts = dos_str.split()
+                rate = float(parts[0])
+                unit = parts[1]
+            except Exception:
+                pass
+
+            if unit.lower().startswith("kg"):
+                rate = rate * 1000.0
+                unit = "grams"
+
+            total_qty = (rate / 100.0) * water_liters
+            formatted_qty = f"{round(total_qty / 1000.0, 2)} kg" if total_qty >= 1000 else f"{round(total_qty, 1)} {unit}"
+
+            return {
+                "chemical": fert["name"],
+                "water_liters": water_liters,
+                "dosage_per_100l": dos_str,
+                "total_quantity": formatted_qty,
+                "stage_name": fert["stage"],
+                "purpose": fert["purpose"],
+                "mixing_tip": fert.get("mixing_tip", ""),
+                "category": "fertilizer"
+            }
+
+    # Search products in spray calendar
     for stage in SKUAST_ANNUAL_SPRAY_CALENDAR:
         for prod in stage["products"]:
             if chemical_name.lower() in prod["product"].lower():
                 dos_str = prod["dosage_per_100l"]
-                # Parse rate per 100L
                 rate = 0.0
                 unit = "grams"
                 try:
@@ -745,10 +974,14 @@ def calculate_tank_mix(chemical_name: str, water_liters: float) -> Dict[str, Any
                     unit = parts[1]
                 except Exception:
                     pass
-                
+
+                if unit.lower().startswith("kg"):
+                    rate = rate * 1000.0
+                    unit = "grams"
+
                 total_qty = (rate / 100.0) * water_liters
-                formatted_qty = f"{round(total_qty / 1000.0, 2)} kg" if unit in {"grams", "g"} and total_qty >= 1000 else (f"{round(total_qty, 1)} {unit}")
-                
+                formatted_qty = f"{round(total_qty / 1000.0, 2)} kg" if total_qty >= 1000 else f"{round(total_qty, 1)} {unit}"
+
                 return {
                     "chemical": prod["product"],
                     "water_liters": water_liters,
@@ -756,6 +989,7 @@ def calculate_tank_mix(chemical_name: str, water_liters: float) -> Dict[str, Any
                     "total_quantity": formatted_qty,
                     "stage_name": stage["stage_name"],
                     "purpose": prod["purpose"],
+                    "category": "medicine"
                 }
 
     # Default rate if not found

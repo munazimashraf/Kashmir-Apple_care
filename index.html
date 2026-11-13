@@ -2499,29 +2499,44 @@
         <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);" data-i18n="tank_title">Tank Mixing & Volume Dosage Calculator</h3>
         <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;" data-i18n="tank_subhead">Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.</p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; align-items: end;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start;">
           <div>
-            <label style="display: block; font-size: 12px; font-weight: 750; color: var(--ink); margin-bottom: 6px;">Select Chemical Formulation</label>
-            <select id="calcChemicalSelect" class="input-select" style="width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+              <label style="font-size: 12px; font-weight: 750; color: var(--ink);" data-i18n="calc_chem_label">Select Formulation / Fertilizer</label>
+              <div class="calc-filter-pills" style="display: flex; gap: 4px;">
+                <button type="button" class="calc-type-filter active" data-type="all" style="font-size: 10.5px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); background: var(--primary); color: #fff; cursor: pointer; font-weight: 700;">All</button>
+                <button type="button" class="calc-type-filter" data-type="fertilizer" style="font-size: 10.5px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); background: #f1f5f9; color: var(--deep); cursor: pointer; font-weight: 600;">🌱 Fertilizers</button>
+                <button type="button" class="calc-type-filter" data-type="fungicide" style="font-size: 10.5px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); background: #f1f5f9; color: var(--deep); cursor: pointer; font-weight: 600;">🔬 Medicines</button>
+              </div>
+            </div>
+
+            <!-- Search Medicine / Fertilizer Input -->
+            <div style="position: relative; margin-bottom: 8px;">
+              <input type="text" id="calcSearchInput" class="input-select" data-i18n-placeholder="calc_search_placeholder" placeholder="🔍 Search medicine, fertilizer, brand (e.g. Urea, Calcium, Zinc, Mancozeb, NPK)..." style="width: 100%; font-size: 12px; padding: 8px 12px 8px 30px;">
+              <span style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); pointer-events: none;">🔍</span>
+              <button type="button" id="calcSearchClearBtn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 12px; color: var(--muted); cursor: pointer; display: none;">✕</button>
+            </div>
+
+            <select id="calcChemicalSelect" class="input-select" style="width: 100%; font-size: 12.5px;">
               <!-- Populated via JS -->
             </select>
+            <div id="calcMatchCount" style="font-size: 11px; color: var(--muted); margin-top: 5px;">Showing all SKUAST-K formulations</div>
           </div>
           <div>
             <label style="display: block; font-size: 12px; font-weight: 750; color: var(--ink); margin-bottom: 6px;">Orchard Sprayer Tank Volume (Liters)</label>
-            <div style="display: flex; gap: 8px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
               <input type="number" id="calcWaterLitersInput" class="input-select" value="1000" min="1" max="10000" step="5" style="width: 100px;">
               <input type="range" id="calcWaterSlider" min="16" max="2000" step="10" value="1000" style="flex: 1; accent-color: var(--primary);">
             </div>
+            <div class="tank-quick-btns" style="margin-top: 4px;">
+              <span style="font-size: 11px; font-weight: 700; color: #64748b; align-self: center; margin-right: 4px;">Quick Sizes:</span>
+              <button type="button" class="tank-quick-btn" data-liters="16">16 L (Knapsack)</button>
+              <button type="button" class="tank-quick-btn" data-liters="200">200 L (Drum / Barrel)</button>
+              <button type="button" class="tank-quick-btn" data-liters="500">500 L (Mini-Tanker)</button>
+              <button type="button" class="tank-quick-btn active" data-liters="1000">1,000 L (Standard Power Tanker)</button>
+              <button type="button" class="tank-quick-btn" data-liters="2000">2,000 L (Tractor Mega Tanker)</button>
+            </div>
           </div>
-        </div>
-
-        <div class="tank-quick-btns">
-          <span style="font-size: 11px; font-weight: 700; color: #64748b; align-self: center; margin-right: 4px;">Quick Sizes:</span>
-          <button class="tank-quick-btn" data-liters="16">16 L (Knapsack)</button>
-          <button class="tank-quick-btn" data-liters="200">200 L (Drum / Barrel)</button>
-          <button class="tank-quick-btn" data-liters="500">500 L (Mini-Tanker)</button>
-          <button class="tank-quick-btn active" data-liters="1000">1,000 L (Standard Power Tanker)</button>
-          <button class="tank-quick-btn" data-liters="2000">2,000 L (Tractor Mega Tanker)</button>
         </div>
 
         <!-- Calculated Result Box -->
@@ -2847,6 +2862,8 @@
         tank_eyebrow: "⚖️ Precise Chemical Dosage Engine",
         tank_title: "Tank Mixing & Volume Dosage Calculator",
         tank_subhead: "Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.",
+        calc_chem_label: "Select Formulation / Fertilizer",
+        calc_search_placeholder: "🔍 Search medicine, fertilizer, brand (e.g. Urea, Calcium, Zinc, Mancozeb, NPK)...",
         compat_eyebrow: "🧪 Tank Mix Safety Matrix",
         compat_title: "SKUAST-K Chemical Compatibility & Phytotoxicity Guide",
         dealers_eyebrow: "🏪 Kashmir Agri-Input & Pesticide Store Locator",
@@ -2961,6 +2978,8 @@
         tank_eyebrow: "⚖️ درست کیمیکل خوراک کیلکولیٹر",
         tank_title: "اسپرے ٹینک مکسنگ اور حجم کیلکولیٹر",
         tank_subhead: "اپنے اسپرے پمپ یا ٹینک کے لیے بغیر کسی غلطی کے درست گرام، کلوگرام یا ملی لیٹر کا حساب لگائیں۔",
+        calc_chem_label: "دوا یا کھاد کا انتخاب کریں",
+        calc_search_placeholder: "🔍 دوا، کھاد، یا برانڈ تلاش کریں (مثلاً یوریا، کیلشیم، زنک، مینکوزیب، NPK)...",
         compat_eyebrow: "🧪 مکسنگ سیفٹی چارٹ",
         compat_title: "SKUAST-K کیمیکل موافقت اور خطرات کی گائیڈ",
         dealers_eyebrow: "🏪 کشمیر زرعی ادویات و کھاد اسٹور لوکیٹر",
@@ -3075,6 +3094,8 @@
         tank_eyebrow: "⚖️ کیمیکل خوراک کیلکولیٹر",
         tank_title: "اسپرے ٹینک مکسنگ اور حجم کیلکولیٹر",
         tank_subhead: "اپنے اسپرے پمپ یا ٹینک کے لیے بغیر کسی غلطی کے درست گرام، کلوگرام یا ملی لیٹر کا حساب لگائیں۔",
+        calc_chem_label: "دوا یا کھاد ژارِو",
+        calc_search_placeholder: "🔍 دوا، کھاد یا برانڈ ژھارِو (مثلاً Urea, Calcium, Zinc, NPK)...",
         compat_eyebrow: "🧪 مکسنگ سیفٹی چارٹ",
         compat_title: "SKUAST-K کیمیکل موافقت اور خطرات کی گائیڈ",
         dealers_eyebrow: "🏪 کشمیر دوکان لوکیٹر",
@@ -4885,6 +4906,162 @@
       }
     ];
 
+    // Authentic SKUAST-K Kashmir Orchard Fertilizers, Foliar Nutrients & Biostimulants Dataset
+    const SKUAST_FERTILIZERS_DATA = [
+      {
+        name: "Agricultural Urea (5% Scab Eradicant)",
+        category: "fertilizer",
+        dosage_per_100l: "5.0 kg",
+        stage: "Post-Harvest / Leaf Fall (Oct–Nov)",
+        purpose: "Eradicates overwintering apple scab pseudothecia; accelerates fallen leaf decay and tree nitrogen reserve replenishment.",
+        mixing_tip: "💡 Drench both tree canopy and fallen orchard leaf litter uniformly. Best applied in late October while leaves are still hanging on branches."
+      },
+      {
+        name: "Agricultural Urea (0.5% Foliar Boost)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Fruit Growth (June)",
+        purpose: "Corrects pale green foliage and early summer spur nitrogen deficiency during active canopy expansion.",
+        mixing_tip: "💡 Ensure pure agricultural urea (low biuret < 0.3%). Spray during early morning or late afternoon to prevent leaf tip burn."
+      },
+      {
+        name: "Calcium Chloride (CaCl₂ 0.4% Technical Grade)",
+        category: "fertilizer",
+        dosage_per_100l: "400 grams",
+        stage: "Fruit Growth & Pre-Harvest (July–August)",
+        purpose: "Direct fruit calcium absorption to prevent Bitter Pit, cork spot, watercore, and boost cold storage crispness.",
+        mixing_tip: "💡 Apply 4–5 foliar sprays at 12–15 day intervals. Avoid spraying during intense midday heat above 28°C to prevent leaf scorch."
+      },
+      {
+        name: "Calcium Nitrate (15.5-0-0 + 18.8% Ca)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Fruit Growth (June–July)",
+        purpose: "Enhances cell wall firmness, fruit sizing, and tree vigor in low-calcium acidic valley soils.",
+        mixing_tip: "💡 Fully water soluble. Do NOT mix with sulphate-containing fertilizers or phosphates in the same tank to prevent insoluble precipitation."
+      },
+      {
+        name: "Solubor / Boric Acid (Boron 20% / 17% B)",
+        category: "fertilizer",
+        dosage_per_100l: "100 grams",
+        stage: "Pink Bud & Pre-Bloom",
+        purpose: "Crucial for pollen grain germination, pollen tube elongation, ovule fertilization, and internal cork prevention.",
+        mixing_tip: "💡 Dissolve completely in lukewarm water before pouring into spray tank. Apply at tight cluster or pink bud stage before blossoms open."
+      },
+      {
+        name: "Zinc Sulphate Heptahydrate (21% Zn) + Lime",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Delayed Dormant / Silver Tip",
+        purpose: "Cures Zinc deficiency 'Little Leaf' and rosette formation; stimulates natural plant auxin (IAA) production.",
+        mixing_tip: "💡 Always neutralize with 250g hydrated spray lime per 500g zinc sulphate to prevent foliar acidity and leaf burn."
+      },
+      {
+        name: "Chelated Zinc (Zn-EDTA 12%)",
+        category: "fertilizer",
+        dosage_per_100l: "100 grams",
+        stage: "Petal Fall & Fruitlet Growth",
+        purpose: "High-efficiency non-scorching foliar zinc for high-density M9 and MM106 trellis orchards.",
+        mixing_tip: "💡 Compatible with most neutral organic fungicides. Readily absorbed through tender young spring foliage."
+      },
+      {
+        name: "Potassium Nitrate (13-0-45 / Multi-K)",
+        category: "fertilizer",
+        dosage_per_100l: "1.0 kg",
+        stage: "Fruit Sizing & Maturation (July–August)",
+        purpose: "Drives rapid potassium uptake into fruit pulp for larger caliber size, high sugar (Brix), and intense red coloration.",
+        mixing_tip: "💡 Apply 2 sprays during fruit swelling stage. Compatible with Mancozeb and Captan."
+      },
+      {
+        name: "Sulphate of Potash (SOP 0-0-50 + 17.5% S)",
+        category: "fertilizer",
+        dosage_per_100l: "1.0 kg",
+        stage: "Pre-Harvest (August–September)",
+        purpose: "Chloride-free potassium polish for superior fruit skin finish, wax bloom, and drought/cold resilience.",
+        mixing_tip: "💡 Nitrogen-free formulation ideal 30 days before harvest to color Delicious apples without causing soft vegetative growth."
+      },
+      {
+        name: "Water Soluble NPK 19-19-19 (Balanced)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Petal Fall & Early Fruit Growth (May–June)",
+        purpose: "Balanced multi-nutrient nutrition supporting simultaneous vegetative shoot flush and fruitlet cell division.",
+        mixing_tip: "💡 High purity water-soluble salt. Premix in clean bucket of water before pouring into power tanker."
+      },
+      {
+        name: "Mono Ammonium Phosphate (MAP 12-61-0)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Petal Fall (May)",
+        purpose: "High-concentration phosphorus jump-starts feeder root flushes and initiates spur floral bud differentiation for next year's crop.",
+        mixing_tip: "💡 Prevents alternate bearing by ensuring robust return bloom. Spray when leaves are fully expanded."
+      },
+      {
+        name: "Mono Potassium Phosphate (MKP 0-52-34)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Pre-Harvest (August)",
+        purpose: "Zero-nitrogen PK booster suppresses vegetative growth and stimulates anthocyanin red color synthesis in apple peel.",
+        mixing_tip: "💡 Increases fruit sugar content and shelf life. Apply 3–4 weeks before anticipated harvest."
+      },
+      {
+        name: "Magnesium Sulphate (Epsom Salt 9.6% Mg)",
+        category: "fertilizer",
+        dosage_per_100l: "500 grams",
+        stage: "Fruit Growth (June–July)",
+        purpose: "Prevents interveinal leaf chlorosis and premature defoliation on heavy crop load branches.",
+        mixing_tip: "💡 Essential for active chlorophyll synthesis. Apply when older leaves show interveinal yellowing."
+      },
+      {
+        name: "Chelated Iron (Fe-EDTA 12% Fe)",
+        category: "fertilizer",
+        dosage_per_100l: "150 grams",
+        stage: "Spring Active Growth",
+        purpose: "Cures lime-induced iron chlorosis (yellow leaves with dark green veins) prevalent in high-pH Kashmir karewa soils.",
+        mixing_tip: "💡 Chelated form stays stable in alkaline valley soils. Spray during early morning under mild temperatures."
+      },
+      {
+        name: "Manganese Sulphate (30.5% Mn)",
+        category: "fertilizer",
+        dosage_per_100l: "200 grams",
+        stage: "Early Summer (June)",
+        purpose: "Corrects manganese deficiency interveinal speckling on apple foliage in calcareous orchard soils.",
+        mixing_tip: "💡 Dissolve fully in water. Neutralize with 100g lime if spraying on tender young leaves."
+      },
+      {
+        name: "SKUAST-K Multi-Micronutrient Cocktail",
+        category: "fertilizer",
+        dosage_per_100l: "250 grams",
+        stage: "Pink Bud & Post-Petal Fall",
+        purpose: "Balanced formulation of Zn, B, Fe, Mn, Cu, and Mo to prevent hidden micronutrient hunger in high-density orchards.",
+        mixing_tip: "💡 Specially formulated for Kashmir temperate soils. Do not tank-mix with heavy alkaline sprays or copper."
+      },
+      {
+        name: "Calcium Boron Complex (Liquid Ca-B)",
+        category: "fertilizer",
+        dosage_per_100l: "250 ml",
+        stage: "Pink Bud & Fruitlet Growth",
+        purpose: "Synergistic calcium and boron formulation prevents blossom drop, fruit cracking, and internal cork.",
+        mixing_tip: "💡 Liquid chelated suspension. Shake container thoroughly before measuring into sprayer."
+      },
+      {
+        name: "Seaweed Extract Bio-Stimulant (Kelp)",
+        category: "fertilizer",
+        dosage_per_100l: "200 ml",
+        stage: "Pink Bud / Post-Hail / Post-Frost",
+        purpose: "Alleviates Kashmir spring cold snap/frost stress; enhances natural pollination rate and root mineral uptake.",
+        mixing_tip: "💡 Natural organic bio-stimulant. Excellent tank mix partner for foliar micronutrients."
+      },
+      {
+        name: "Amino Acid & Peptide Chelate Formulation",
+        category: "fertilizer",
+        dosage_per_100l: "200 ml",
+        stage: "Fruit Growth & Summer Stress",
+        purpose: "Speeds nutrient absorption across leaf wax cuticles; aids recovery after hail damage or severe weather stress.",
+        mixing_tip: "💡 Enhances systemic absorption of tank-mixed micro-nutrients."
+      }
+    ];
+
     let sprayCalendarStages = SKUAST_CALENDAR_DATA;
     let activeCalendarStageId = "green_tip";
     let sprayLog = JSON.parse(localStorage.getItem("applecare_spray_log") || "[]");
@@ -4901,6 +5078,23 @@
         }
       } catch (e) {
         console.info("Using embedded SKUAST calendar fallback");
+      }
+
+      // 2. Try fetching latest fertilizers from backend API
+      try {
+        const fertResp = await fetchBackend("/api/v1/advisory/fertilizers");
+        if (fertResp) {
+          const remoteFerts = await fertResp.json();
+          if (Array.isArray(remoteFerts) && remoteFerts.length > 0) {
+            remoteFerts.forEach(rf => {
+              if (!SKUAST_FERTILIZERS_DATA.some(f => f.name.toLowerCase() === rf.name.toLowerCase())) {
+                SKUAST_FERTILIZERS_DATA.push(rf);
+              }
+            });
+          }
+        }
+      } catch (e) {
+        console.info("Using embedded SKUAST fertilizers fallback");
       }
 
       // Auto-detect stage according to calendar month
@@ -5050,26 +5244,130 @@
       }
     }
 
-    // Tank Mix Dosage Calculator
+    // Tank Mix Dosage Calculator with Live Search & Fertilizer Filtering
+    let allTankItems = [];
+    let currentTankCategoryFilter = "all";
+
     function initTankCalculator() {
       const select = document.getElementById("calcChemicalSelect");
       const waterInput = document.getElementById("calcWaterLitersInput");
       const waterSlider = document.getElementById("calcWaterSlider");
+      const searchInput = document.getElementById("calcSearchInput");
+      const clearSearchBtn = document.getElementById("calcSearchClearBtn");
+      const matchCountEl = document.getElementById("calcMatchCount");
       if (!select || !waterInput || !waterSlider) return;
 
-      // Populate unique chemicals from all stages
+      // 1. Compile master database: Medicines from Calendar + SKUAST Fertilizers
       const seen = new Set();
-      const options = [];
+      allTankItems = [];
+
+      // Add Fertilizers first
+      SKUAST_FERTILIZERS_DATA.forEach(f => {
+        if (!seen.has(f.name.toLowerCase())) {
+          seen.add(f.name.toLowerCase());
+          allTankItems.push({
+            name: f.name,
+            rate: f.dosage_per_100l,
+            stage: f.stage,
+            category: "fertilizer",
+            purpose: f.purpose,
+            mixing_tip: f.mixing_tip
+          });
+        }
+      });
+
+      // Add Medicines from Spray Calendar Stages
       sprayCalendarStages.forEach(st => {
         (st.products || []).forEach(p => {
-          if (p.dosage_per_100l && p.dosage_per_100l !== "N/A" && !seen.has(p.product)) {
-            seen.add(p.product);
-            options.push({ name: p.product, rate: p.dosage_per_100l, stage: st.stage_name });
+          if (p.dosage_per_100l && p.dosage_per_100l !== "N/A" && !seen.has(p.product.toLowerCase())) {
+            seen.add(p.product.toLowerCase());
+            const isOil = p.product.toLowerCase().includes("oil") || p.product.toLowerCase().includes("tso");
+            allTankItems.push({
+              name: p.product,
+              rate: p.dosage_per_100l,
+              stage: st.stage_name,
+              category: isOil ? "oil" : "fungicide",
+              purpose: p.purpose || p.type || "SKUAST-K disease and pest control",
+              mixing_tip: isOil 
+                ? "💡 Shake drum vigorously before measuring. Do NOT apply if freezing frost is expected within 24 hours."
+                : (p.product.toLowerCase().includes("dodine") 
+                    ? "💡 In hard valley water, pre-dissolve Dodine in 10L warm water under agitation before adding to tank."
+                    : "💡 Premix chemical in a clean 10L bucket with water to make a smooth slurry before pouring into spray tank.")
+            });
           }
         });
       });
 
-      select.innerHTML = options.map(o => `<option value="${escapeHtml(o.name)}" data-rate="${escapeHtml(o.rate)}" data-stage="${escapeHtml(o.stage)}">${escapeHtml(o.name)} [${escapeHtml(o.rate)}]</option>`).join("");
+      function renderTankOptions(query = "", category = "all") {
+        const q = query.trim().toLowerCase();
+        const filtered = allTankItems.filter(item => {
+          const matchesCat = (category === "all") ||
+            (category === "fertilizer" && item.category === "fertilizer") ||
+            (category === "fungicide" && item.category !== "fertilizer");
+
+          if (!matchesCat) return false;
+          if (!q) return true;
+
+          return item.name.toLowerCase().includes(q) ||
+            (item.purpose && item.purpose.toLowerCase().includes(q)) ||
+            (item.stage && item.stage.toLowerCase().includes(q)) ||
+            (item.rate && item.rate.toLowerCase().includes(q));
+        });
+
+        if (filtered.length === 0) {
+          select.innerHTML = `<option value="">No formulations matching "${escapeHtml(query)}"</option>`;
+          if (matchCountEl) matchCountEl.textContent = `No matches found`;
+        } else {
+          select.innerHTML = filtered.map(item => {
+            const catBadge = item.category === "fertilizer" ? "🌱 [Fertilizer]" : "🔬 [Medicine]";
+            return `<option value="${escapeHtml(item.name)}" data-rate="${escapeHtml(item.rate)}" data-stage="${escapeHtml(item.stage)}" data-category="${escapeHtml(item.category)}" data-tip="${escapeHtml(item.mixing_tip || "")}" data-purpose="${escapeHtml(item.purpose || "")}">${catBadge} ${escapeHtml(item.name)} [${escapeHtml(item.rate)}]</option>`;
+          }).join("");
+
+          if (matchCountEl) {
+            matchCountEl.textContent = `Showing ${filtered.length} of ${allTankItems.length} SKUAST-K medicines & fertilizers`;
+          }
+        }
+
+        updateTankCalculation();
+      }
+
+      // Initial populate
+      renderTankOptions("", currentTankCategoryFilter);
+
+      // Search input listener
+      if (searchInput) {
+        searchInput.addEventListener("input", () => {
+          const val = searchInput.value;
+          if (clearSearchBtn) clearSearchBtn.style.display = val ? "block" : "none";
+          renderTankOptions(val, currentTankCategoryFilter);
+        });
+      }
+
+      // Clear search button
+      if (clearSearchBtn) {
+        clearSearchBtn.addEventListener("click", () => {
+          if (searchInput) searchInput.value = "";
+          clearSearchBtn.style.display = "none";
+          renderTankOptions("", currentTankCategoryFilter);
+          if (searchInput) searchInput.focus();
+        });
+      }
+
+      // Category filter pills
+      document.querySelectorAll(".calc-type-filter").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".calc-type-filter").forEach(b => {
+            b.classList.remove("active");
+            b.style.background = "#f1f5f9";
+            b.style.color = "var(--deep)";
+          });
+          btn.classList.add("active");
+          btn.style.background = "var(--primary)";
+          btn.style.color = "#fff";
+          currentTankCategoryFilter = btn.dataset.type || "all";
+          renderTankOptions(searchInput?.value || "", currentTankCategoryFilter);
+        });
+      });
 
       // Sync slider & number input
       waterInput.addEventListener("input", () => {
@@ -5097,6 +5395,7 @@
       // Log from Calculator
       document.getElementById("calcLogBtn")?.addEventListener("click", () => {
         const chem = select.value;
+        if (!chem) return;
         const opt = select.options[select.selectedIndex];
         const stageName = opt?.dataset?.stage || "Orchard Spray";
         const waterVal = Number(waterInput.value) || 1000;
@@ -5118,39 +5417,58 @@
       if (!select || !waterInput || !totalQtyEl) return;
 
       const opt = select.options[select.selectedIndex];
+      if (!opt || !select.value) {
+        totalQtyEl.textContent = "--";
+        if (summaryEl) summaryEl.textContent = "Please select a valid formulation from the list.";
+        return;
+      }
+
       const chemName = select.value;
       const rateStr = opt?.dataset?.rate || "300 grams";
       const waterLiters = Number(waterInput.value) || 1000;
+      const customTip = opt?.dataset?.tip || "";
+      const purpose = opt?.dataset?.purpose || "";
 
-      // Parse numerical dosage from string (e.g. "300 grams", "30 ml", "2.0 Liters", "5.0 kg")
+      // Parse numerical dosage from string (e.g. "300 grams", "30 ml", "2.0 Liters", "5.0 kg", "1.0 kg")
       let rateNum = 300;
       let unit = "grams";
-      const match = rateStr.match(/^([\d.]+)\s*([a-zA-Z]+)/);
+      const match = rateStr.match(/^([\d.]+)\s*([a-zA-Z%]+)/);
       if (match) {
         rateNum = parseFloat(match[1]);
         unit = match[2].toLowerCase();
       }
 
-      const totalRaw = (rateNum / 100.0) * waterLiters;
+      // Convert kg to grams for precise calculation if needed
+      let totalRaw = 0;
       let displayQty = "";
 
-      if (unit.startsWith("gram") || unit === "g") {
+      if (unit.startsWith("kg")) {
+        // e.g. 5.0 kg per 100L
+        const totalKg = (rateNum / 100.0) * waterLiters;
+        if (totalKg < 1.0) {
+          displayQty = `${Math.round(totalKg * 1000)} grams`;
+        } else {
+          displayQty = `${totalKg.toFixed(1).replace(/\.0$/, "")} kg`;
+        }
+      } else if (unit.startsWith("gram") || unit === "g") {
+        totalRaw = (rateNum / 100.0) * waterLiters;
         if (totalRaw >= 1000) {
           displayQty = `${(totalRaw / 1000.0).toFixed(2).replace(/\.00$/, "")} kg`;
         } else {
           displayQty = `${Math.round(totalRaw)} grams`;
         }
       } else if (unit.startsWith("ml") || unit.startsWith("milli")) {
+        totalRaw = (rateNum / 100.0) * waterLiters;
         if (totalRaw >= 1000) {
           displayQty = `${(totalRaw / 1000.0).toFixed(2).replace(/\.00$/, "")} Liters`;
         } else {
           displayQty = `${Math.round(totalRaw)} ml`;
         }
       } else if (unit.startsWith("liter") || unit === "l") {
+        totalRaw = (rateNum / 100.0) * waterLiters;
         displayQty = `${totalRaw.toFixed(1).replace(/\.0$/, "")} Liters`;
-      } else if (unit.startsWith("kg")) {
-        displayQty = `${totalRaw.toFixed(1).replace(/\.0$/, "")} kg`;
       } else {
+        totalRaw = (rateNum / 100.0) * waterLiters;
         displayQty = `${Math.round(totalRaw)} ${unit}`;
       }
 
@@ -5158,14 +5476,18 @@
       const targetVol = currentRootType.includes("M9") ? "~350–500 L/ha (Dwarf Mist)" : currentRootType.includes("MM106") ? "~800–1200 L/ha (Semi-Dwarf)" : "~1500–2500 L/ha (Full Canopy)";
       summaryEl.textContent = `${chemName} in ${waterLiters.toLocaleString()}L water (${currentVariety} on ${currentRootType.split(" ")[0]} · Benchmark Target: ${targetVol})`;
       
-      if (chemName.toLowerCase().includes("urea")) {
-        tipEl.textContent = "💡 Drench the ground leaf litter uniformly. Best applied during late October/November while leaves are still on branches.";
+      if (customTip) {
+        tipEl.textContent = customTip;
+      } else if (chemName.toLowerCase().includes("urea")) {
+        tipEl.textContent = "💡 Drench ground leaf litter and foliage uniformly. Best applied during late autumn while leaves are still hanging on branches.";
+      } else if (chemName.toLowerCase().includes("calcium")) {
+        tipEl.textContent = "💡 Spray in morning or evening when temperature is below 28°C. Do not combine with phosphates or sulphate-based fertilizers.";
       } else if (chemName.toLowerCase().includes("oil") || chemName.toLowerCase().includes("tso")) {
         tipEl.textContent = "💡 Shake drum vigorously before measuring. Do NOT apply if sub-zero freezing frost is forecast within 24 hours.";
       } else if (chemName.toLowerCase().includes("dodine")) {
         tipEl.textContent = "💡 In hard valley water, pre-dissolve Dodine in 10L warm water under agitation before adding to tank.";
       } else {
-        tipEl.textContent = "💡 Premix chemical in a clean 10L bucket with water to make a smooth slurry before pouring into the spray tank with agitation running.";
+        tipEl.textContent = "💡 Premix chemical in a clean 10L bucket with water to make a smooth slurry before pouring into spray tank with agitation running.";
       }
     }
 
