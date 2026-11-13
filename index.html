@@ -1945,6 +1945,85 @@
       font-size: 13px;
       text-align: center;
     }
+    .lang-selector-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .lang-selector-wrap:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+    .lang-select {
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--deep);
+      cursor: pointer;
+      outline: none;
+      font-family: inherit;
+      padding: 1px 2px;
+    }
+    body.ur-mode, body.ks-mode {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Nastaliq Urdu", "Noto Sans Arabic", Tahoma, sans-serif;
+    }
+    body.ur-mode h1, body.ur-mode h2, body.ur-mode h3,
+    body.ks-mode h1, body.ks-mode h2, body.ks-mode h3 {
+      line-height: 1.4;
+    }
+    [dir="rtl"] {
+      text-align: right;
+    }
+    [dir="rtl"] .topbar .shell.nav {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .brand {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .nav-links {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .nav-badges {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .score-badge {
+      text-align: left;
+    }
+    [dir="rtl"] .forecast-top {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .forecast-top-right {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .weather-top {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .weather-temp-row {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .weather-actions {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .drawer-close-btn {
+      right: auto;
+      left: 14px;
+    }
+    [dir="rtl"] #closeDetailModal {
+      right: auto;
+      left: 18px;
+    }
+    [dir="rtl"] .product-item {
+      text-align: right;
+    }
+    [dir="rtl"] .calendar-header-top {
+      flex-direction: row-reverse;
+    }
     .hidden { display: none !important; }
 
     @media (max-width: 900px) {
@@ -1961,19 +2040,27 @@
     <div class="shell nav">
       <div class="brand">
         <span class="brand-mark">🍏</span>
-        <span>AppleCare Kashmir</span>
+        <span data-i18n="brand_title">AppleCare Kashmir</span>
       </div>
       <div class="nav-links">
-        <a href="#dropZone" class="nav-link">🔬 AI Diagnostic</a>
-        <a href="#sprayForecastSection" class="nav-link">🌦️ 7-Day Forecast</a>
-        <a href="#sprayCalendarSection" class="nav-link">📅 Spray Calendar</a>
-        <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink">⚖️ Tank Calc</a>
-        <a href="#dealersDrawer" class="nav-link" id="navDealersLink">🏪 Nearest Dealers</a>
-        <a href="#expertDrawer" class="nav-link" id="navExpertLink">📞 Talk to Expert</a>
+        <a href="#dropZone" class="nav-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
+        <a href="#sprayForecastSection" class="nav-link" data-i18n="nav_forecast">🌦️ 7-Day Forecast</a>
+        <a href="#sprayCalendarSection" class="nav-link" data-i18n="nav_calendar">📅 Spray Calendar</a>
+        <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink" data-i18n="nav_tank">⚖️ Tank Calc</a>
+        <a href="#dealersDrawer" class="nav-link" id="navDealersLink" data-i18n="nav_dealers">🏪 Nearest Dealers</a>
+        <a href="#expertDrawer" class="nav-link" id="navExpertLink" data-i18n="nav_expert">📞 Talk to Expert</a>
       </div>
       <div class="nav-badges">
-        <span class="pill model"><span class="status-dot"></span> MobileNetV3 AI (98.04%)</span>
-        <span class="pill skuast">🎓 SKUAST-K Kashmir Advisory</span>
+        <div class="lang-selector-wrap" title="Select Application Language / زبان منتخب کریں">
+          <span style="font-size: 13px;">🌐</span>
+          <select id="appLangSelect" aria-label="Language Selector" class="lang-select">
+            <option value="en">English (EN)</option>
+            <option value="ur">اردو (Urdu)</option>
+            <option value="ks">کٲشُر (Kashmiri)</option>
+          </select>
+        </div>
+        <span class="pill model"><span class="status-dot"></span> <span data-i18n="badge_model">MobileNetV3 AI (98.04%)</span></span>
+        <span class="pill skuast" data-i18n="badge_skuast">🎓 SKUAST-K Kashmir Advisory</span>
       </div>
     </div>
   </header>
@@ -1982,9 +2069,9 @@
   <section class="hero">
     <div class="shell hero-grid">
       <div>
-        <div class="eyebrow">🌾 Intelligent Orchard Pathology</div>
-        <h1>Spot apple disease early.<br><span>Protect Kashmir’s harvest.</span></h1>
-        <p class="hero-copy">
+        <div class="eyebrow" data-i18n="hero_eyebrow">🌾 Intelligent Orchard Pathology</div>
+        <h1 data-i18n="hero_title">Spot apple disease early.<br><span>Protect Kashmir’s harvest.</span></h1>
+        <p class="hero-copy" data-i18n="hero_copy">
           Upload any apple leaf photo for instant AI diagnosis. The neural network automatically detects diseases, rejects inappropriate non-plant images (people, cars, objects), and outputs official SKUAST-K spray treatments.
         </p>
         
@@ -1992,8 +2079,8 @@
         <div class="orchard-profile-card">
           <div class="orchard-profile-header">
             <div class="orchard-profile-title">
-              <span class="orchard-profile-badge">🌳 Orchard Crop Profile</span>
-              <span class="orchard-profile-caption">Select Apple Variety & Root Type to calibrate disease susceptibility & spray volume</span>
+              <span class="orchard-profile-badge" data-i18n="crop_profile_badge">🌳 Orchard Crop Profile</span>
+              <span class="orchard-profile-caption" data-i18n="crop_profile_caption">Select Apple Variety & Root Type to calibrate disease susceptibility & spray volume</span>
             </div>
             <span class="orchard-active-summary" id="orchardActiveSummary">Red Delicious · Seedling</span>
           </div>
@@ -2001,32 +2088,32 @@
           <!-- Variety Selection -->
           <div class="profile-section">
             <div class="profile-label-row">
-              <label><span class="label-emoji">🍎</span> Apple Variety</label>
-              <span class="profile-subhint">Tailors pathogen susceptibility (Scab, Alternaria, Mildew)</span>
+              <label><span class="label-emoji">🍎</span> <span data-i18n="variety_label">Apple Variety</span></label>
+              <span class="profile-subhint" data-i18n="variety_subhint">Tailors pathogen susceptibility (Scab, Alternaria, Mildew)</span>
             </div>
             <div class="profile-pills-wrap" id="varietyPills">
-              <button type="button" class="variety-btn active" data-variety="Red Delicious">🍎 Red Delicious</button>
-              <button type="button" class="variety-btn" data-variety="Royal Delicious">👑 Royal Delicious</button>
-              <button type="button" class="variety-btn" data-variety="Gala / Super Chief">🌟 Gala / Super Chief</button>
-              <button type="button" class="variety-btn" data-variety="Golden Delicious">🍏 Golden Delicious</button>
-              <button type="button" class="variety-btn" data-variety="Fuji">❄️ Fuji</button>
-              <button type="button" class="variety-btn" data-variety="Ambri (Kashmiri)">🌸 Ambri (Kashmiri)</button>
-              <button type="button" class="variety-btn" data-variety="Granny Smith">🍏 Granny Smith</button>
+              <button type="button" class="variety-btn active" data-variety="Red Delicious" data-i18n="var_red_del">🍎 Red Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Royal Delicious" data-i18n="var_royal_del">👑 Royal Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Gala / Super Chief" data-i18n="var_gala">🌟 Gala / Super Chief</button>
+              <button type="button" class="variety-btn" data-variety="Golden Delicious" data-i18n="var_gold_del">🍏 Golden Delicious</button>
+              <button type="button" class="variety-btn" data-variety="Fuji" data-i18n="var_fuji">❄️ Fuji</button>
+              <button type="button" class="variety-btn" data-variety="Ambri (Kashmiri)" data-i18n="var_ambri">🌸 Ambri (Kashmiri)</button>
+              <button type="button" class="variety-btn" data-variety="Granny Smith" data-i18n="var_granny">🍏 Granny Smith</button>
             </div>
           </div>
 
           <!-- Root Type Selection -->
           <div class="profile-section" style="margin-top: 12px;">
             <div class="profile-label-row">
-              <label><span class="label-emoji">🌱</span> Rootstock / Root Type</label>
-              <span class="profile-subhint">Calibrates tree canopy volume & chemical tank dilution</span>
+              <label><span class="label-emoji">🌱</span> <span data-i18n="root_label">Rootstock / Root Type</span></label>
+              <span class="profile-subhint" data-i18n="root_subhint">Calibrates tree canopy volume & chemical tank dilution</span>
             </div>
             <div class="profile-pills-wrap" id="rootTypePills">
-              <button type="button" class="root-btn active" data-root="Seedling (Standard Vigorous)">🌳 Seedling (Standard Vigorous)</button>
-              <button type="button" class="root-btn" data-root="M9 (High-Density Dwarf)">🌿 M9 (High-Density Dwarf)</button>
-              <button type="button" class="root-btn" data-root="MM106 (Semi-Dwarf)">🪴 MM106 (Semi-Dwarf)</button>
-              <button type="button" class="root-btn" data-root="M26 (Semi-Dwarf)">🎋 M26 (Semi-Dwarf)</button>
-              <button type="button" class="root-btn" data-root="MM111 (Vigorous Clonal)">🌲 MM111 (Vigorous Clonal)</button>
+              <button type="button" class="root-btn active" data-root="Seedling (Standard Vigorous)" data-i18n="root_seedling">🌳 Seedling (Standard Vigorous)</button>
+              <button type="button" class="root-btn" data-root="M9 (High-Density Dwarf)" data-i18n="root_m9">🌿 M9 (High-Density Dwarf)</button>
+              <button type="button" class="root-btn" data-root="MM106 (Semi-Dwarf)" data-i18n="root_mm106">🪴 MM106 (Semi-Dwarf)</button>
+              <button type="button" class="root-btn" data-root="M26 (Semi-Dwarf)" data-i18n="root_m26">🎋 M26 (Semi-Dwarf)</button>
+              <button type="button" class="root-btn" data-root="MM111 (Vigorous Clonal)" data-i18n="root_mm111">🌲 MM111 (Vigorous Clonal)</button>
             </div>
           </div>
 
@@ -2041,13 +2128,13 @@
 
         <!-- Growth Stage Bar -->
         <div class="stage-card">
-          <label>Current Growth Stage (Select for Stage-Specific Spray)</label>
+          <label data-i18n="stage_label">Current Growth Stage (Select for Stage-Specific Spray)</label>
           <div class="stage-select-wrap">
-            <button class="stage-btn active" data-stage="Green Tip">🌿 Green Tip</button>
-            <button class="stage-btn" data-stage="Pink Bud">🌸 Pink Bud</button>
-            <button class="stage-btn" data-stage="Full Bloom">🐝 Full Bloom (Bee Safe)</button>
-            <button class="stage-btn" data-stage="Petal Fall">🍂 Petal Fall</button>
-            <button class="stage-btn" data-stage="Fruit Growth">🍎 Fruit Growth</button>
+            <button class="stage-btn active" data-stage="Green Tip" data-i18n="stage_green_tip">🌿 Green Tip</button>
+            <button class="stage-btn" data-stage="Pink Bud" data-i18n="stage_pink_bud">🌸 Pink Bud</button>
+            <button class="stage-btn" data-stage="Full Bloom" data-i18n="stage_full_bloom">🐝 Full Bloom (Bee Safe)</button>
+            <button class="stage-btn" data-stage="Petal Fall" data-i18n="stage_petal_fall">🍂 Petal Fall</button>
+            <button class="stage-btn" data-stage="Fruit Growth" data-i18n="stage_fruit_growth">🍎 Fruit Growth</button>
           </div>
         </div>
       </div>
@@ -2056,23 +2143,23 @@
       <div class="panel weather">
         <div class="weather-top">
           <div>
-            <div class="eyebrow">🌦️ Live Orchard Microclimate</div>
-            <h3 id="weatherLocation">Detecting location…</h3>
+            <div class="eyebrow" data-i18n="weather_eyebrow">🌦️ Live Orchard Microclimate</div>
+            <h3 id="weatherLocation" data-i18n="weather_detecting">Detecting location…</h3>
           </div>
           <div class="weather-icon" id="weatherIcon">⛅</div>
         </div>
         <div class="weather-temp-row">
           <strong id="weatherTemp">--°C</strong>
-          <span class="weather-summary" id="weatherSummary">Querying forecast…</span>
+          <span class="weather-summary" id="weatherSummary" data-i18n="weather_querying">Querying forecast…</span>
         </div>
         <div class="weather-alert safe" id="weatherAlert">
           <span>⌛</span>
-          <span>Checking 12-hour spray safety window…</span>
+          <span id="weatherAlertText" data-i18n="weather_alert_window">Checking 12-hour spray safety window…</span>
         </div>
         <div class="weather-actions">
-          <button class="btn ghost" id="locateBtn" style="padding:6px 12px;font-size:12px;">⌖ Use GPS</button>
+          <button class="btn ghost" id="locateBtn" style="padding:6px 12px;font-size:12px;" data-i18n="btn_gps">⌖ Use GPS</button>
           <select id="districtSelect" class="input-select" aria-label="Select Kashmir District">
-            <option value="">Select District</option>
+            <option value="" data-i18n="opt_select_district">Select District</option>
             <option value="33.8731,75.1487,Pulwama">Pulwama</option>
             <option value="34.1615,74.5566,Sopore">Sopore</option>
             <option value="34.0437,74.6196,Baramulla">Baramulla</option>
@@ -2084,7 +2171,7 @@
             <option value="34.0150,74.7170,Budgam">Budgam</option>
             <option value="34.2165,74.7725,Ganderbal">Ganderbal</option>
           </select>
-          <small id="weatherUpdated" style="color:var(--muted);font-size:11px;">Not updated</small>
+          <small id="weatherUpdated" style="color:var(--muted);font-size:11px;" data-i18n="weather_not_updated">Not updated</small>
         </div>
       </div>
     </div>
@@ -2095,13 +2182,13 @@
     <div class="forecast-panel">
       <div class="forecast-top">
         <div class="forecast-top-left">
-          <div class="eyebrow">🌦️ Agro-Meteorology & Microclimate</div>
-          <h2>7-Day SKUAST-K Spray Window Forecast</h2>
-          <p id="forecastSubhead">Daily wash-off risk, wind drift hazards, and optimal spraying hours across Kashmir apple belts.</p>
+          <div class="eyebrow" data-i18n="forecast_eyebrow">🌦️ Agro-Meteorology & Microclimate</div>
+          <h2 data-i18n="forecast_title">7-Day SKUAST-K Spray Window Forecast</h2>
+          <p id="forecastSubhead" data-i18n="forecast_subhead">Daily wash-off risk, wind drift hazards, and optimal spraying hours across Kashmir apple belts.</p>
         </div>
         <div class="forecast-top-right">
           <span class="week-summary-pill" id="weekSummaryPill">
-            <span>⌛</span> <span id="weekSummaryText">Loading 7-day spray feasibility…</span>
+            <span>⌛</span> <span id="weekSummaryText" data-i18n="forecast_loading">Loading 7-day spray feasibility…</span>
           </span>
           <select id="forecastDistrictSelect" class="input-select" aria-label="Select Apple District">
             <option value="33.7182,75.1548,Shopian" selected>Shopian (Apple Bowl)</option>
@@ -2147,8 +2234,8 @@
         <section class="panel upload-card">
           <div class="section-title">
             <div>
-              <div class="eyebrow">Step 01 · Inspection</div>
-              <h2>Scan Apple Leaf</h2>
+              <div class="eyebrow" data-i18n="step1_eyebrow">Step 01 · Inspection</div>
+              <h2 data-i18n="step1_title">Scan Apple Leaf</h2>
             </div>
             <small>JPG, PNG, WebP · Max 10MB</small>
           </div>
@@ -2159,43 +2246,43 @@
             
             <div class="drop-prompt" id="emptyState">
               <div class="camera-icon">📷</div>
-              <b>Upload or take a photo of an apple leaf</b>
-              <span>The AI automatically analyzes your image and detects disease</span>
+              <b data-i18n="drop_prompt_bold">Upload or take a photo of an apple leaf</b>
+              <span data-i18n="drop_prompt_sub">The AI automatically analyzes your image and detects disease</span>
             </div>
 
             <div class="scan-overlay hidden" id="scanState">
               <div class="scan-spinner"></div>
-              <b style="font-size:16px;">Analyzing Uploaded Photo…</b>
-              <span style="font-size:12px;opacity:0.85;">Plant verification & deep disease classification in progress</span>
+              <b style="font-size:16px;" data-i18n="scan_analyzing">Analyzing Uploaded Photo…</b>
+              <span style="font-size:12px;opacity:0.85;" data-i18n="scan_sub">Plant verification & deep disease classification in progress</span>
             </div>
           </div>
 
           <!-- Actions -->
           <div class="upload-btn-row">
             <label class="btn primary" for="fileInput">
-              <span>＋</span> Browse Leaf Photo
+              <span>＋</span> <span data-i18n="browse_btn">Browse Leaf Photo</span>
             </label>
             <input id="fileInput" type="file" accept="image/*" class="hidden">
-            <button class="btn ghost" id="resetBtn">Reset</button>
+            <button class="btn ghost" id="resetBtn" data-i18n="btn_reset">Reset</button>
           </div>
 
           <div class="auto-notice">
             <span>✨</span>
-            <span><b>Automatic Detection:</b> Uploading a photo immediately diagnoses your specific image. You do not need to click any options below!</span>
+            <span data-i18n="auto_notice_text"><b>Automatic Detection:</b> Uploading a photo immediately diagnoses your specific image. You do not need to click any options below!</span>
           </div>
 
           <!-- Optional Preset Samples -->
           <div class="example-section">
-            <h4>💡 Or Test With Example Photos</h4>
-            <p>Click any example below to test how the AI diagnoses different apple leaf pathologies or rejects non-plant images:</p>
+            <h4 data-i18n="sample_heading">💡 Or Test With Example Photos</h4>
+            <p data-i18n="sample_desc">Click any example below to test how the AI diagnoses different apple leaf pathologies or rejects non-plant images:</p>
             <div class="sample-grid">
-              <button class="sample-btn" data-sample="scab">🟢 Example: Scab</button>
-              <button class="sample-btn" data-sample="alternaria">🟠 Example: Alternaria</button>
-              <button class="sample-btn" data-sample="mildew">⚪ Example: Mildew</button>
-              <button class="sample-btn" data-sample="black_rot">⚫ Example: Black Rot</button>
-              <button class="sample-btn" data-sample="cedar_rust">🟡 Example: Cedar Rust</button>
-              <button class="sample-btn" data-sample="healthy">🌿 Example: Healthy</button>
-              <button class="sample-btn non-plant-sample" data-sample="inappropriate">🚫 Example: Non-Plant (Car)</button>
+              <button class="sample-btn" data-sample="scab" data-i18n="sample_scab">🟢 Example: Scab</button>
+              <button class="sample-btn" data-sample="alternaria" data-i18n="sample_alternaria">🟠 Example: Alternaria</button>
+              <button class="sample-btn" data-sample="mildew" data-i18n="sample_mildew">⚪ Example: Mildew</button>
+              <button class="sample-btn" data-sample="black_rot" data-i18n="sample_black_rot">⚫ Example: Black Rot</button>
+              <button class="sample-btn" data-sample="cedar_rust" data-i18n="sample_cedar_rust">🟡 Example: Cedar Rust</button>
+              <button class="sample-btn" data-sample="healthy" data-i18n="sample_healthy">🌿 Example: Healthy</button>
+              <button class="sample-btn non-plant-sample" data-sample="inappropriate" data-i18n="sample_non_plant">🚫 Example: Non-Plant (Car)</button>
             </div>
           </div>
 
@@ -2212,8 +2299,8 @@
             <div class="inappropriate-head">
               <span class="inappropriate-icon">🚨</span>
               <div>
-                <div class="inappropriate-title">Inappropriate Image: Not a Plant</div>
-                <div class="inappropriate-desc" id="inappropriateDesc">
+                <div class="inappropriate-title" data-i18n="inapp_title">Inappropriate Image: Not a Plant</div>
+                <div class="inappropriate-desc" id="inappropriateDesc" data-i18n="inapp_desc">
                   The uploaded photo does not appear to contain plant foliage or an apple leaf. Disease diagnosis and chemical spray recommendations have been blocked to ensure accurate agricultural practice.
                 </div>
               </div>
@@ -2226,16 +2313,16 @@
 
           <!-- AI DIAGNOSIS BANNER -->
           <article class="card diag-card" id="diagnosisCard">
-            <div class="eyebrow" style="color:var(--lime);" id="diagStepBadge">Step 02 · Automatic AI Screening</div>
+            <div class="eyebrow" style="color:var(--lime);" id="diagStepBadge" data-i18n="diag_step2_eyebrow">Step 02 · Automatic AI Screening</div>
             <div class="diag-head">
               <div>
-                <div class="diag-title" id="diseaseName">Awaiting Leaf Upload</div>
+                <div class="diag-title" id="diseaseName" data-i18n="diag_awaiting">Awaiting Leaf Upload</div>
                 <div class="diag-kashmiri" id="kashmiriName">تصویر اپ لوڈ کریں</div>
-                <div class="diag-latin" id="latinName">Upload a photo to see automatic disease prediction</div>
+                <div class="diag-latin" id="latinName" data-i18n="diag_awaiting_sub">Upload a photo to see automatic disease prediction</div>
               </div>
               <div class="score-badge">
                 <div class="score-num" id="confidence">--%</div>
-                <div class="score-label">Confidence</div>
+                <div class="score-label" data-i18n="diag_confidence">Confidence</div>
               </div>
             </div>
             <div class="confidence-meter">
@@ -2247,8 +2334,8 @@
           <article class="card skuast-card" id="advisoryCard">
             <div class="skuast-badge-header">
               <div>
-                <div class="eyebrow" style="color:#0284c7;">Step 03 · SKUAST-Kashmir Advisory</div>
-                <div class="skuast-header-title">Recommended Chemical Treatments</div>
+                <div class="eyebrow" style="color:#0284c7;" data-i18n="diag_step3_eyebrow">Step 03 · SKUAST-Kashmir Advisory</div>
+                <div class="skuast-header-title" data-i18n="diag_step3_title">Recommended Chemical Treatments</div>
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
                 <span class="product-dosage" id="stageBadge">Green Tip</span>
@@ -2259,14 +2346,14 @@
 
             <!-- Products List -->
             <div class="product-list" id="productsList">
-              <div style="color:var(--muted);font-size:13px;padding:12px 0;">
+              <div style="color:var(--muted);font-size:13px;padding:12px 0;" data-i18n="prod_empty">
                 Upload an apple leaf photo above to automatically receive SKUAST-K stage-specific fungicide recommendations and dosages.
               </div>
             </div>
 
             <!-- Cultural Management -->
             <div class="cultural-box" id="culturalBox">
-              <div class="cultural-title">🌿 SKUAST-K Cultural & Sanitation Measures</div>
+              <div class="cultural-title" data-i18n="cultural_title">🌿 SKUAST-K Cultural & Sanitation Measures</div>
               <ul class="cultural-list" id="culturalList">
                 <li>Prune lower branches and water sprouts to ensure canopy sunlight and airflow.</li>
                 <li>Spray 5% agricultural Urea on leaf litter post-harvest to rapidly decompose scab-bearing leaves.</li>
@@ -2278,8 +2365,8 @@
           <article class="card" id="guardrailsCard">
             <div class="section-title">
               <div>
-                <div class="eyebrow">Safety & IPM Guardrails</div>
-                <h3 style="font-size:17px;font-weight:800;color:var(--deep);">Weather & Pollinator Shield</h3>
+                <div class="eyebrow" data-i18n="guardrails_eyebrow">Safety & IPM Guardrails</div>
+                <h3 style="font-size:17px;font-weight:800;color:var(--deep);" data-i18n="guardrails_title">Weather & Pollinator Shield</h3>
               </div>
             </div>
             <div class="alerts-list" id="guardrailAlerts"></div>
@@ -2287,13 +2374,13 @@
 
           <!-- AUDIO ADVISORY -->
           <article class="card">
-            <div class="eyebrow">Grower Field Audio</div>
-            <h3 style="font-size:17px;font-weight:800;color:var(--deep);margin-bottom:4px;">Audio Spray Guidance</h3>
+            <div class="eyebrow" data-i18n="audio_eyebrow">Grower Field Audio</div>
+            <h3 style="font-size:17px;font-weight:800;color:var(--deep);margin-bottom:4px;" data-i18n="audio_title">Audio Spray Guidance</h3>
             <div class="audio-row">
               <button class="audio-btn" data-lang="ur">▶ Urdu / اردو</button>
               <button class="audio-btn" data-lang="ks">▶ Kashmiri / کٲشُرۍ</button>
               <button class="audio-btn" data-lang="en">▶ English</button>
-              <span class="audio-status" id="audioStatus">Tap to listen to field instructions</span>
+              <span class="audio-status" id="audioStatus" data-i18n="audio_status">Tap to listen to field instructions</span>
             </div>
           </article>
 
@@ -2301,10 +2388,10 @@
           <article class="card report-card">
             <div class="section-title">
               <div>
-                <div class="eyebrow">Field Record</div>
-                <h3 style="font-size:17px;font-weight:800;color:var(--deep);">Diagnostic Summary</h3>
+                <div class="eyebrow" data-i18n="report_eyebrow">Field Record</div>
+                <h3 style="font-size:17px;font-weight:800;color:var(--deep);" data-i18n="report_title">Diagnostic Summary</h3>
               </div>
-              <button class="btn ghost" id="copyReportBtn" style="padding:6px 10px;font-size:11px;">📋 Copy</button>
+              <button class="btn ghost" id="copyReportBtn" style="padding:6px 10px;font-size:11px;" data-i18n="copy_report_btn">📋 Copy</button>
             </div>
             <pre id="reportText">Upload a leaf photo above to generate a printable SKUAST-K orchard diagnostic report.</pre>
           </article>
@@ -2313,10 +2400,10 @@
           <article class="card">
             <div class="section-title">
               <div>
-                <div class="eyebrow">Local Device Cache</div>
-                <h3 style="font-size:17px;font-weight:800;color:var(--deep);">Recent Field Checks</h3>
+                <div class="eyebrow" data-i18n="history_eyebrow">Local Device Cache</div>
+                <h3 style="font-size:17px;font-weight:800;color:var(--deep);" data-i18n="history_title">Recent Field Checks</h3>
               </div>
-              <button class="btn ghost" id="clearHistoryBtn" style="padding:6px 10px;font-size:11px;">Clear</button>
+              <button class="btn ghost" id="clearHistoryBtn" style="padding:6px 10px;font-size:11px;" data-i18n="clear_btn">Clear</button>
             </div>
             <div class="history-list" id="historyList">
               <small style="color:var(--muted);">No checks saved yet.</small>
@@ -2329,16 +2416,16 @@
       <!-- Educational / IPM Tips -->
       <section class="tips-grid">
         <div class="tip-card">
-          <b>🌿 Canopy Airflow & Hygiene</b>
-          <p>Prune lower branches and water sprouts to ensure light penetration. Spray 5% Urea on leaf litter post-harvest to rapidly decompose scab-bearing leaves.</p>
+          <b data-i18n="tip1_title">🌿 Canopy Airflow & Hygiene</b>
+          <p data-i18n="tip1_desc">Prune lower branches and water sprouts to ensure light penetration. Spray 5% Urea on leaf litter post-harvest to rapidly decompose scab-bearing leaves.</p>
         </div>
         <div class="tip-card">
-          <b>🧊 Bitter Pit Prevention Booster</b>
-          <p>During Fruit Growth, apply foliar Calcium Chloride at 3–4g per Litre (or Calcium Nitrate) at 15-day intervals to enhance cell wall firmness and cold storage life.</p>
+          <b data-i18n="tip2_title">🧊 Bitter Pit Prevention Booster</b>
+          <p data-i18n="tip2_desc">During Fruit Growth, apply foliar Calcium Chloride at 3–4g per Litre (or Calcium Nitrate) at 15-day intervals to enhance cell wall firmness and cold storage life.</p>
         </div>
         <div class="tip-card">
-          <b>🐝 Honeybee Protection Protocol</b>
-          <p>Strictly avoid all chemical insecticide and acaricide applications during Full Bloom. Spray only after dusk or dawn when pollinators are inactive.</p>
+          <b data-i18n="tip3_title">🐝 Honeybee Protection Protocol</b>
+          <p data-i18n="tip3_desc">Strictly avoid all chemical insecticide and acaricide applications during Full Bloom. Spray only after dusk or dawn when pollinators are inactive.</p>
         </div>
       </section>
     </div>
@@ -2355,12 +2442,12 @@
           <p>Official 8-stage phenological spray guide, commercial brand alternatives, knapsack vs power-tanker dosages, cultural sanitation, and tank compatibility matrix.</p>
         </div>
         <div class="calendar-actions">
-          <button class="btn secondary" id="toggleTankCalcBtn" style="padding: 8px 14px; font-size: 12.5px;">⚖️ Tank Calculator</button>
-          <button class="btn secondary" id="toggleCompatBtn" style="padding: 8px 14px; font-size: 12.5px;">🧪 Compatibility Matrix</button>
-          <button class="btn secondary" id="toggleSprayLogBtn" style="padding: 8px 14px; font-size: 12.5px;">📋 Spray Log (<span id="sprayLogCountBadge">0</span>)</button>
-          <button class="btn secondary" id="toggleDealersBtn" style="padding: 8px 14px; font-size: 12.5px;">🏪 Nearest Dealers</button>
-          <button class="btn secondary" id="toggleExpertBtn" style="padding: 8px 14px; font-size: 12.5px;">📞 Talk to Expert</button>
-          <button class="btn ghost" id="printCalendarBtn" style="padding: 8px 14px; font-size: 12.5px;">🖨️ Print Stage</button>
+          <button class="btn secondary" id="toggleTankCalcBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_tank_btn">⚖️ Tank Calculator</button>
+          <button class="btn secondary" id="toggleCompatBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_compat_btn">🧪 Compatibility Matrix</button>
+          <button class="btn secondary" id="toggleSprayLogBtn" style="padding: 8px 14px; font-size: 12.5px;"><span data-i18n="drawer_log_btn">📋 Spray Log</span> (<span id="sprayLogCountBadge">0</span>)</button>
+          <button class="btn secondary" id="toggleDealersBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_dealers_btn">🏪 Nearest Dealers</button>
+          <button class="btn secondary" id="toggleExpertBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="drawer_expert_btn">📞 Talk to Expert</button>
+          <button class="btn ghost" id="printCalendarBtn" style="padding: 8px 14px; font-size: 12.5px;" data-i18n="btn_print_stage">🖨️ Print Stage</button>
         </div>
       </div>
 
@@ -2408,9 +2495,9 @@
       <!-- Interactive Tank Dosage Calculator Drawer -->
       <div class="drawer-card" id="tankCalcDrawer" style="display: none;">
         <button class="drawer-close-btn" id="closeTankCalcBtn" title="Close Calculator">✕</button>
-        <div class="eyebrow">⚖️ Precise Chemical Dosage Engine</div>
-        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);">Tank Mixing & Volume Dosage Calculator</h3>
-        <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;">Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.</p>
+        <div class="eyebrow" data-i18n="tank_eyebrow">⚖️ Precise Chemical Dosage Engine</div>
+        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);" data-i18n="tank_title">Tank Mixing & Volume Dosage Calculator</h3>
+        <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;" data-i18n="tank_subhead">Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.</p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; align-items: end;">
           <div>
@@ -2452,8 +2539,8 @@
       <!-- Chemical Compatibility Matrix Drawer -->
       <div class="drawer-card" id="compatMatrixDrawer" style="display: none;">
         <button class="drawer-close-btn" id="closeCompatBtn" title="Close Compatibility Matrix">✕</button>
-        <div class="eyebrow">🧪 Tank Mix Safety Matrix</div>
-        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);">SKUAST-K Chemical Compatibility & Phytotoxicity Guide</h3>
+        <div class="eyebrow" data-i18n="compat_eyebrow">🧪 Tank Mix Safety Matrix</div>
+        <h3 style="font-size: 17px; font-weight: 800; margin: 2px 0 6px; color: var(--deep);" data-i18n="compat_title">SKUAST-K Chemical Compatibility & Phytotoxicity Guide</h3>
         <p style="font-size: 12.5px; color: var(--muted); margin: 0 0 16px;">Avoid tank mixtures that cause active ingredient breakdown, flocculation, leaf scorch, or severe phytotoxicity.</p>
 
         <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -2516,10 +2603,10 @@
       <!-- Nearest Licensed Pesticide Dealers Drawer -->
       <div class="drawer-card" id="dealersDrawer" style="display: none;">
         <button class="drawer-close-btn" id="closeDealersBtn" title="Close Dealers">✕</button>
-        <div class="eyebrow">🏪 Kashmir Agri-Input & Pesticide Store Locator</div>
+        <div class="eyebrow" data-i18n="dealers_eyebrow">🏪 Kashmir Agri-Input & Pesticide Store Locator</div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
           <div>
-            <h3 style="font-size: 18px; font-weight: 800; margin: 2px 0 4px; color: var(--deep);">Nearest Licensed Pesticide & Fertilizer Dealers</h3>
+            <h3 style="font-size: 18px; font-weight: 800; margin: 2px 0 4px; color: var(--deep);" data-i18n="dealers_title">Nearest Licensed Pesticide & Fertilizer Dealers</h3>
             <p style="font-size: 12.5px; color: var(--muted); margin: 0;">Verified authorized dealers registered with SKUAST-K and J&K Directorate of Horticulture stocking authentic fungicides, acaricides, and tree protectors.</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -2536,7 +2623,7 @@
         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; background: #ffffff; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--line);">
           <div style="flex: 1; min-width: 220px;">
             <label style="display: block; font-size: 11px; font-weight: 750; color: var(--ink); margin-bottom: 4px;">Search Dealer / Market / Brand</label>
-            <input type="text" id="dealerSearchInput" placeholder="🔍 Search e.g. Fruit Mandi Sopore, Indofil, Shopian, Bayer..." class="input-select" style="width: 100%; font-size: 12px;">
+            <input type="text" id="dealerSearchInput" placeholder="🔍 Search e.g. Fruit Mandi Sopore, Indofil, Shopian, Bayer..." data-i18n-placeholder="dealers_search_placeholder" class="input-select" style="width: 100%; font-size: 12px;">
           </div>
           <div style="width: 200px;">
             <label style="display: block; font-size: 11px; font-weight: 750; color: var(--ink); margin-bottom: 4px;">Filter by District</label>
@@ -2569,10 +2656,10 @@
       <!-- Talk to SKUAST-K Expert & Advisory Drawer -->
       <div class="drawer-card" id="expertDrawer" style="display: none;">
         <button class="drawer-close-btn" id="closeExpertBtn" title="Close Expert Advisory">✕</button>
-        <div class="eyebrow">📞 Direct Agricultural Extension Helpline</div>
+        <div class="eyebrow" data-i18n="expert_eyebrow">📞 Direct Agricultural Extension Helpline</div>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
           <div>
-            <h3 style="font-size: 18px; font-weight: 800; margin: 2px 0 4px; color: var(--deep);">Talk to SKUAST-K Agronomists & Pathology Experts</h3>
+            <h3 style="font-size: 18px; font-weight: 800; margin: 2px 0 4px; color: var(--deep);" data-i18n="expert_title">Talk to SKUAST-K Agronomists & Pathology Experts</h3>
             <p style="font-size: 12.5px; color: var(--muted); margin: 0;">Connect directly with district Krishi Vigyan Kendra (KVK) scientists, plant pathologists, and government toll-free helpline officers for expert field advice.</p>
           </div>
           <div>
@@ -2629,8 +2716,8 @@
   <div class="buy-modal-overlay" id="buyModalOverlay" style="display: none;">
     <div class="buy-modal-card">
       <button class="drawer-close-btn" id="closeBuyModalBtn" title="Close Buy Online Modal">✕</button>
-      <div class="eyebrow">🛒 Direct Agricultural Input E-Commerce</div>
-      <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0 6px; color: var(--deep);" id="buyModalProductName">Buy Recommended Product Online</h3>
+      <div class="eyebrow" data-i18n="buy_online_eyebrow">🛒 Direct Agricultural Input E-Commerce</div>
+      <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0 6px; color: var(--deep);" id="buyModalProductName" data-i18n="buy_online_title">Buy Recommended Product Online</h3>
       <p style="font-size: 12px; color: var(--muted); margin: 0 0 16px;">
         Order authentic, laboratory-verified brand formulations directly from authorized agricultural e-commerce portals with doorstep delivery across Kashmir:
       </p>
@@ -2645,17 +2732,417 @@
   </div>
 
   <footer>
-    <div class="shell" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-      <div>
+    <div class="shell" style="text-align: center;">
+      <div id="footerDisclaimer" data-i18n="footer_disclaimer" style="line-height: 1.6; max-width: 900px; margin: 0 auto;">
         AppleCare Kashmir AI Diagnostic System · Aligned with SKUAST-Kashmir Apple Spray Schedule 2024–2026. Verify local label registrations and consult your area Horticulture Development Officer (HDO) before field spraying.
       </div>
-      <div style="font-weight: 700; color: var(--deep); font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 20px; background: rgba(4, 120, 87, 0.08); border-radius: 9999px; border: 1px solid rgba(4, 120, 87, 0.22); margin-top: 4px;">
-        <span>🍎</span> Developed by <span style="color: var(--primary); font-weight: 800;">Munazim Ashraf Bhat</span>
+      <div id="footerCredit" data-i18n="footer_dev" style="margin-top: 10px; font-size: 13px; color: var(--muted); font-weight: normal;">
+        Developed by Munazim Ashraf Bhat
       </div>
     </div>
   </footer>
 
   <script>
+    // Multi-Language Translation Dictionary (English, Urdu & Kashmiri)
+    const TRANSLATIONS = {
+      en: {
+        brand_title: "AppleCare Kashmir",
+        nav_diag: "🔬 AI Diagnostic",
+        nav_forecast: "🌦️ 7-Day Forecast",
+        nav_calendar: "📅 Spray Calendar",
+        nav_tank: "⚖️ Tank Calc",
+        nav_dealers: "🏪 Nearest Dealers",
+        nav_expert: "📞 Talk to Expert",
+        badge_model: "MobileNetV3 AI (98.04%)",
+        badge_skuast: "🎓 SKUAST-K Kashmir Advisory",
+        hero_eyebrow: "🌾 Intelligent Orchard Pathology",
+        hero_title: "Spot apple disease early.<br><span>Protect Kashmir’s harvest.</span>",
+        hero_copy: "Upload any apple leaf photo for instant AI diagnosis. The neural network automatically detects diseases, rejects inappropriate non-plant images (people, cars, objects), and outputs official SKUAST-K spray treatments.",
+        crop_profile_badge: "🌳 Orchard Crop Profile",
+        crop_profile_caption: "Select Apple Variety & Root Type to calibrate disease susceptibility & spray volume",
+        variety_label: "Apple Variety",
+        variety_subhint: "Tailors pathogen susceptibility (Scab, Alternaria, Mildew)",
+        var_red_del: "🍎 Red Delicious",
+        var_royal_del: "👑 Royal Delicious",
+        var_gala: "🌟 Gala / Super Chief",
+        var_gold_del: "🍏 Golden Delicious",
+        var_fuji: "❄️ Fuji",
+        var_ambri: "🌸 Ambri (Kashmiri)",
+        var_granny: "🍏 Granny Smith",
+        root_label: "Rootstock / Root Type",
+        root_subhint: "Calibrates tree canopy volume & chemical tank dilution",
+        root_seedling: "🌳 Seedling (Standard Vigorous)",
+        root_m9: "🌿 M9 (High-Density Dwarf)",
+        root_mm106: "🪴 MM106 (Semi-Dwarf)",
+        root_m26: "🎋 M26 (Semi-Dwarf)",
+        root_mm111: "🌲 MM111 (Vigorous Clonal)",
+        stage_label: "Current Growth Stage (Select for Stage-Specific Spray)",
+        stage_green_tip: "🌿 Green Tip",
+        stage_pink_bud: "🌸 Pink Bud",
+        stage_full_bloom: "🐝 Full Bloom (Bee Safe)",
+        stage_petal_fall: "🍂 Petal Fall",
+        stage_fruit_growth: "🍎 Fruit Growth",
+        weather_eyebrow: "🌦️ Live Orchard Microclimate",
+        weather_detecting: "Detecting location…",
+        weather_querying: "Querying forecast…",
+        weather_alert_window: "Checking 12-hour spray safety window…",
+        btn_gps: "⌖ Use GPS",
+        opt_select_district: "Select District",
+        weather_not_updated: "Not updated",
+        forecast_eyebrow: "🌦️ Agro-Meteorology & Microclimate",
+        forecast_title: "7-Day SKUAST-K Spray Window Forecast",
+        forecast_subhead: "Daily wash-off risk, wind drift hazards, and optimal spraying hours across Kashmir apple belts.",
+        forecast_loading: "Loading 7-day spray feasibility…",
+        step1_eyebrow: "Step 01 · Inspection",
+        step1_title: "Scan Apple Leaf",
+        drop_prompt_bold: "Upload or take a photo of an apple leaf",
+        drop_prompt_sub: "The AI automatically analyzes your image and detects disease",
+        scan_analyzing: "Analyzing Uploaded Photo…",
+        scan_sub: "Plant verification & deep disease classification in progress",
+        browse_btn: "Browse Leaf Photo",
+        btn_reset: "Reset",
+        auto_notice_text: "<b>Automatic Detection:</b> Uploading a photo immediately diagnoses your specific image. You do not need to click any options below!",
+        sample_heading: "💡 Or Test With Example Photos",
+        sample_desc: "Click any example below to test how the AI diagnoses different apple leaf pathologies or rejects non-plant images:",
+        sample_scab: "🟢 Example: Scab",
+        sample_alternaria: "🟠 Example: Alternaria",
+        sample_mildew: "⚪ Example: Mildew",
+        sample_black_rot: "⚫ Example: Black Rot",
+        sample_cedar_rust: "🟡 Example: Cedar Rust",
+        sample_healthy: "🌿 Example: Healthy",
+        sample_non_plant: "🚫 Example: Non-Plant (Car)",
+        inapp_title: "Inappropriate Image: Not a Plant",
+        inapp_desc: "The uploaded photo does not appear to contain plant foliage or an apple leaf. Disease diagnosis and chemical spray recommendations have been blocked to ensure accurate agricultural practice.",
+        diag_step2_eyebrow: "Step 02 · Automatic AI Screening",
+        diag_awaiting: "Awaiting Leaf Upload",
+        diag_awaiting_sub: "Upload a photo to see automatic disease prediction",
+        diag_confidence: "Confidence",
+        diag_step3_eyebrow: "Step 03 · SKUAST-Kashmir Advisory",
+        diag_step3_title: "Recommended Chemical Treatments",
+        prod_empty: "Upload an apple leaf photo above to automatically receive SKUAST-K stage-specific fungicide recommendations and dosages.",
+        cultural_title: "🌿 SKUAST-K Cultural & Sanitation Measures",
+        guardrails_eyebrow: "Safety & IPM Guardrails",
+        guardrails_title: "Weather & Pollinator Shield",
+        audio_eyebrow: "Grower Field Audio",
+        audio_title: "Audio Spray Guidance",
+        audio_status: "Tap to listen to field instructions",
+        report_eyebrow: "Field Record",
+        report_title: "Diagnostic Summary",
+        copy_report_btn: "📋 Copy",
+        history_eyebrow: "Local Device Cache",
+        history_title: "Recent Field Checks",
+        clear_btn: "Clear",
+        tip1_title: "🌿 Canopy Airflow & Hygiene",
+        tip1_desc: "Prune lower branches and water sprouts to ensure light penetration. Spray 5% Urea on leaf litter post-harvest to rapidly decompose scab-bearing leaves.",
+        tip2_title: "🧊 Bitter Pit Prevention Booster",
+        tip2_desc: "During Fruit Growth, apply foliar Calcium Chloride at 3–4g per Litre (or Calcium Nitrate) at 15-day intervals to enhance cell wall firmness and cold storage life.",
+        tip3_title: "🐝 Honeybee Protection Protocol",
+        tip3_desc: "Strictly avoid all chemical insecticide and acaricide applications during Full Bloom. Spray only after dusk or dawn when pollinators are inactive.",
+        drawer_tank_btn: "⚖️ Tank Calculator",
+        drawer_compat_btn: "🧪 Compatibility Matrix",
+        drawer_log_btn: "📋 Spray Log",
+        drawer_dealers_btn: "🏪 Nearest Dealers",
+        drawer_expert_btn: "📞 Talk to Expert",
+        btn_print_stage: "🖨️ Print Stage",
+        tank_eyebrow: "⚖️ Precise Chemical Dosage Engine",
+        tank_title: "Tank Mixing & Volume Dosage Calculator",
+        tank_subhead: "Calculate exact grams, kilograms, or millilitres of fungicide needed for your specific sprayer capacity without calculation error.",
+        compat_eyebrow: "🧪 Tank Mix Safety Matrix",
+        compat_title: "SKUAST-K Chemical Compatibility & Phytotoxicity Guide",
+        dealers_eyebrow: "🏪 Kashmir Agri-Input & Pesticide Store Locator",
+        dealers_title: "Nearest Licensed Pesticide & Fertilizer Dealers",
+        dealers_search_placeholder: "Search dealer, shop name, town, or chemical (e.g. Indofil, Dodine, Score)...",
+        expert_eyebrow: "📞 Direct Agricultural Extension Helpline",
+        expert_title: "Talk to SKUAST-K Agronomists & Pathology Experts",
+        buy_online_eyebrow: "🛒 Direct Agricultural Input E-Commerce",
+        buy_online_title: "Buy Recommended Product Online",
+        footer_disclaimer: "AppleCare Kashmir AI Diagnostic System · Aligned with SKUAST-Kashmir Apple Spray Schedule 2024–2026. Verify local label registrations and consult your area Horticulture Development Officer (HDO) before field spraying.",
+        footer_dev: "Developed by Munazim Ashraf Bhat"
+      },
+      ur: {
+        brand_title: "ایپل کیئر کشمیر",
+        nav_diag: "🔬 تشخیصی AI",
+        nav_forecast: "🌦️ 7 روزہ موسم",
+        nav_calendar: "📅 اسپرے کیلنڈر",
+        nav_tank: "⚖️ ٹینک کیلکولیٹر",
+        nav_dealers: "🏪 قریبی ڈیلرز",
+        nav_expert: "📞 ماہر سے مشورہ",
+        badge_model: "موبائل نیٹ V3 AI (98.04%)",
+        badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
+        hero_eyebrow: "🌾 سیب کے باغات کی خودکار نباتی تشخیص",
+        hero_title: "سیب کی بیماریوں کی بروقت تشخیص۔<br><span>کشمیر کے باغات کا تحفظ۔</span>",
+        hero_copy: "سیب کے پتے کی تصویر اپلوڈ کر کے فوری AI تشخیص حاصل کریں۔ ہمارا نیورل نیٹ ورک خودکار طور پر بیماری کی شناخت کرتا ہے، غیر نباتی تصاویر (افراد، گاڑیاں، اشیاء) کو مسترد کرتا ہے اور SKUAST-K کے مستند اسپرے شیڈول کی سفارش کرتا ہے۔",
+        crop_profile_badge: "🌳 باغ کی فیلڈ پروفائل",
+        crop_profile_caption: "بیماری کے خطرے اور اسپرے کی مقدار کے تعین کیلئے سیب کی قسم اور روٹ اسٹاک منتخب کریں",
+        variety_label: "سیب کی قسم",
+        variety_subhint: "مختلف اقسام کے مطابق بیماری کے خطرے کا تعین کرتا ہے (اسکیب، الٹرنیریا، چمپا)",
+        var_red_del: "🍎 ریڈ ڈیلیشس (Red Delicious)",
+        var_royal_del: "👑 رائل ڈیلیشس (Royal Delicious)",
+        var_gala: "🌟 گالا / سپر چیف (Gala)",
+        var_gold_del: "🍏 گولڈن ڈیلیشس (Golden)",
+        var_fuji: "❄️ فیوجی (Fuji)",
+        var_ambri: "🌸 عمبری کشمیری (Ambri)",
+        var_granny: "🍏 گرینی اسمتھ (Granny Smith)",
+        root_label: "روٹ اسٹاک / پودے کی قسم",
+        root_subhint: "درخت کے پھیلاؤ اور اسپرے ٹینک کے محلول کا تناسب طے کرتا ہے",
+        root_seedling: "🌳 روایتی سیڈلنگ (طاقتور پودا)",
+        root_m9: "🌿 M9 ہائی ڈینسٹی (بونا پودا)",
+        root_mm106: "🪴 MM106 درمیانہ قد (سیمی ڈوارف)",
+        root_m26: "🎋 M26 سیمی ڈوارف",
+        root_mm111: "🌲 MM111 طاقتور کلونل",
+        stage_label: "باغ کا موجودہ مرحلہ (مرحلہ وار اسپرے کے لیے منتخب کریں)",
+        stage_green_tip: "🌿 سبز نوک (Green Tip)",
+        stage_pink_bud: "🌸 گلابی کلی (Pink Bud)",
+        stage_full_bloom: "🐝 مکمل پھول (شہد کی مکھیاں محفوظ)",
+        stage_petal_fall: "🍂 پتیوں کا گرنا (Petal Fall)",
+        stage_fruit_growth: "🍎 پھل کی بڑھوتری (Fruit Growth)",
+        weather_eyebrow: "🌦️ لائیو باغ مائیکرو کلائمیٹ",
+        weather_detecting: "مقام کی تلاش جاری ہے…",
+        weather_querying: "موسمی رپورٹ حاصل ہو رہی ہے…",
+        weather_alert_window: "12 گھنٹے کی محفوظ اسپرے ونڈو چیک ہو رہی ہے…",
+        btn_gps: "⌖ GPS استعمال کریں",
+        opt_select_district: "ضلع منتخب کریں",
+        weather_not_updated: "تازہ نہیں ہوا",
+        forecast_eyebrow: "🌦️ زرعی موسمیات و مائیکرو کلائمیٹ",
+        forecast_title: "7 روزہ SKUAST-K اسپرے ونڈو پیشین گوئی",
+        forecast_subhead: "کشمیر کے سیب کے باغات میں بارش سے دوا دھلنے، تیز ہوا اور اسپرے کیلئے موزوں اوقات کی 7 روزہ تفصیلی رپورٹ۔",
+        forecast_loading: "کشمیر کی لائیو موسمی پیشین گوئی لوڈ ہو رہی ہے…",
+        step1_eyebrow: "مرحلہ 01 · پتے کا معائنہ",
+        step1_title: "سیب کے پتے کا معائنہ کریں",
+        drop_prompt_bold: "سیب کے پتے کی تصویر اپلوڈ کریں یا کیمرہ سے لیں",
+        drop_prompt_sub: "AI خودکار طریقے سے تصویر کا تجزیہ کر کے بیماری کی تشخیص کرے گی",
+        scan_analyzing: "اپلوڈ شدہ تصویر کا تجزیہ ہو رہا ہے…",
+        scan_sub: "پتے کی تصدیق اور بیماری کی تفصیلی درجہ بندی جاری ہے",
+        browse_btn: "پتے کی تصویر منتخب کریں",
+        btn_reset: "ری سیٹ کریں",
+        auto_notice_text: "<b>خودکار تشخیص:</b> تصویر اپلوڈ ہوتے ہی فوری تشخیص شروع ہو جاتی ہے۔ آپ کو نیچے کسی آپشن پر کلک کرنے کی ضرورت نہیں!",
+        sample_heading: "💡 یا نمونہ تصاویر سے ٹیسٹ کریں",
+        sample_desc: "کسی بھی نمونے پر کلک کر کے دیکھیں کہ AI مختلف بیماریوں کی تشخیص کیسے کرتی ہے:",
+        sample_scab: "🟢 نمونہ: سیب کا اسکیب (ژھوکھ)",
+        sample_alternaria: "🟠 نمونہ: الٹرنیریا (ڈاگ)",
+        sample_mildew: "⚪ نمونہ: سفوفی پھپھوند (چمپا)",
+        sample_black_rot: "⚫ نمونہ: سیاہ سڑن (Black Rot)",
+        sample_cedar_rust: "🟡 نمونہ: سیب کا رسٹ (Rust)",
+        sample_healthy: "🌿 نمونہ: صحت مند پتہ",
+        sample_non_plant: "🚫 نمونہ: غیر نباتی (گاڑی)",
+        inapp_title: "غیر مناسب تصویر: یہ پودا نہیں ہے",
+        inapp_desc: "اپلوڈ کردہ تصویر سیب کا پتہ یا پودا نہیں ہے۔ درست زرعی رہنمائی کو یقینی بنانے کیلئے بیماری کی تشخیص اور کیمیکل اسپرے روک دیے گئے ہیں۔",
+        diag_step2_eyebrow: "مرحلہ 02 · خودکار AI اسکریننگ",
+        diag_awaiting: "تصویر کا انتظار ہے",
+        diag_awaiting_sub: "خودکار بیماری کی پیشین گوئی دیکھنے کیلئے تصویر اپلوڈ کریں",
+        diag_confidence: "درستگی / اعتماد",
+        diag_step3_eyebrow: "مرحلہ 03 · SKUAST-K ایڈوائزری",
+        diag_step3_title: "تجویز کردہ زرعی ادویات و اسپرے",
+        prod_empty: "مرحلہ وار فنگس کش ادویات اور تجویز کردہ خوراک حاصل کرنے کیلئے اوپر سیب کے پتے کی تصویر اپلوڈ کریں۔",
+        cultural_title: "🌿 SKUAST-K باغبانی و صفائی کے اقدامات",
+        guardrails_eyebrow: "حفاظتی رہنما اصول اور مکھیاں بچاؤ",
+        guardrails_title: "موسمی تحفظ و پولینیٹرز کی حفاظت",
+        audio_eyebrow: "باغبانوں کیلئے صوتی رہنمائی",
+        audio_title: "آڈیو اسپرے رہنمائی",
+        audio_status: "فیلڈ ہدایات سننے کیلئے کلک کریں",
+        report_eyebrow: "فیلڈ رپورٹ",
+        report_title: "تشخیصی خلاصہ",
+        copy_report_btn: "📋 کاپی کریں",
+        history_eyebrow: "محفوظ معائنے",
+        history_title: "حالیہ فیلڈ چیکس",
+        clear_btn: "صاف کریں",
+        tip1_title: "🌿 درخت کی کینوپی اور ہوا کی نکاسی",
+        tip1_desc: "نچلی شاخوں کی کٹائی کریں تاکہ دھوپ اور ہوا کا گزر ہو۔ پتجھڑ کے بعد نیچے گرے پتوں پر 5 فیصد یوریا اسپرے کریں تاکہ اسکیب کے جراثیم ختم ہو سکیں۔",
+        tip2_title: "🧊 بٹر پٹ روک تھام اور پھل کی مضبوطی",
+        tip2_desc: "پھل کی بڑھوتری کے دوران 3 تا 4 گرام فی لیٹر کیلشیم کلورائیڈ (یا کیلشیم نائٹریٹ) کا 15 دن کے وقفے سے اسپرے کریں تاکہ پھل کولڈ اسٹوریج میں محفوظ رہے۔",
+        tip3_title: "🐝 شہد کی مکھیوں کے تحفظ کا پروٹوکول",
+        tip3_desc: "مکمل پھول آنے پر کیڑے مار ادویات کے اسپرے سے سختی سے گریز کریں۔ اسپرے صرف صبح سویرے یا شام کے وقت کریں جب مکھیاں فعال نہ ہوں۔",
+        drawer_tank_btn: "⚖️ اسپرے ٹینک کیلکولیٹر",
+        drawer_compat_btn: "🧪 کیمیکل موافقت چارٹ",
+        drawer_log_btn: "📋 اسپرے ریکارڈ ڈائری",
+        drawer_dealers_btn: "🏪 قریبی کیڑے مار ادویات کی دکانیں",
+        drawer_expert_btn: "📞 SKUAST-K زرعی ماہر سے مشورہ",
+        btn_print_stage: "🖨️ پرنٹ شیڈول",
+        tank_eyebrow: "⚖️ درست کیمیکل خوراک کیلکولیٹر",
+        tank_title: "اسپرے ٹینک مکسنگ اور حجم کیلکولیٹر",
+        tank_subhead: "اپنے اسپرے پمپ یا ٹینک کے لیے بغیر کسی غلطی کے درست گرام، کلوگرام یا ملی لیٹر کا حساب لگائیں۔",
+        compat_eyebrow: "🧪 مکسنگ سیفٹی چارٹ",
+        compat_title: "SKUAST-K کیمیکل موافقت اور خطرات کی گائیڈ",
+        dealers_eyebrow: "🏪 کشمیر زرعی ادویات و کھاد اسٹور لوکیٹر",
+        dealers_title: "قریبی مجاز زرعی ادویات اور کھاد ڈیلرز",
+        dealers_search_placeholder: "ڈیلر کا نام، دکان، قصبہ یا دوا تلاش کریں (مثلاً Indofil, Dodine, Score)...",
+        expert_eyebrow: "📞 زرعی توسیعی ہیلپ لائن",
+        expert_title: "SKUAST-K زرعی و نباتیاتی ماہرین سے رابطہ",
+        buy_online_eyebrow: "🛒 زرعی ادویات کی آن لائن خریداری",
+        buy_online_title: "تجویز کردہ دوا آن لائن خریدیں",
+        footer_disclaimer: "ایپل کیئر کشمیر AI تشخیصی نظام · SKUAST-K سیب اسپرے شیڈول 2024–2026 کے عین مطابق۔ فیلڈ میں اسپرے کرنے سے قبل مقامی ہارٹیکلچر ڈیولپمنٹ آفیسر (HDO) سے مشورہ ضرور کریں۔",
+        footer_dev: "Developed by Munazim Ashraf Bhat"
+      },
+      ks: {
+        brand_title: "ایپل کیئر کشمیر",
+        nav_diag: "🔬 تشخیصی AI",
+        nav_forecast: "🌦️ 7 دۄہن ہُنٛد موسم",
+        nav_calendar: "📅 سپرے کیلنڈر",
+        nav_tank: "⚖️ ٹینک کیلکولیٹر",
+        nav_dealers: "🏪 نیزدیکی ڈیلر",
+        nav_expert: "📞 ماہر سٟتؠ کتھ",
+        badge_model: "موبائل نیٹ V3 AI (98.04%)",
+        badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
+        hero_eyebrow: "🌾 ژوٗنٛٹ کُلؠن ہٕنٛز سائنسی جانچ",
+        hero_title: "ژوٗنٛٹ بنین ہٕنٛز بیماری کٔرِو جلدی پتہ۔<br><span>کٔشیٖر ہٕنٛز فصل تھاوِو محفوظ۔</span>",
+        hero_copy: "ژوٗنٛٹ پَنہٕ چہِ فوٹو اپلوڈ کٔرِتھ حٲصل کٔرِو فوری AI جانچ۔ نیورل نیٹ ورک چھُ خودکار طور بیمٲرؠ زانان، غیر نباتی فوٹو مسترد کران تہٕ SKUAST-K ہُنٛد مستند سپرے شیڈول دِوان۔",
+        crop_profile_badge: "🌳 باغٕچ پروفائل",
+        crop_profile_caption: "بیماری ہُنٛد خطرہ تہٕ سپرے ہٕنٛز مقدار طے کرنہٕ خٲطرٕ ژوٗنٛٹ کِس قسمس تہٕ روٹ اسٹاکس دباوِو",
+        variety_label: "ژوٗنٛٹٕچ قسم",
+        variety_subhint: "مختلف قسمن مُطابق بیماری ہُنٛد خطرہ چھُ بدل گژھان",
+        var_red_del: "🍎 ریڈ ڈیلیشس (Red Delicious)",
+        var_royal_del: "👑 رائل ڈیلیشس (Royal)",
+        var_gala: "🌟 گالا / سپر چیف (Gala)",
+        var_gold_del: "🍏 گولڈن ڈیلیشس (Golden)",
+        var_fuji: "❄️ فیوجی (Fuji)",
+        var_ambri: "🌸 عمبری (Ambri)",
+        var_granny: "🍏 گرینی اسمتھ (Granny)",
+        root_label: "روٹ اسٹاک / پودٕچ قسم",
+        root_subhint: "کُلِس ہٕنٛدس پھیلاوس مُطابق سپرے ٹینک محلول طے کران",
+        root_seedling: "🌳 روایتی سیڈلنگ (طاقتور کُل)",
+        root_m9: "🌿 M9 ہائی ڈینسٹی (لوکُٹ کُل)",
+        root_mm106: "🪴 MM106 درمیانہ قد",
+        root_m26: "🎋 M26 سیمی ڈوارف",
+        root_mm111: "🌲 MM111 کلونل",
+        stage_label: "باغُک موجودٕ مرحلہ (مرحلہ وار سپرے خٲطرٕ چُنوِو)",
+        stage_green_tip: "🌿 گرین ٹِپ (Green Tip)",
+        stage_pink_bud: "🌸 پِنٛک بَڈ (Pink Bud)",
+        stage_full_bloom: "🐝 پُھلائی (پھوٗل پھولُن)",
+        stage_petal_fall: "🍂 پَنَن ہُنٛد پؠٹھن (Petal Fall)",
+        stage_fruit_growth: "🍎 ژوٗنٛٹ بڈن (Fruit Growth)",
+        weather_eyebrow: "🌦️ باغُک لائیو موسم",
+        weather_detecting: "جائے ژھانڈان…",
+        weather_querying: "موسمی رپورٹ حٲصل گژھان…",
+        weather_alert_window: "12 گنٛٹن ہُنٛد سپرے موسم چیک گژھان…",
+        btn_gps: "⌖ GPS اِستعمال کٔرِو",
+        opt_select_district: "ضلع ژارِو",
+        weather_not_updated: "اپڈیٹ گژھن باقٕے",
+        forecast_eyebrow: "🌦️ زرعی موسمیات",
+        forecast_title: "7 دۄہن ہُنٛد SKUAST-K سپرے ونڈو",
+        forecast_subhead: "کٔشیٖرِ ہٕنٛدؠن باغاتن مَنٛز رُود، واو تہٕ سپرے خٲطرٕ بہترین وقتُک 7 دۄہن ہُنٛد اندازٕ۔",
+        forecast_loading: "کٔشیٖر ہُنٛد لائیو موسم لوڈ گژھان…",
+        step1_eyebrow: "مرحلہ 01 · معائنہ",
+        step1_title: "ژوٗنٛٹ پَنہٕ چہِ جانچ",
+        drop_prompt_bold: "ژوٗنٛٹ پَنہٕ چہِ فوٹو اپلوڈ کٔرِو یا کیمرہ سٟتؠ تُلِو",
+        drop_prompt_sub: "AI خودکار طور فوٹو چیک کٔرِتھ بیماری ہُنٛد پتا لگٲوِتھ دِیہِ",
+        scan_analyzing: "فوٹو چیک گژھان چھُ…",
+        scan_sub: "پَنہٕ چہِ تصدیق تہٕ بیماری ہُنٛد گۆمبیٖر تجزیہ جاری",
+        browse_btn: "پَنہٕ چہِ فوٹو ژارِو",
+        btn_reset: "ری سیٹ کٔرِو",
+        auto_notice_text: "<b>خودکار تشخیص:</b> فوٹو اَپلوڈ گژھتھے چھُ فوری بیمٲرؠ ہُنٛد پتہ لَگان!",
+        sample_heading: "💡 یا نمونہ فوٹوو سٟتؠ ٹیسٹ کٔرِو",
+        sample_desc: "کانٛہہ تہِ نمونہ دباوِو تہٕ وٕچھِو AI کِتھ کٔنؠ بیماری ژھانڈان چھِ:",
+        sample_scab: "🟢 نمونہ: ژھوکھ (Apple Scab)",
+        sample_alternaria: "🟠 نمونہ: ڈاگ (Alternaria)",
+        sample_mildew: "⚪ نمونہ: چمپا (Mildew)",
+        sample_black_rot: "⚫ نمونہ: کالی سڑن (Black Rot)",
+        sample_cedar_rust: "🟡 نمونہ: رسٹ (Rust)",
+        sample_healthy: "🌿 نمونہ: اصل پَن",
+        sample_non_plant: "🚫 نمونہ: غیر نباتی (موٹر کار)",
+        inapp_title: "غلط فوٹو: یِہ چھُ نہٕ پودٕ",
+        inapp_desc: "اپلوڈ کٔرمژ فوٹو مَنٛز چھُ نہٕ ژوٗنٛٹ کُلُک پَنہٕ لبنہٕ یِوان۔ غلط سپرے نش بچنہٕ خٲطرٕ چھُ سسٹم تھومُت۔",
+        diag_step2_eyebrow: "مرحلہ 02 · خودکار AI اسکریننگ",
+        diag_awaiting: "فوٹو دِنُک اِنتظار",
+        diag_awaiting_sub: "بیماری ہُنٛد پتہ لگاونہٕ خٲطرٕ فوٹو اپلوڈ کٔرِو",
+        diag_confidence: "اعتماد / درستگی",
+        diag_step3_eyebrow: "مرحلہ 03 · SKUAST-K ایڈوائزری",
+        diag_step3_title: "تجویز کٔرمژ ادویات تہٕ سپرے",
+        prod_empty: "ژوٗنٛٹ پَنہٕ چہِ فوٹو اپلوڈ کٔرِتھ حٲصل کٔرِو مرحلہ وار سپرے تہٕ تجویز کٔرمژ مقدار۔",
+        cultural_title: "🌿 SKUAST-K باغبانی و صفائی ہٕنٛدؠ اقدامات",
+        guardrails_eyebrow: "حفاظتی ہدایات و ماکول تحفظ",
+        guardrails_title: "موسمی بچاو تہٕ گاگُرن ہُنٛد تحفظ",
+        audio_eyebrow: "باغبانن خٲطرٕ صوتی رہنمائی",
+        audio_title: "آڈیو سپرے رہنمائی",
+        audio_status: "فیلڈ ہدایات بوزنہٕ خٲطرٕ دباوِو",
+        report_eyebrow: "فیلڈ ریکارڈ",
+        report_title: "تشخیصی سمری",
+        copy_report_btn: "📋 کاپی کٔرِو",
+        history_eyebrow: "محفوظ معائنے",
+        history_title: "حالیہ چیک",
+        clear_btn: "صاف کٔرِو",
+        tip1_title: "🌿 باغاتن مَنٛز صفائی تہٕ واوُک گزر",
+        tip1_desc: "بۆنہِ مؠژِ پؠٹھ پؠتھ پَنن پؠٹھ 5 فیصد یوریا سپرے کٔرِو تا کہ ژھوکھ ختم گژھِ۔",
+        tip2_title: "🧊 بٹر پٹ نش بچاو",
+        tip2_desc: "ژوٗنٛٹ بڈنہٕ وزِ کیلشیم کلورائیڈ 3–4 گرام فی لیٹر سپرے کٔرِو۔",
+        tip3_title: "🐝 شہدٕچ مچھن ہُنٛد بچاو",
+        tip3_desc: "پُھلائی وزِ کانہہ تہِ زہر سپرے مَہ کٔرِو۔",
+        drawer_tank_btn: "⚖️ ٹینک کیلکولیٹر",
+        drawer_compat_btn: "🧪 کیمیکل مطابقت چارٹ",
+        drawer_log_btn: "📋 سپرے ریکارڈ ڈائری",
+        drawer_dealers_btn: "🏪 نیزدیکی کیڑے مار دوکان",
+        drawer_expert_btn: "📞 SKUAST-K ماہر سٟتؠ رابطہ",
+        btn_print_stage: "🖨️ پرنٹ شیڈول",
+        tank_eyebrow: "⚖️ کیمیکل خوراک کیلکولیٹر",
+        tank_title: "اسپرے ٹینک مکسنگ اور حجم کیلکولیٹر",
+        tank_subhead: "اپنے اسپرے پمپ یا ٹینک کے لیے بغیر کسی غلطی کے درست گرام، کلوگرام یا ملی لیٹر کا حساب لگائیں۔",
+        compat_eyebrow: "🧪 مکسنگ سیفٹی چارٹ",
+        compat_title: "SKUAST-K کیمیکل موافقت اور خطرات کی گائیڈ",
+        dealers_eyebrow: "🏪 کشمیر دوکان لوکیٹر",
+        dealers_title: "قریبی لائسنس یافتہ دکان",
+        dealers_search_placeholder: "دوکاندار یا دوا ژھارِو...",
+        expert_eyebrow: "📞 زرعی ہیلپ لائن",
+        expert_title: "SKUAST-K زرعی ماہرین سٟتؠ کتھ باتھ",
+        buy_online_eyebrow: "🛒 آن لائن خرید",
+        buy_online_title: "دوا آن لائن منگاوِو",
+        footer_disclaimer: "ایپل کیئر کشمیر AI تشخیصی نظام · SKUAST-K سیب اسپرے شیڈول 2024–2026 کے عین مطابق۔ فیلڈ مَنٛز سپرے کرنہٕ برونٛہہ باغبانی افسر (HDO) سٟتؠ مشورہ کٔرِو۔",
+        footer_dev: "Developed by Munazim Ashraf Bhat"
+      }
+    };
+
+    let currentAppLang = localStorage.getItem("applecare_lang") || "en";
+
+    function setAppLanguage(lang) {
+      currentAppLang = lang || "en";
+      localStorage.setItem("applecare_lang", currentAppLang);
+
+      const sel = document.getElementById("appLangSelect");
+      if (sel && sel.value !== currentAppLang) {
+        sel.value = currentAppLang;
+      }
+
+      document.documentElement.lang = currentAppLang;
+      if (currentAppLang === "ur" || currentAppLang === "ks") {
+        document.body.classList.add("ur-mode");
+        document.documentElement.setAttribute("dir", "rtl");
+      } else {
+        document.body.classList.remove("ur-mode");
+        document.documentElement.setAttribute("dir", "ltr");
+      }
+
+      const dict = TRANSLATIONS[currentAppLang] || TRANSLATIONS.en;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict && dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict && dict[key] !== undefined) {
+          el.placeholder = dict[key];
+        }
+      });
+
+      if (typeof updateOrchardProfileUI === "function") {
+        updateOrchardProfileUI();
+      }
+      if (typeof render === "function") {
+        render();
+      }
+    }
+
+    function initLanguageSystem() {
+      const sel = document.getElementById("appLangSelect");
+      if (sel) {
+        sel.value = currentAppLang;
+        sel.addEventListener("change", (e) => {
+          setAppLanguage(e.target.value);
+        });
+      }
+      setAppLanguage(currentAppLang);
+    }
+
     // Authentic SKUAST-K Advisory Dataset
     const SKUAST_DATA = {
       apple_scab: {
@@ -3085,19 +3572,24 @@
 
       // Products List
       const prodList = document.getElementById("productsList");
+      const isUrdu = currentAppLang === "ur";
+      const isKashmiri = currentAppLang === "ks";
+      const buyOnlineTxt = isUrdu ? "🛒 آن لائن خریدیں" : (isKashmiri ? "🛒 آن لائن مول تُلِو" : "🛒 Buy Online");
+      const findDealerTxt = isUrdu ? "📍 قریبی دکان" : (isKashmiri ? "📍 نیزدیکی دُکان ژھارِو" : "📍 Find Dealer");
+
       if (products.length === 0) {
-        prodList.innerHTML = `<div class="alert-box warn">⚠️ No chemical spray recommended for this stage. Maintain regular monitoring.</div>`;
+        prodList.innerHTML = `<div class="alert-box warn">⚠️ ${isUrdu ? "اس مرحلے کیلئے کسی کیمیکل اسپرے کی ضرورت نہیں ہے۔ باقاعدگی سے نگرانی رکھیں۔" : "No chemical spray recommended for this stage. Maintain regular monitoring."}</div>`;
       } else {
         prodList.innerHTML = products.map((p, idx) => `
           <div class="product-item" style="flex-wrap: wrap; gap: 10px;">
             <div style="flex: 1; min-width: 220px;">
               <span class="product-name">${escapeHtml(p.product)}</span>
-              <span class="product-type">${escapeHtml(p.type || "SKUAST-K Recommended Product")}</span>
+              <span class="product-type">${escapeHtml(p.type || (isUrdu ? "SKUAST-K تجویز کردہ پروڈکٹ" : "SKUAST-K Recommended Product"))}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span class="product-dosage">${escapeHtml(p.dosage)}</span>
-              <button type="button" class="btn-buy-online" onclick="showBuyOptions('${escapeHtml(p.product)}')">🛒 Buy Online</button>
-              <button type="button" class="btn-find-dealer" onclick="showDealerLocator('${escapeHtml(p.product)}')">📍 Find Dealer</button>
+              <button type="button" class="btn-buy-online" onclick="showBuyOptions('${escapeHtml(p.product)}')">${buyOnlineTxt}</button>
+              <button type="button" class="btn-find-dealer" onclick="showDealerLocator('${escapeHtml(p.product)}')">${findDealerTxt}</button>
             </div>
           </div>
         `).join("");
@@ -3110,47 +3602,64 @@
       // Guardrails
       const alerts = [];
       if (weatherState.rainWithin12h) {
-        alerts.push(`<div class="alert-box warn">⚠️ <span><b>Rain Postponement Warning:</b> Rain is forecast in your district within 12 hours. Chemical wash-off will occur; postpone spraying until dry foliage conditions resume.</span></div>`);
+        alerts.push(`<div class="alert-box warn">⚠️ <span><b>${isUrdu ? "بارش کی تاخیر کا انتباہ:" : "Rain Postponement Warning:"}</b> ${isUrdu ? "آپ کے ضلع میں 12 گھنٹوں کے اندر بارش متوقع ہے۔ دوا بہہ جائے گی؛ پتے خشک ہونے تک اسپرے ملتوی کریں۔" : "Rain is forecast in your district within 12 hours. Chemical wash-off will occur; postpone spraying until dry foliage conditions resume."}</span></div>`);
       } else {
-        alerts.push(`<div class="alert-box safe">✅ <span><b>Optimal Spray Window:</b> No rain is forecast in the next 12 hours. Spray only on dry leaves and adhere to the registered label interval.</span></div>`);
+        alerts.push(`<div class="alert-box safe">✅ <span><b>${isUrdu ? "محفوظ اسپرے ونڈو:" : "Optimal Spray Window:"}</b> ${isUrdu ? "اگلے 12 گھنٹوں میں بارش متوقع نہیں ہے۔ صرف خشک پتوں پر اسپرے کریں اور لیبل وقفے کی پابندی کریں۔" : "No rain is forecast in the next 12 hours. Spray only on dry leaves and adhere to the registered label interval."}</span></div>`);
       }
 
       if (currentStage === "Full Bloom") {
-        alerts.push(`<div class="alert-box warn">🐝 <span><b>Honeybee Pollinator Shield:</b> Full Bloom detected. Strictly DO NOT apply chemical insecticides or acaricides to protect active pollinating bees.</span></div>`);
+        alerts.push(`<div class="alert-box warn">🐝 <span><b>${isUrdu ? "شہد کی مکھیوں کا تحفظ:" : "Honeybee Pollinator Shield:"}</b> ${isUrdu ? "مکمل کھلنے کا مرحلہ ہے۔ فعال مکھیوں کے تحفظ کیلئے کیڑے مار یا جوئیں مار ادویات کا اسپرے ہرگز نہ کریں۔" : "Full Bloom detected. Strictly DO NOT apply chemical insecticides or acaricides to protect active pollinating bees."}</span></div>`);
       } else {
-        alerts.push(`<div class="alert-box safe">🐝 <span><b>Bee-Safe Timing:</b> Spray only after dusk or early morning; avoid flowering ground weeds.</span></div>`);
+        alerts.push(`<div class="alert-box safe">🐝 <span><b>${isUrdu ? "مکھیوں کیلئے محفوظ وقت:" : "Bee-Safe Timing:"}</b> ${isUrdu ? "اسپرے صرف صبح سویرے یا شام کے وقت کریں؛ کھلے ہوئے گھاس پھونس پر اسپرے سے بچیں۔" : "Spray only after dusk or early morning; avoid flowering ground weeds."}</span></div>`);
       }
 
       if (currentStage === "Fruit Growth") {
-        alerts.push(`<div class="alert-box info">🧊 <span><b>Cold Storage & Bitter Pit Booster:</b> Foliar spray of Calcium Chloride 3–4g / Litre water (or Calcium Nitrate) prevents Bitter Pit and enhances storage firmness.</span></div>`);
+        alerts.push(`<div class="alert-box info">🧊 <span><b>${isUrdu ? "کولڈ اسٹوریج اور بٹر پٹ بوسٹر:" : "Cold Storage & Bitter Pit Booster:"}</b> ${isUrdu ? "کیلشیم کلورائیڈ 3–4 گرام فی لیٹر پانی کا اسپرے بٹر پٹ کو روکتا ہے اور پھل کی اسٹوریج مضبوطی بڑھاتا ہے۔" : "Foliar spray of Calcium Chloride 3–4g / Litre water (or Calcium Nitrate) prevents Bitter Pit and enhances storage firmness."}</span></div>`);
       }
 
       // Variety & Rootstock SKUAST-K Intelligence
       if (VARIETY_INTEL[currentVariety]) {
-        alerts.push(`<div class="alert-box info">🍎 <span><b>Variety Advisory (${currentVariety}):</b> ${VARIETY_INTEL[currentVariety]}</span></div>`);
+        alerts.push(`<div class="alert-box info">🍎 <span><b>${isUrdu ? "سیب کی قسم کی ایڈوائزری" : "Variety Advisory"} (${currentVariety}):</b> ${VARIETY_INTEL[currentVariety]}</span></div>`);
       }
       if (ROOT_INTEL[currentRootType]) {
-        alerts.push(`<div class="alert-box safe">🌱 <span><b>Rootstock & Canopy Calibration (${currentRootType}):</b> ${ROOT_INTEL[currentRootType]}</span></div>`);
+        alerts.push(`<div class="alert-box safe">🌱 <span><b>${isUrdu ? "روٹ اسٹاک و کینوپی کیلیبریشن" : "Rootstock & Canopy Calibration"} (${currentRootType}):</b> ${ROOT_INTEL[currentRootType]}</span></div>`);
       }
 
       document.getElementById("guardrailAlerts").innerHTML = alerts.join("");
 
       // Report Text
-      const rainMsg = weatherState.rainWithin12h ? "Rain forecast within 12h - POSTPONE SPRAY" : "Dry weather window confirmed";
+      const rainMsg = weatherState.rainWithin12h 
+        ? (isUrdu ? "12 گھنٹوں میں بارش متوقع - اسپرے ملتوی کریں" : "Rain forecast within 12h - POSTPONE SPRAY") 
+        : (isUrdu ? "خشک موسم کی توثیق - اسپرے ونڈو محفوظ" : "Dry weather window confirmed");
+
+      const headerTitle = isUrdu 
+        ? `باغ کی تشخیصی سمری (SKUAST-K پروٹوکول)\n--------------------------------------------------\n`
+        : `ORCHARD DIAGNOSIS SUMMARY (SKUAST-K PROTOCOL)\n--------------------------------------------------\n`;
+      const diseaseLine = isUrdu ? `بیماری: ${name} (${latin})\n` : `Disease: ${name} (${latin})\n`;
+      const kashmiriLine = isUrdu ? `کشمیری نام: ${kashmiri}\n` : `Kashmiri: ${kashmiri}\n`;
+      const confLine = isUrdu ? `AI درستگی: ${conf}\n` : `AI Confidence: ${conf}\n`;
+      const varietyLine = isUrdu ? `سیب کی قسم: ${currentVariety}\n` : `Apple Variety: ${currentVariety}\n`;
+      const rootLine = isUrdu ? `روٹ اسٹاک / کینوپی: ${currentRootType}\n` : `Rootstock / Canopy: ${currentRootType}\n`;
+      const stageLine = isUrdu ? `موجودہ مرحلہ: ${currentStage}\n` : `Growth Stage: ${currentStage}\n`;
+      const locLine = isUrdu ? `مقام: ${weatherState.location}\n` : `Location: ${weatherState.location}\n`;
+      const weatherLine = isUrdu ? `موسمی ونڈو: ${rainMsg}\n\n` : `Weather Window: ${rainMsg}\n\n`;
+      const scheduleHeader = isUrdu ? `SKUAST-K تجویز کردہ اسپرے شیڈول:\n` : `SKUAST-K RECOMMENDED SPRAY SCHEDULE:\n`;
+      const dosageWord = isUrdu ? "مقدار" : "Dosage";
+      const culturalHeader = isUrdu ? `\n\nباغبانی و صفائی کے اقدامات:\n` : `\n\nCULTURAL CONTROL & SANITATION:\n`;
+
       document.getElementById("reportText").textContent =
-        `ORCHARD DIAGNOSIS SUMMARY (SKUAST-K PROTOCOL)\n` +
-        `--------------------------------------------------\n` +
-        `Disease: ${name} (${latin})\n` +
-        `Kashmiri: ${kashmiri}\n` +
-        `AI Confidence: ${conf}\n` +
-        `Apple Variety: ${currentVariety}\n` +
-        `Rootstock / Canopy: ${currentRootType}\n` +
-        `Growth Stage: ${currentStage}\n` +
-        `Location: ${weatherState.location}\n` +
-        `Weather Window: ${rainMsg}\n\n` +
-        `SKUAST-K RECOMMENDED SPRAY SCHEDULE:\n` +
-        products.map(p => `• ${p.product} | Dosage: ${p.dosage}`).join("\n") +
-        `\n\nCULTURAL CONTROL & SANITATION:\n` +
+        headerTitle +
+        diseaseLine +
+        kashmiriLine +
+        confLine +
+        varietyLine +
+        rootLine +
+        stageLine +
+        locLine +
+        weatherLine +
+        scheduleHeader +
+        products.map(p => `• ${p.product} | ${dosageWord}: ${p.dosage}`).join("\n") +
+        culturalHeader +
         cultural.map(c => `• ${c}`).join("\n") +
         `\n\nURDU SUMMARY:\n` +
         `${name} کی تشخیص مکمل ہے۔ تجویز کردہ مقدار اور لیبل کی ہدایات پر عمل کریں۔\n\n` +
@@ -5592,6 +6101,7 @@
     }
 
     // Initialization (Clean initial state awaiting upload)
+    initLanguageSystem();
     updateOrchardProfileUI();
     render();
     renderHistory();
