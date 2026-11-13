@@ -465,21 +465,42 @@
       color: #065f46;
       border: 1px solid #a7f3d0;
     }
+    .forecast-strip-wrap {
+      position: relative;
+      width: 100%;
+    }
     .forecast-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 6px 2px 14px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 transparent;
     }
-    @media (max-width: 1100px) {
-      .forecast-grid { grid-template-columns: repeat(4, 1fr); }
+    .forecast-grid::-webkit-scrollbar {
+      height: 6px;
     }
-    @media (max-width: 680px) {
-      .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+    .forecast-grid::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 999px;
     }
-    @media (max-width: 480px) {
-      .forecast-grid { grid-template-columns: 1fr; }
+    .forecast-grid::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    .forecast-grid::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
     .day-card {
+      flex: 0 0 180px;
+      min-width: 172px;
+      max-width: 215px;
+      scroll-snap-align: start;
       background: #fbfdfc;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
@@ -489,6 +510,13 @@
       transition: all 0.2s ease;
       cursor: pointer;
       position: relative;
+    }
+    @media (min-width: 1240px) {
+      .day-card {
+        flex: 1 1 0;
+        min-width: 135px;
+        max-width: none;
+      }
     }
     .day-card:hover {
       transform: translateY(-2px);
@@ -642,6 +670,251 @@
     }
     .btn-detail:hover {
       text-decoration: underline;
+    }
+
+    /* Horizontal Temperature Gradient Meter */
+    .day-temp-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 2px 0 10px;
+      padding: 4px 7px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+    }
+    .day-temp-bar-val {
+      font-size: 11px;
+      font-weight: 750;
+      color: var(--ink);
+      min-width: 22px;
+      text-align: center;
+    }
+    .day-temp-meter {
+      position: relative;
+      flex: 1;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .day-temp-meter-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8 0%, #34d399 50%, #f59e0b 100%);
+    }
+
+    /* Forecast View Toggle & Navigation Controls */
+    .forecast-view-switch {
+      display: inline-flex;
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .forecast-view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .forecast-view-btn:hover {
+      color: var(--ink);
+    }
+    .forecast-view-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .forecast-nav-btns {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .forecast-scroll-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--deep);
+      font-size: 16px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      line-height: 1;
+      padding: 0 0 2px 0;
+    }
+    .forecast-scroll-btn:hover {
+      background: #f0fdf4;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .forecast-bar-hint {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 11.5px;
+      color: #047857;
+      background: #f0fdf4;
+      border: 1px dashed #a7f3d0;
+      border-radius: 8px;
+      padding: 7px 12px;
+      flex-wrap: wrap;
+    }
+    .forecast-bar-hint-sub {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    @media (min-width: 1240px) {
+      .forecast-nav-btns {
+        display: none !important;
+      }
+      .forecast-bar-hint {
+        display: none !important;
+      }
+    }
+
+    /* Horizontal Row Bars View */
+    .forecast-bars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .forecast-row-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      background: #fbfdfc;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .forecast-row-bar:hover {
+      background: #f0fdf4;
+      border-color: var(--primary);
+      transform: translateX(2px);
+    }
+    .forecast-row-bar.status-optimal {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .forecast-row-bar.status-marginal {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .forecast-row-bar.status-no_spray {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+    .row-bar-head {
+      min-width: 95px;
+      display: flex;
+      flex-direction: column;
+    }
+    .row-day-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .row-day-date {
+      font-size: 10.5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .row-bar-icon {
+      font-size: 22px;
+      min-width: 28px;
+      text-align: center;
+      line-height: 1;
+    }
+    .row-bar-temp-meter-col {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 130px;
+      max-width: 280px;
+    }
+    .row-temp-num {
+      font-size: 12px;
+      font-weight: 750;
+      color: var(--ink);
+      min-width: 24px;
+      text-align: center;
+    }
+    .row-temp-track {
+      position: relative;
+      flex: 1;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .row-temp-bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8 0%, #34d399 50%, #f59e0b 100%);
+    }
+    .row-bar-rain, .row-bar-wind {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 60px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .row-bar-status {
+      margin-left: auto;
+    }
+    .row-bar-arrow {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+    @media (max-width: 768px) {
+      .forecast-row-bar {
+        padding: 9px 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .row-bar-temp-meter-col {
+        min-width: 100px;
+        max-width: none;
+        order: 4;
+        flex: 1 1 100%;
+        margin-top: 4px;
+      }
+      .row-bar-wind {
+        display: none;
+      }
     }
 
     /* SKUAST-K Apple Spray Calendar Styles */
@@ -2032,6 +2305,18 @@
     [dir="rtl"] .forecast-top-right {
       flex-direction: row-reverse;
     }
+    [dir="rtl"] .forecast-row-bar {
+      direction: rtl;
+    }
+    [dir="rtl"] .row-bar-status {
+      margin-right: auto;
+      margin-left: 0;
+    }
+    [dir="rtl"] .row-bar-arrow {
+      margin-right: 4px;
+      margin-left: 0;
+      transform: scaleX(-1);
+    }
     [dir="rtl"] .weather-top {
       flex-direction: row-reverse;
     }
@@ -2143,7 +2428,8 @@
         padding: 4px 8px;
       }
       .forecast-grid {
-        grid-template-columns: repeat(4, 1fr);
+        flex-wrap: nowrap;
+        overflow-x: auto;
       }
       .stage-bottom-grid {
         grid-template-columns: 1fr;
@@ -2310,12 +2596,15 @@
         min-width: 160px;
       }
 
-      /* Forecast Cards Grid: 2 columns on 481-768px */
+      /* Forecast Cards Horizontal Bar on 481-768px */
       .forecast-grid {
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: nowrap;
+        overflow-x: auto;
         gap: 10px;
       }
       .day-card {
+        flex: 0 0 170px;
+        min-width: 165px;
         padding: 14px 12px;
       }
 
@@ -2551,8 +2840,16 @@
       h1 {
         font-size: 24px;
       }
+      /* Forecast Horizontal Bar on small mobile */
       .forecast-grid {
-        grid-template-columns: 1fr;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+      }
+      .day-card {
+        flex: 0 0 162px;
+        min-width: 158px;
+        padding: 12px 10px;
       }
       .calendar-products-grid {
         grid-template-columns: 1fr;
@@ -2743,6 +3040,14 @@
           <span class="week-summary-pill" id="weekSummaryPill">
             <span>⌛</span> <span id="weekSummaryText" data-i18n="forecast_loading">Loading 7-day spray feasibility…</span>
           </span>
+          <div class="forecast-view-switch" id="forecastViewSwitch" role="group" aria-label="Forecast View Mode">
+            <button type="button" class="forecast-view-btn active" id="btnForecastCardsView" title="Horizontal Cards Strip">
+              <span>🎴</span> <span data-i18n="forecast_view_cards">Cards Bar</span>
+            </button>
+            <button type="button" class="forecast-view-btn" id="btnForecastBarsView" title="Horizontal Row Bars">
+              <span>📊</span> <span data-i18n="forecast_view_bars">Bar Rows</span>
+            </button>
+          </div>
           <select id="forecastDistrictSelect" class="input-select" aria-label="Select Apple District">
             <option value="33.7182,75.1548,Shopian" selected>Shopian (Apple Bowl)</option>
             <option value="34.2981,74.4716,Sopore">Sopore (Fruit Mandi)</option>
@@ -2756,14 +3061,26 @@
             <option value="34.2165,74.7816,Ganderbal">Ganderbal</option>
           </select>
           <button class="btn ghost" id="forecastGpsBtn" style="padding:7px 12px;font-size:12px;">⌖ GPS</button>
+          <div class="forecast-nav-btns" id="forecastNavBtns">
+            <button type="button" class="forecast-scroll-btn" id="forecastScrollLeftBtn" title="Scroll Left" aria-label="Previous Days">‹</button>
+            <button type="button" class="forecast-scroll-btn" id="forecastScrollRightBtn" title="Scroll Right" aria-label="Next Days">›</button>
+          </div>
         </div>
       </div>
 
-      <!-- 7 Daily Forecast Cards Container -->
-      <div class="forecast-grid" id="forecastCardsGrid">
-        <div style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--muted); font-size: 13px;">
-          <span class="spinner" style="display:inline-block; margin-right: 8px;"></span> Loading live Kashmir meteorological forecast…
+      <div class="forecast-bar-hint" id="forecastBarHint">
+        <span data-i18n="forecast_swipe_hint">↔️ <b>Horizontal Bar View:</b> Swipe across 7 days or use arrows</span>
+        <span class="forecast-bar-hint-sub" data-i18n="forecast_mills_hint">Tap any day for SKUAST Mills infection details</span>
+      </div>
+
+      <!-- 7 Daily Forecast Cards & Row Bars Container -->
+      <div class="forecast-strip-wrap">
+        <div class="forecast-grid" id="forecastCardsGrid">
+          <div style="width: 100%; padding: 24px; text-align: center; color: var(--muted); font-size: 13px;">
+            <span class="spinner" style="display:inline-block; margin-right: 8px;"></span> Loading live Kashmir meteorological forecast…
+          </div>
         </div>
+        <div class="forecast-bars-container hidden" id="forecastRowBarsGrid"></div>
       </div>
     </div>
   </section>
@@ -3490,6 +3807,10 @@
         forecast_title: "7-Day SKUAST-K Spray Window Forecast",
         forecast_subhead: "Daily wash-off risk, wind drift hazards, and optimal spraying hours across Kashmir apple belts.",
         forecast_loading: "Loading 7-day spray feasibility…",
+        forecast_view_cards: "Cards Bar",
+        forecast_view_bars: "Bar Rows",
+        forecast_swipe_hint: "↔️ <b>Horizontal Bar View:</b> Swipe across 7 days or use arrows",
+        forecast_mills_hint: "Tap any day for SKUAST Mills infection details",
         step1_eyebrow: "Step 01 · Inspection",
         step1_title: "Scan Apple Leaf",
         drop_prompt_bold: "Upload or take a photo of an apple leaf",
@@ -3607,6 +3928,10 @@
         forecast_title: "7 روزہ SKUAST-K اسپرے ونڈو پیشین گوئی",
         forecast_subhead: "کشمیر کے سیب کے باغات میں بارش سے دوا دھلنے، تیز ہوا اور اسپرے کیلئے موزوں اوقات کی 7 روزہ تفصیلی رپورٹ۔",
         forecast_loading: "کشمیر کی لائیو موسمی پیشین گوئی لوڈ ہو رہی ہے…",
+        forecast_view_cards: "کارڈز بار",
+        forecast_view_bars: "افقی قطاریں",
+        forecast_swipe_hint: "↔️ <b>افقی بار:</b> 7 دن دیکھنے کیلئے دائیں بائیں اسکرول کریں",
+        forecast_mills_hint: "ملز اسکیب خطرہ جانچنے کیلئے کسی بھی دن پر ٹیپ کریں",
         step1_eyebrow: "مرحلہ 01 · پتے کا معائنہ",
         step1_title: "سیب کے پتے کا معائنہ کریں",
         drop_prompt_bold: "سیب کے پتے کی تصویر اپلوڈ کریں یا کیمرہ سے لیں",
@@ -3724,6 +4049,10 @@
         forecast_title: "7 دۄہن ہُنٛد SKUAST-K سپرے ونڈو",
         forecast_subhead: "کٔشیٖرِ ہٕنٛدؠن باغاتن مَنٛز رُود، واو تہٕ سپرے خٲطرٕ بہترین وقتُک 7 دۄہن ہُنٛد اندازٕ۔",
         forecast_loading: "کٔشیٖر ہُنٛد لائیو موسم لوڈ گژھان…",
+        forecast_view_cards: "کارڈز بار",
+        forecast_view_bars: "ہورائزنٹل بارز",
+        forecast_swipe_hint: "↔️ <b>ہورائزنٹل بار:</b> 7 دۄہ وُچھنہٕ خٲطرٕ کٔرو سکرول",
+        forecast_mills_hint: "ملز اسکیب جانچ خٲطرٕ کٔرو کلک",
         step1_eyebrow: "مرحلہ 01 · معائنہ",
         step1_title: "ژوٗنٛٹ پَنہٕ چہِ جانچ",
         drop_prompt_bold: "ژوٗنٛٹ پَنہٕ چہِ فوٹو اپلوڈ کٔرِو یا کیمرہ سٟتؠ تُلِو",
@@ -4630,7 +4959,7 @@
         }
       } catch (err) {
         console.error("Failed to load 7-day spray forecast:", err);
-        container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:16px;color:#ef4444;font-size:12px;">Failed to load forecast data. Please check connection.</div>`;
+        container.innerHTML = `<div style="width:100%;text-align:center;padding:16px;color:#ef4444;font-size:12px;">Failed to load forecast data. Please check connection.</div>`;
       }
     }
 
@@ -4710,61 +5039,129 @@
 
     function renderForecastCards(data) {
       const container = document.getElementById("forecastCardsGrid");
+      const rowBarsContainer = document.getElementById("forecastRowBarsGrid");
       if (!data.forecast_days || data.forecast_days.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:12px;">No forecast data available.</div>`;
+        if (container) container.innerHTML = `<div style="width:100%;text-align:center;color:var(--muted);font-size:12px;padding:20px;">No forecast data available.</div>`;
+        if (rowBarsContainer) rowBarsContainer.innerHTML = `<div style="width:100%;text-align:center;color:var(--muted);font-size:12px;padding:20px;">No forecast data available.</div>`;
         return;
       }
 
-      container.innerHTML = data.forecast_days.map((day, idx) => {
-        const rainFillClass = day.rain_prob_pct >= 50 ? "high-rain" : "low-rain";
-        const statusClass = day.status || "optimal";
+      // Compute week-wide min and max for proportional temperature bars
+      const tMins = data.forecast_days.map(d => Number(d.temp_min ?? 0));
+      const tMaxs = data.forecast_days.map(d => Number(d.temp_max ?? 20));
+      const weekMin = Math.min(...tMins);
+      const weekMax = Math.max(...tMaxs);
+      const tempSpan = Math.max(1, weekMax - weekMin);
 
-        return `
-          <div class="day-card status-${statusClass}" onclick="openDayDetail(${idx})">
-            <div class="day-header">
-              <span class="day-title">${day.day_name}</span>
-              <span class="day-date">${day.date.slice(5)}</span>
-            </div>
+      // 1. Render Cards Strip (Continuous Horizontal Bar)
+      if (container) {
+        container.innerHTML = data.forecast_days.map((day, idx) => {
+          const rainFillClass = day.rain_prob_pct >= 50 ? "high-rain" : "low-rain";
+          const statusClass = day.status || "optimal";
 
-            <span class="status-pill ${statusClass}">
-              ${day.status === "optimal" ? "🟢" : (day.status === "marginal" ? "🟡" : "🔴")} ${day.status_label}
-            </span>
+          const curMin = Number(day.temp_min ?? 0);
+          const curMax = Number(day.temp_max ?? 20);
+          const leftPct = Math.max(0, Math.min(85, Math.round(((curMin - weekMin) / tempSpan) * 100)));
+          const rightPct = Math.max(leftPct + 12, Math.min(100, Math.round(((curMax - weekMin) / tempSpan) * 100)));
+          const widthPct = Math.max(12, rightPct - leftPct);
 
-            <div class="day-weather-visual">
-              <span class="day-icon">${day.icon || "☀️"}</span>
-              <div class="day-temps">
-                <div class="day-temp-high">${day.temp_max}°</div>
-                <div class="day-temp-low">${day.temp_min}°C</div>
+          return `
+            <div class="day-card status-${statusClass}" onclick="openDayDetail(${idx})" role="button" tabindex="0">
+              <div class="day-header">
+                <span class="day-title">${day.day_name}</span>
+                <span class="day-date">${day.date.slice(5)}</span>
+              </div>
+
+              <span class="status-pill ${statusClass}">
+                ${day.status === "optimal" ? "🟢" : (day.status === "marginal" ? "🟡" : "🔴")} ${day.status_label}
+              </span>
+
+              <div class="day-weather-visual">
+                <span class="day-icon">${day.icon || "☀️"}</span>
+                <div class="day-temps">
+                  <div class="day-temp-high">${day.temp_max}°</div>
+                  <div class="day-temp-low">${day.temp_min}°C</div>
+                </div>
+              </div>
+
+              <!-- Proportional Horizontal Temperature Bar -->
+              <div class="day-temp-bar-wrap" title="Min: ${day.temp_min}°C, Max: ${day.temp_max}°C (Weekly span: ${weekMin}°–${weekMax}°C)">
+                <span class="day-temp-bar-val">${day.temp_min}°</span>
+                <div class="day-temp-meter">
+                  <div class="day-temp-meter-fill" style="left:${leftPct}%; width:${widthPct}%;"></div>
+                </div>
+                <span class="day-temp-bar-val">${day.temp_max}°</span>
+              </div>
+
+              <div class="metric-row">
+                <span>Rain Risk</span>
+                <span class="metric-val">${day.rain_prob_pct}% (${day.rain_sum_mm}mm)</span>
+              </div>
+              <div class="metric-bar-wrap">
+                <div class="metric-bar-fill ${rainFillClass}" style="width: ${Math.min(100, Math.max(8, day.rain_prob_pct))}%"></div>
+              </div>
+
+              <div class="metric-row">
+                <span>Wind Speed</span>
+                <span class="metric-val">${day.wind_max_kmh} km/h</span>
+              </div>
+
+              <div class="best-hours-pill">
+                ⏱️ ${day.best_hours}
+              </div>
+
+              <div class="directive-snippet" title="${day.skuast_directive}">
+                ${day.skuast_directive}
+              </div>
+
+              <div class="day-card-footer">
+                <button class="btn-detail" type="button">Details & Mills Risk ›</button>
               </div>
             </div>
+          `;
+        }).join("");
+      }
 
-            <div class="metric-row">
-              <span>Rain Risk</span>
-              <span class="metric-val">${day.rain_prob_pct}% (${day.rain_sum_mm}mm)</span>
-            </div>
-            <div class="metric-bar-wrap">
-              <div class="metric-bar-fill ${rainFillClass}" style="width: ${Math.min(100, Math.max(8, day.rain_prob_pct))}%"></div>
-            </div>
+      // 2. Render Horizontal Row Bars View (Apple Weather Style)
+      if (rowBarsContainer) {
+        rowBarsContainer.innerHTML = data.forecast_days.map((day, idx) => {
+          const statusClass = day.status || "optimal";
+          const curMin = Number(day.temp_min ?? 0);
+          const curMax = Number(day.temp_max ?? 20);
+          const leftPct = Math.max(0, Math.min(85, Math.round(((curMin - weekMin) / tempSpan) * 100)));
+          const rightPct = Math.max(leftPct + 12, Math.min(100, Math.round(((curMax - weekMin) / tempSpan) * 100)));
+          const widthPct = Math.max(12, rightPct - leftPct);
 
-            <div class="metric-row">
-              <span>Wind Speed</span>
-              <span class="metric-val">${day.wind_max_kmh} km/h</span>
+          return `
+            <div class="forecast-row-bar status-${statusClass}" onclick="openDayDetail(${idx})" role="button" tabindex="0">
+              <div class="row-bar-head">
+                <span class="row-day-name">${day.day_name}</span>
+                <span class="row-day-date">${day.date.slice(5)}</span>
+              </div>
+              <div class="row-bar-icon" title="${day.status_label}">${day.icon || "☀️"}</div>
+              <div class="row-bar-temp-meter-col" title="Temperature Range: ${day.temp_min}°C to ${day.temp_max}°C">
+                <span class="row-temp-num">${day.temp_min}°</span>
+                <div class="row-temp-track">
+                  <div class="row-temp-bar" style="left:${leftPct}%; width:${widthPct}%;"></div>
+                </div>
+                <span class="row-temp-num">${day.temp_max}°</span>
+              </div>
+              <div class="row-bar-rain" title="Precipitation Probability">
+                💧 <span class="row-val">${day.rain_prob_pct}% (${day.rain_sum_mm}mm)</span>
+              </div>
+              <div class="row-bar-wind" title="Max Wind Speed">
+                💨 <span class="row-val">${day.wind_max_kmh} km/h</span>
+              </div>
+              <div class="row-bar-status">
+                <span class="status-pill ${statusClass}">
+                  ${day.status === "optimal" ? "🟢" : (day.status === "marginal" ? "🟡" : "🔴")} ${day.status_label}
+                </span>
+              </div>
+              <span class="row-bar-arrow">›</span>
             </div>
-
-            <div class="best-hours-pill">
-              ⏱️ ${day.best_hours}
-            </div>
-
-            <div class="directive-snippet" title="${day.skuast_directive}">
-              ${day.skuast_directive}
-            </div>
-
-            <div class="day-card-footer">
-              <button class="btn-detail" type="button">Details & Mills Risk ›</button>
-            </div>
-          </div>
-        `;
-      }).join("");
+          `;
+        }).join("");
+      }
     }
 
     // Modal popup showing detailed hourly breakdown and Mills Infection risk
@@ -4833,6 +5230,50 @@
       if (e.target.id === "dayDetailModal") {
         document.getElementById("dayDetailModal").classList.add("hidden");
       }
+    });
+
+    // Weather Forecast View Switching & Scroll Controls
+    let currentForecastView = "cards";
+    function setForecastView(mode) {
+      currentForecastView = mode;
+      const cardsGrid = document.getElementById("forecastCardsGrid");
+      const rowBarsGrid = document.getElementById("forecastRowBarsGrid");
+      const cardsBtn = document.getElementById("btnForecastCardsView");
+      const barsBtn = document.getElementById("btnForecastBarsView");
+      const navBtns = document.getElementById("forecastNavBtns");
+      const hint = document.getElementById("forecastBarHint");
+
+      if (mode === "bars") {
+        if (cardsGrid) cardsGrid.classList.add("hidden");
+        if (rowBarsGrid) rowBarsGrid.classList.remove("hidden");
+        if (cardsBtn) cardsBtn.classList.remove("active");
+        if (barsBtn) barsBtn.classList.add("active");
+        if (navBtns) navBtns.style.display = "none";
+        if (hint) hint.style.display = "none";
+      } else {
+        if (cardsGrid) cardsGrid.classList.remove("hidden");
+        if (rowBarsGrid) rowBarsGrid.classList.add("hidden");
+        if (cardsBtn) cardsBtn.classList.add("active");
+        if (barsBtn) barsBtn.classList.remove("active");
+        if (navBtns) navBtns.style.display = "";
+        if (hint) hint.style.display = "";
+      }
+    }
+
+    document.getElementById("btnForecastCardsView")?.addEventListener("click", () => setForecastView("cards"));
+    document.getElementById("btnForecastBarsView")?.addEventListener("click", () => setForecastView("bars"));
+
+    document.getElementById("forecastScrollLeftBtn")?.addEventListener("click", () => {
+      const grid = document.getElementById("forecastCardsGrid");
+      if (!grid) return;
+      const isRtl = document.documentElement.dir === "rtl";
+      grid.scrollBy({ left: isRtl ? 240 : -240, behavior: "smooth" });
+    });
+    document.getElementById("forecastScrollRightBtn")?.addEventListener("click", () => {
+      const grid = document.getElementById("forecastCardsGrid");
+      if (!grid) return;
+      const isRtl = document.documentElement.dir === "rtl";
+      grid.scrollBy({ left: isRtl ? -240 : 240, behavior: "smooth" });
     });
 
     // Kashmir Horticultural Geo Hubs & Tehsils
