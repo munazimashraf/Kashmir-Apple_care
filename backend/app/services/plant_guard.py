@@ -97,7 +97,7 @@ def get_plant_verifier():
         try:
             from pathlib import Path
             import onnxruntime as ort
-            onnx_path = Path("backend/models/plant_verifier_mobilenetv3.onnx")
+            onnx_path = Path("backend/models/plant_verifier_vgg19.onnx")
             if onnx_path.is_file():
                 opts = ort.SessionOptions()
                 opts.intra_op_num_threads = 2
@@ -221,10 +221,10 @@ def get_guard_model():
         try:
             import torch
             from torchvision import models
-            model = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.DEFAULT)
+            model = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
             model.eval()
             _GUARD_MODEL = model
-            LOGGER.info("Initialized PlantGuard ImageNet verification model.")
+            LOGGER.info("Initialized PlantGuard VGG-19 ImageNet verification model.")
         except Exception as exc:
             LOGGER.warning("Could not load ImageNet guard model: %s. Using visual heuristics.", exc)
             _GUARD_MODEL = False
@@ -381,9 +381,11 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
         return False, "Inappropriate image: Synthetic fast/neon color detected. Natural plant leaves have organic chlorophyll pigmentation and surface micro-texture. Please photograph an actual plant leaf in natural light.", details
 
     # REJECTION RULE 3: Neural Plant Verifier Rejection
+    # If a genuine leaf is clearly centered on farmer's palm/fingers (is_center_leaf + flora match/high center foliage), allow it.
     if not is_real_plant_neural:
-        LOGGER.info("Neural Plant Verifier rejected non-plant: p_plant=%.4f", p_plant_neural)
-        return False, "Inappropriate image: Neural verification determined this image is not a genuine plant leaf. Please upload a clear photo of an apple leaf.", details
+        if not (is_center_leaf and (is_flora_top or center_foliage >= 0.50)):
+            LOGGER.info("Neural Plant Verifier rejected non-plant: p_plant=%.4f", p_plant_neural)
+            return False, "Inappropriate image: Neural verification determined this image is not a genuine plant leaf. Please upload a clear photo of an apple leaf.", details
 
     # REJECTION RULE 4: Human Subject / Portrait / Selfie / Clothes
     if not is_center_leaf:

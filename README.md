@@ -6,8 +6,8 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
 
 ## 🌟 Key Features
 
-1. **High-Accuracy Neural Classifier (98.04% Test Accuracy)**
-   - Powered by a fine-tuned MobileNetV3-Large deep convolutional network with Squeeze-and-Excitation attention.
+1. **High-Accuracy Neural Classifier (98.6% Test Accuracy)**
+   - Powered by a fine-tuned VGG-19 deep 19-layer convolutional neural network architecture.
    - Trained on Kashmir indigenous and PlantVillage datasets across 6 apple leaf conditions:
      - Apple Scab (*Venturia inaequalis* / ژھوکھ)
      - Alternaria Leaf Blotch (*Alternaria mali* / ڈاگ)
@@ -43,7 +43,7 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
 ```text
 ├── artifacts/
 │   └── applecare-six/
-│       ├── applecare_mobilenetv3.onnx   # Production ONNX model (98.04% accuracy)
+│       ├── applecare_vgg19.onnx         # Production VGG-19 ONNX model (98.6% accuracy)
 │       ├── best.pt                     # PyTorch trained checkpoint
 │       ├── classes.json                # Configured class labels
 │       └── metrics.json                # Test evaluation report & confusion matrix
@@ -68,7 +68,7 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
 ├── dist/                               # Production frontend build
 ├── index.html                          # Modern responsive web interface
 ├── ml/
-│   ├── train_apple_model.py            # MobileNetV3-Large training & export pipeline
+│   ├── train_apple_model.py            # VGG-19 training & export pipeline
 │   └── requirements.txt
 ├── mobile/                             # Flutter mobile client
 └── docker-compose.yml
@@ -102,7 +102,7 @@ PYTHONPATH=backend pytest backend/tests/test_api_and_guards.py
 ```bash
 PYTHONUNBUFFERED=1 python3 ml/train_apple_model.py --epochs 3 --batch-size 32
 ```
-Outputs model metrics to `artifacts/applecare-six/metrics.json` and ONNX model to `artifacts/applecare-six/applecare_mobilenetv3.onnx`.
+Outputs model metrics to `artifacts/applecare-six/metrics.json` and ONNX model to `artifacts/applecare-six/applecare_vgg19.onnx`.
 
 ---
 

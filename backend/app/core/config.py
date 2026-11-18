@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     jwt_expire_minutes: int = 60 * 24
     openweather_api_key: str = Field("", validation_alias="OPENWEATHER_API_KEY")
     allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
-    model_path: str = "artifacts/applecare-six/applecare_mobilenetv3.onnx"
+    model_path: str = "artifacts/applecare-six/applecare_vgg19.onnx"
     classes_path: str = "artifacts/applecare-six/classes.json"
     max_upload_bytes: int = 10 * 1024 * 1024
 

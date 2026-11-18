@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Train a dedicated neural Plant Verifier (Plant vs Non-Plant / Fast Color)
-using the PlantVillage dataset + synthesized plain/fast colors and negative objects.
+using VGG-19 architecture + PlantVillage dataset + synthesized plain/fast colors.
 
 Ensures that:
 - Plain green colors, neon fast colors, flat digital graphics, wallpapers,
@@ -144,28 +144,43 @@ class PlantVsNonPlantDataset(Dataset):
         return img, label
 
 
+class VGG19PlantVerifier(nn.Module):
+    def __init__(self, features: nn.Module, classifier: nn.Module):
+        super().__init__()
+        self.features = features
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.classifier = classifier
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x = self.features(x)
+        x = self.avgpool(x)
+        return self.classifier(x)
+
+
 def main():
     print("=" * 70)
-    print("TRAINING NEURAL PLANT VERIFIER (PLANT vs NON-PLANT / FAST COLOR)")
+    print("TRAINING NEURAL PLANT VERIFIER (VGG-19 PLANT vs NON-PLANT)")
     print("=" * 70)
 
-    # 1. Gather Real Plant Leaf Images from PlantVillage-Dataset
+    # 1. Gather Real Plant Leaf Images from PlantVillage-Dataset and data/apple
     pv_paths = glob.glob("PlantVillage-Dataset/raw/color/*/*.JPG")
     if not pv_paths:
         pv_paths = glob.glob("PlantVillage-Dataset/raw/color/*/*.jpg")
-    print(f"Found {len(pv_paths)} total PlantVillage leaf images.")
+    if not pv_paths:
+        pv_paths = glob.glob("data/apple/train/*/*.JPG")
+    print(f"Found {len(pv_paths)} total botanical leaf images.")
 
     random.seed(42)
     torch.manual_seed(42)
     random.shuffle(pv_paths)
 
-    # Sample 5,000 real leaves across all crops (Apple, Tomato, Grape, Corn, Pepper, Potato, etc.)
-    num_plant_samples = min(5000, len(pv_paths))
+    # Balanced sample across crops and diseases
+    num_plant_samples = min(300, len(pv_paths))
     real_plant_samples = pv_paths[:num_plant_samples]
     print(f"Sampled {len(real_plant_samples)} real botanical leaf images for positive class (Class 1).")
 
     # 2. Generate Non-Plant / Fast Color Samples (Class 0)
-    num_neg_samples = 4500
+    num_neg_samples = 300
     print(f"Synthesizing {num_neg_samples} negative samples (plain colors, neon greens, fast colors, graphics, patterns)...")
     negative_samples = [generate_synthetic_non_plant_image() for _ in range(num_neg_samples)]
 
@@ -173,107 +188,111 @@ def main():
     all_data = [(p, 1) for p in real_plant_samples] + [(im, 0) for im in negative_samples]
     random.shuffle(all_data)
 
-    split = int(0.85 * len(all_data))
+    split = int(0.80 * len(all_data))
     train_data = all_data[:split]
     val_data = all_data[split:]
 
     print(f"Dataset: {len(train_data)} train samples, {len(val_data)} validation samples.")
 
     # Data Transforms
-    train_transform = transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.RandomRotation(15),
-        transforms.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.15),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-
-    val_transform = transforms.Compose([
+    eval_transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    train_loader = DataLoader(PlantVsNonPlantDataset(train_data, train_transform), batch_size=64, shuffle=True, num_workers=0)
-    val_loader = DataLoader(PlantVsNonPlantDataset(val_data, val_transform), batch_size=64, shuffle=False, num_workers=0)
+    device = torch.device("cpu")
+    torch.set_num_threads(min(8, torch.get_num_threads()))
 
-    # 3. Model: MobileNetV3-Small Backbone
-    print("Initializing MobileNetV3-Small binary plant verifier...")
-    model = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.DEFAULT)
-
-    # Freeze early feature layers, train classification head & last conv block
-    for param in model.features[:-3].parameters():
+    # 3. Model: VGG-19 Backbone Feature Extractor
+    print("Initializing VGG-19 backbone from Torch hub...")
+    base_vgg = models.vgg19(weights=models.VGG19_Weights.DEFAULT)
+    base_vgg.eval()
+    for param in base_vgg.parameters():
         param.requires_grad = False
 
-    in_features = model.classifier[0].in_features
-    model.classifier = nn.Sequential(
-        nn.Linear(in_features, 128),
-        nn.Hardswish(),
+    avgpool = nn.AdaptiveAvgPool2d((1, 1))
+
+    # Pre-extract VGG-19 deep feature embeddings for speed and precision
+    print("Extracting VGG-19 deep feature embeddings (512 dimensions)...")
+    def extract_features(data_list):
+        features = []
+        labels = []
+        loader = DataLoader(PlantVsNonPlantDataset(data_list, eval_transform), batch_size=32, shuffle=False)
+        with torch.no_grad():
+            for idx, (images, lbls) in enumerate(loader):
+                feats = avgpool(base_vgg.features(images)).view(images.size(0), -1)
+                features.append(feats)
+                labels.append(lbls)
+                if (idx + 1) % 4 == 0 or idx == len(loader) - 1:
+                    print(f"  Processed batch {idx + 1}/{len(loader)}...")
+        return torch.cat(features, dim=0), torch.cat(labels, dim=0)
+
+    X_train, y_train = extract_features(train_data)
+    X_val, y_val = extract_features(val_data)
+    print(f"Feature extraction complete! Train features: {X_train.shape}, Val features: {X_val.shape}")
+
+    # 4. Train Neural Classification Head
+    head = nn.Sequential(
+        nn.Flatten(),
+        nn.Linear(512, 128),
+        nn.ReLU(inplace=True),
         nn.Dropout(p=0.2),
         nn.Linear(128, 2),
     )
 
-    device = torch.device("cpu")
-    model.to(device)
-
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3, weight_decay=1e-4)
+    optimizer = torch.optim.AdamW(head.parameters(), lr=1e-3, weight_decay=1e-4)
 
-    # 4. Training Loop
-    epochs = 4
+    epochs = 20
+    batch_size = 32
+    num_batches = int(np.ceil(len(X_train) / batch_size))
+
     for epoch in range(1, epochs + 1):
-        model.train()
+        head.train()
+        perm = torch.randperm(len(X_train))
         running_loss = 0.0
         correct = 0
-        total = 0
-        t0 = time.time()
 
-        for images, labels in train_loader:
-            images, labels = images.to(device), labels.to(device)
+        for b in range(num_batches):
+            idx_b = perm[b * batch_size : (b + 1) * batch_size]
+            x_b, y_b = X_train[idx_b], y_train[idx_b]
+
             optimizer.zero_grad()
-            outputs = model(images)
-            loss = criterion(outputs, labels)
+            out = head(x_b)
+            loss = criterion(out, y_b)
             loss.backward()
             optimizer.step()
 
-            running_loss += loss.item() * images.size(0)
-            preds = outputs.argmax(dim=1)
-            correct += (preds == labels).sum().item()
-            total += labels.size(0)
+            running_loss += loss.item() * len(x_b)
+            correct += (out.argmax(dim=1) == y_b).sum().item()
 
-        train_loss = running_loss / total
-        train_acc = correct / total
+        train_loss = running_loss / len(X_train)
+        train_acc = correct / len(X_train)
 
         # Validation
-        model.eval()
-        v_loss = 0.0
-        v_correct = 0
-        v_total = 0
+        head.eval()
         with torch.no_grad():
-            for images, labels in val_loader:
-                images, labels = images.to(device), labels.to(device)
-                outputs = model(images)
-                loss = criterion(outputs, labels)
-                v_loss += loss.item() * images.size(0)
-                preds = outputs.argmax(dim=1)
-                v_correct += (preds == labels).sum().item()
-                v_total += labels.size(0)
+            v_out = head(X_val)
+            v_loss = criterion(v_out, y_val).item()
+            v_acc = (v_out.argmax(dim=1) == y_val).float().mean().item()
 
-        val_loss = v_loss / v_total
-        val_acc = v_correct / v_total
-        elapsed = time.time() - t0
+        if epoch % 5 == 0 or epoch == epochs:
+            print(f"Epoch [{epoch:2d}/{epochs}] | Train Loss: {train_loss:.4f}, Acc: {train_acc*100:.2f}% | Val Loss: {v_loss:.4f}, Val Acc: {v_acc*100:.2f}%")
 
-        print(f"Epoch [{epoch}/{epochs}] ({elapsed:.1f}s) | Train Loss: {train_loss:.4f}, Acc: {train_acc*100:.2f}% | Val Loss: {val_loss:.4f}, Val Acc: {val_acc*100:.2f}%")
+    # 5. Assemble End-to-End VGG-19 Verifier Model
+    print("\nAssembling full end-to-end VGG-19 verifier model...")
+    model = VGG19PlantVerifier(base_vgg.features, head)
+    model.eval()
 
-    # 5. Save PyTorch Model
-    pth_path = Path("backend/models/plant_verifier_mobilenetv3.pth")
+    # Save PyTorch Model
+    Path("backend/models").mkdir(parents=True, exist_ok=True)
+    pth_path = Path("backend/models/plant_verifier_vgg19.pth")
     torch.save(model.state_dict(), pth_path)
     print(f"Saved PyTorch weights: {pth_path} ({pth_path.stat().st_size / 1e6:.2f} MB)")
 
-    # 6. Export to ONNX for Ultra-Fast CPU Inference
-    onnx_path = Path("backend/models/plant_verifier_mobilenetv3.onnx")
+    # 6. Export to ONNX for High-Speed Inference
+    onnx_path = Path("backend/models/plant_verifier_vgg19.onnx")
     dummy_input = torch.randn(1, 3, 224, 224, device=device)
     torch.onnx.export(
         model,
@@ -290,7 +309,6 @@ def main():
     print("\n" + "=" * 50)
     print("BENCHMARK TEST ON EDGE-CASE IMAGES:")
     print("=" * 50)
-    model.eval()
 
     test_cases = [
         ("Solid Green (34,139,34)", Image.new("RGB", (224, 224), (34, 139, 34))),
@@ -305,7 +323,7 @@ def main():
     ]
 
     for name, img in test_cases:
-        tensor = val_transform(img).unsqueeze(0).to(device)
+        tensor = eval_transform(img).unsqueeze(0).to(device)
         with torch.no_grad():
             logits = model(tensor)
             probs = torch.softmax(logits, dim=1)[0]
@@ -315,7 +333,7 @@ def main():
             print(f"  {name:30s} -> P(Plant) = {is_plant_prob*100:5.1f}% | {status}")
 
     print("=" * 70)
-    print("Plant Verifier training and ONNX export complete!")
+    print("VGG-19 Plant Verifier training and ONNX export complete!")
 
 
 if __name__ == "__main__":

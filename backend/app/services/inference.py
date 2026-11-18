@@ -24,9 +24,9 @@ class LeafInference:
         self.path = Path(settings.model_path)
         classes_path = Path(settings.classes_path)
         
-        # Fallback to applecare_mobilenetv3.onnx if default not found
+        # Fallback to applecare_vgg19.onnx if default not found
         if not self.path.is_file():
-            fallback = Path("artifacts/applecare-six/applecare_mobilenetv3.onnx")
+            fallback = Path("artifacts/applecare-six/applecare_vgg19.onnx")
             if fallback.is_file():
                 self.path = fallback
 
@@ -137,6 +137,6 @@ class LeafInference:
             ],
             "heatmap": {
                 "method": "deep-feature-inference",
-                "area": f"Classified by MobileNetV3-Large with {round(confidence * 100, 1)}% confidence.",
+                "area": f"Classified by VGG-19 Deep Neural Network with {round(confidence * 100, 1)}% confidence.",
             },
         }
