@@ -18,5 +18,6 @@ data/apple-plantvillage/
 PlantVillage-Dataset/
 PlantVillage-Dataset
 *.pth.bak
+*.pt
 
 

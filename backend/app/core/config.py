@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     model_path: str = "artifacts/applecare-six/applecare_vgg19.onnx"
     classes_path: str = "artifacts/applecare-six/classes.json"
+    ensemble_enabled: bool = True
+    ensemble_dir: str = "artifacts/ensemble"
     max_upload_bytes: int = 10 * 1024 * 1024
 
     @property

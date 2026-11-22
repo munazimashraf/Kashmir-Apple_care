@@ -66,3 +66,5 @@ class DiagnoseResponse(BaseModel):
     recommendations: list[dict] = Field(default_factory=list)
     guardrails: list[str] = Field(default_factory=list)
     guard_details: Optional[dict] = None
+    model: Optional[str] = None
+    ensemble_breakdown: Optional[dict] = None

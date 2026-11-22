@@ -3767,7 +3767,7 @@
         nav_tank: "⚖️ Tank Calc",
         nav_dealers: "🏪 Nearest Dealers",
         nav_expert: "📞 Talk to Expert",
-        badge_model: "VGG-19 Deep AI (98.6%)",
+        badge_model: "Tri-Model AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K Kashmir Advisory",
         hero_eyebrow: "🌾 Intelligent Orchard Pathology",
         hero_title: "Spot apple disease early.<br><span>Protect Kashmir’s harvest.</span>",
@@ -3888,7 +3888,7 @@
         nav_tank: "⚖️ ٹینک کیلکولیٹر",
         nav_dealers: "🏪 قریبی ڈیلرز",
         nav_expert: "📞 ماہر سے مشورہ",
-        badge_model: "VGG-19 ڈیپ AI (98.6%)",
+        badge_model: "ٹرائی ماڈل AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
         hero_eyebrow: "🌾 سیب کے باغات کی خودکار نباتی تشخیص",
         hero_title: "سیب کی بیماریوں کی بروقت تشخیص۔<br><span>کشمیر کے باغات کا تحفظ۔</span>",
@@ -4009,7 +4009,7 @@
         nav_tank: "⚖️ ٹینک کیلکولیٹر",
         nav_dealers: "🏪 نیزدیکی ڈیلر",
         nav_expert: "📞 ماہر سٟتؠ کتھ",
-        badge_model: "VGG-19 ڈیپ AI (98.6%)",
+        badge_model: "ٹرائی ماڈل AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
         hero_eyebrow: "🌾 ژوٗنٛٹ کُلؠن ہٕنٛز سائنسی جانچ",
         hero_title: "ژوٗنٛٹ بنین ہٕنٛز بیماری کٔرِو جلدی پتہ۔<br><span>کٔشیٖر ہٕنٛز فصل تھاوِو محفوظ۔</span>",
@@ -4573,7 +4573,7 @@
             Upload an apple leaf photo above to automatically receive SKUAST-K stage-specific fungicide recommendations and dosages.
           </div>`;
         document.getElementById("guardrailAlerts").innerHTML = `
-          <div class="alert-box safe">✅ <span><b>System Ready:</b> Automatic plant verification and VGG-19 AI are active.</span></div>`;
+          <div class="alert-box safe">✅ <span><b>System Ready:</b> Automatic plant verification and Tri-Model Ensemble (VGG-19 + VGG-16 + ResNet-50) AI are active.</span></div>`;
         return;
       }
 
@@ -4586,7 +4586,8 @@
       let cultural = d.cultural || [];
 
       if (isCloud) {
-        document.getElementById("diagStepBadge").textContent = "Step 02 · Automatically Diagnosed from Your Photo";
+        const modelName = cloudResult.model || "Tri-Model Deep Ensemble (VGG-19 + VGG-16 + ResNet-50)";
+        document.getElementById("diagStepBadge").textContent = `Step 02 · ${modelName}`;
         name = cloudResult.disease_common || cloudResult.disease?.replace(/_/g, " ").replace(/\b\w/g, c=>c.toUpperCase());
         kashmiri = cloudResult.kashmiri_name || "تشخیص شدہ";
         latin = cloudResult.disease_scientific || "Model-classified symptom";
@@ -4677,6 +4678,8 @@
       const headerTitle = isUrdu 
         ? `باغ کی تشخیصی سمری (SKUAST-K پروٹوکول)\n--------------------------------------------------\n`
         : `ORCHARD DIAGNOSIS SUMMARY (SKUAST-K PROTOCOL)\n--------------------------------------------------\n`;
+      const modelTitle = cloudResult?.model || "Tri-Model AI (VGG-19 + VGG-16 + ResNet-50)";
+      const modelLine = isUrdu ? `ماڈل: ${modelTitle}\n` : `AI Architecture: ${modelTitle}\n`;
       const diseaseLine = isUrdu ? `بیماری: ${name} (${latin})\n` : `Disease: ${name} (${latin})\n`;
       const kashmiriLine = isUrdu ? `کشمیری نام: ${kashmiri}\n` : `Kashmiri: ${kashmiri}\n`;
       const confLine = isUrdu ? `AI درستگی: ${conf}\n` : `AI Confidence: ${conf}\n`;
@@ -4691,6 +4694,7 @@
 
       document.getElementById("reportText").textContent =
         headerTitle +
+        modelLine +
         diseaseLine +
         kashmiriLine +
         confLine +
