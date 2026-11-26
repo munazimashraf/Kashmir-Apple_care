@@ -1243,23 +1243,84 @@
       border: 1px solid #fde68a;
     }
 
-    .nav-links {
+    /* -------------------------------------------------------------
+       BOTTOM APP NAVIGATION BAR
+       ------------------------------------------------------------- */
+    body {
+      padding-bottom: 74px;
+    }
+    .bottom-dock-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 990;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08);
+      padding: 7px 0;
+      transition: all 0.2s ease;
+    }
+    .bottom-dock-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
-    .nav-link {
-      font-size: 12.5px;
+    .bottom-dock-shell::-webkit-scrollbar {
+      display: none;
+    }
+    .dock-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
       font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 99px;
       color: #334155;
-      text-decoration: none;
-      padding: 5px 10px;
-      border-radius: var(--radius-sm);
-      transition: all 0.15s ease;
-    }
-    .nav-link:hover {
       background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      text-decoration: none;
+      flex: 0 0 auto;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .dock-link:hover, .dock-link:active {
+      background: #ecfdf5;
+      color: #047857;
+      border-color: #a7f3d0;
+      transform: translateY(-1px);
+    }
+    .dock-admin-btn {
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #1e293b;
+    }
+    .dock-admin-btn:hover {
+      background: #047857;
+      color: #ffffff;
+      border-color: #047857;
+    }
+    .footer-nav-link {
       color: var(--primary);
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+    .footer-nav-link:hover {
+      text-decoration: underline;
+      opacity: 0.85;
     }
 
     /* Product Action Buttons (Buy Online & Nearest Dealer) */
@@ -2290,7 +2351,7 @@
     [dir="rtl"] .brand {
       flex-direction: row-reverse;
     }
-    [dir="rtl"] .nav-links {
+    [dir="rtl"] .bottom-dock-shell {
       flex-direction: row-reverse;
     }
     [dir="rtl"] .nav-badges {
@@ -2420,13 +2481,6 @@
       .shell {
         padding: 0 18px;
       }
-      .nav-links {
-        gap: 8px;
-      }
-      .nav-link {
-        font-size: 12px;
-        padding: 4px 8px;
-      }
       .forecast-grid {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -2471,14 +2525,14 @@
         padding-top: env(safe-area-inset-top, 0px);
       }
       footer {
-        padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
       }
 
-      /* Navigation Bar: Brand & Language on row 1, horizontal pill bar on row 2 */
+      /* Navigation Bar: Brand & Language in single clean row */
       .nav {
-        flex-wrap: wrap;
-        min-height: auto;
-        padding: 10px 0 8px;
+        flex-wrap: nowrap;
+        min-height: 56px;
+        padding: 8px 0;
         gap: 10px;
       }
       .brand {
@@ -2498,35 +2552,14 @@
         margin-left: 0;
         margin-right: auto;
       }
-      .nav-links {
-        order: 3;
-        width: 100%;
-        display: flex;
+      .bottom-dock-shell {
+        justify-content: flex-start;
+        padding: 0 10px;
         gap: 6px;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding: 2px 2px 6px;
-        margin: 0 -4px;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
       }
-      .nav-links::-webkit-scrollbar {
-        display: none;
-      }
-      .nav-link {
-        flex: 0 0 auto;
-        font-size: 11.5px;
-        font-weight: 700;
-        padding: 6px 12px;
-        background: #f1f5f9;
-        border: 1px solid #e2e8f0;
-        border-radius: 99px;
-        color: #334155;
-      }
-      .nav-link:active, .nav-link:hover {
-        background: #ecfdf5;
-        color: #047857;
-        border-color: #a7f3d0;
+      .dock-link {
+        font-size: 11px;
+        padding: 5px 11px;
       }
 
       /* Hero Section */
@@ -3430,16 +3463,6 @@
       <div class="brand">
         <span class="brand-mark">🍏</span>
         <span data-i18n="brand_title">AppleCare Kashmir</span>
-      </div>
-      <div class="nav-links">
-        <a href="#dropzone" class="nav-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
-        <a href="#sprayForecastSection" class="nav-link" data-i18n="nav_forecast">🌦️ 7-Day Forecast</a>
-        <a href="#sprayCalendarSection" class="nav-link" data-i18n="nav_calendar">📅 Spray Calendar</a>
-        <a href="#hdStoreSection" class="nav-link" id="navStoreLink" data-i18n="nav_store">🍎 Hi-Density Store <span class="nav-cart-badge" id="navCartCount" style="display:none;">0</span></a>
-        <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink" data-i18n="nav_tank">⚖️ Tank Calc</a>
-        <a href="#dealersDrawer" class="nav-link" id="navDealersLink" data-i18n="nav_dealers">🏪 Nearest Dealers</a>
-        <a href="#expertDrawer" class="nav-link" id="navExpertLink" data-i18n="nav_expert">📞 Talk to Expert</a>
-        <button type="button" class="nav-admin-btn" id="openAdminPortalNavBtn" title="Admin Portal · Manage Products & Orders" data-i18n="nav_admin">🔐 Admin Portal</button>
       </div>
       <div class="nav-badges">
         <div class="lang-selector-wrap" title="Select Application Language / زبان منتخب کریں">
@@ -4676,8 +4699,31 @@
     </div>
   </div>
 
+  <!-- Fixed Bottom App Navigation Dock -->
+  <nav class="bottom-dock-nav" id="appBottomNav" aria-label="Bottom Navigation">
+    <div class="bottom-dock-shell">
+      <a href="#dropzone" class="dock-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
+      <a href="#sprayForecastSection" class="dock-link" data-i18n="nav_forecast">🌦️ 7-Day Forecast</a>
+      <a href="#sprayCalendarSection" class="dock-link" data-i18n="nav_calendar">📅 Spray Calendar</a>
+      <a href="#hdStoreSection" class="dock-link" id="navStoreLink" data-i18n="nav_store">🍎 Hi-Density Store <span class="nav-cart-badge" id="navCartCount" style="display:none;">0</span></a>
+      <a href="#tankCalcDrawer" class="dock-link" id="navTankCalcLink" data-i18n="nav_tank">⚖️ Tank Calc</a>
+      <a href="#dealersDrawer" class="dock-link" id="navDealersLink" data-i18n="nav_dealers">🏪 Nearest Dealers</a>
+      <a href="#expertDrawer" class="dock-link" id="navExpertLink" data-i18n="nav_expert">📞 Talk to Expert</a>
+      <button type="button" class="dock-link dock-admin-btn" id="openAdminPortalNavBtn" title="Admin Portal · Manage Products & Orders" data-i18n="nav_admin">🔐 Admin Portal</button>
+    </div>
+  </nav>
+
   <footer>
     <div class="shell" style="text-align: center;">
+      <div class="footer-nav-links" style="margin-bottom: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; font-size: 13px; font-weight: 600;">
+        <a href="#dropzone" class="footer-nav-link">🔬 AI Diagnostic</a>
+        <a href="#sprayForecastSection" class="footer-nav-link">🌦️ 7-Day Forecast</a>
+        <a href="#sprayCalendarSection" class="footer-nav-link">📅 Spray Calendar</a>
+        <a href="#hdStoreSection" class="footer-nav-link">🍎 Hi-Density Store</a>
+        <a href="#tankCalcDrawer" onclick="document.getElementById('navTankCalcLink')?.click()" class="footer-nav-link" style="cursor: pointer;">⚖️ Tank Calc</a>
+        <a href="#dealersDrawer" onclick="document.getElementById('navDealersLink')?.click()" class="footer-nav-link" style="cursor: pointer;">🏪 Nearest Dealers</a>
+        <a href="#expertDrawer" onclick="document.getElementById('navExpertLink')?.click()" class="footer-nav-link" style="cursor: pointer;">📞 Talk to Expert</a>
+      </div>
       <div id="footerDisclaimer" data-i18n="footer_disclaimer" style="line-height: 1.6; max-width: 900px; margin: 0 auto;">
         AppleCare Kashmir AI Diagnostic System · Aligned with SKUAST-Kashmir Apple Spray Schedule 2024–2026. Verify local label registrations and consult your area Horticulture Development Officer (HDO) before field spraying.
       </div>
@@ -4696,8 +4742,10 @@
         nav_forecast: "🌦️ 7-Day Forecast",
         nav_calendar: "📅 Spray Calendar",
         nav_tank: "⚖️ Tank Calc",
+        nav_store: "🍎 Hi-Density Store",
         nav_dealers: "🏪 Nearest Dealers",
         nav_expert: "📞 Talk to Expert",
+        nav_admin: "🔐 Admin Portal",
         badge_model: "Tri-Model AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K Kashmir Advisory",
         hero_eyebrow: "🌾 Intelligent Orchard Pathology",
@@ -4817,8 +4865,10 @@
         nav_forecast: "🌦️ 7 روزہ موسم",
         nav_calendar: "📅 اسپرے کیلنڈر",
         nav_tank: "⚖️ ٹینک کیلکولیٹر",
+        nav_store: "🍎 ہائی ڈینسٹی اسٹور",
         nav_dealers: "🏪 قریبی ڈیلرز",
         nav_expert: "📞 ماہر سے مشورہ",
+        nav_admin: "🔐 ایڈمن پورٹل",
         badge_model: "ٹرائی ماڈل AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
         hero_eyebrow: "🌾 سیب کے باغات کی خودکار نباتی تشخیص",
@@ -4938,8 +4988,10 @@
         nav_forecast: "🌦️ 7 دۄہن ہُنٛد موسم",
         nav_calendar: "📅 سپرے کیلنڈر",
         nav_tank: "⚖️ ٹینک کیلکولیٹر",
+        nav_store: "🍎 ہائی ڈینسٹی دکان",
         nav_dealers: "🏪 نیزدیکی ڈیلر",
         nav_expert: "📞 ماہر سٟتؠ کتھ",
+        nav_admin: "🔐 ایڈمن پورٹل",
         badge_model: "ٹرائی ماڈل AI (VGG-19 + VGG-16 + ResNet-50)",
         badge_skuast: "🎓 SKUAST-K کشمیر ایڈوائزری",
         hero_eyebrow: "🌾 ژوٗنٛٹ کُلؠن ہٕنٛز سائنسی جانچ",
