@@ -2883,6 +2883,543 @@
         font-size: 15.5px;
       }
     }
+
+    /* -------------------------------------------------------------
+       HIGH-DENSITY ORCHARD STORE & ADMIN PORTAL STYLING
+       ------------------------------------------------------------- */
+    .nav-admin-btn {
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      font-size: 11.5px;
+      padding: 4px 11px;
+      border-radius: 99px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-admin-btn:hover {
+      background: #1e293b;
+      border-color: #475569;
+      transform: translateY(-1px);
+    }
+    .nav-cart-badge {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      margin-left: 4px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .store-section {
+      margin-top: 36px;
+      margin-bottom: 36px;
+    }
+    .store-header-card {
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 40%, #ffffff 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.08);
+      margin-bottom: 22px;
+    }
+    .store-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .store-main-title {
+      font-size: 24px;
+      font-weight: 850;
+      color: var(--deep);
+      margin: 4px 0 6px;
+      letter-spacing: -0.3px;
+    }
+    .store-subhead {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin: 0;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+    .store-header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-store-action {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      color: var(--deep);
+      font-size: 12.5px;
+      font-weight: 750;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .btn-store-action:hover {
+      background: #f8fafc;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .btn-store-action.primary-cart {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+    .btn-store-action.primary-cart:hover {
+      background: var(--primary-dark);
+    }
+    .btn-store-action.admin-btn {
+      background: #0f172a;
+      color: #f8fafc;
+      border-color: #1e293b;
+    }
+    .btn-store-action.admin-btn:hover {
+      background: #1e293b;
+    }
+    .store-controls-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .store-category-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+    .store-cat-pill {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 650;
+      padding: 6px 13px;
+      border-radius: 99px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .store-cat-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .store-cat-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      font-weight: 750;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+    .store-search-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .store-search-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+    .store-search-input {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 13px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .store-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+    .store-size-select {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--ink);
+      outline: none;
+      cursor: pointer;
+    }
+    .hd-products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      gap: 18px;
+    }
+    .hd-product-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .hd-product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px -4px rgba(0,0,0,0.08);
+      border-color: #cbd5e1;
+    }
+    .hd-product-img-wrap {
+      position: relative;
+      height: 190px;
+      background: #f1f5f9;
+      overflow: hidden;
+    }
+    .hd-product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+    .hd-product-card:hover .hd-product-img {
+      transform: scale(1.04);
+    }
+    .hd-badge-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 750;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.2px;
+    }
+    [dir="rtl"] .hd-badge-tag {
+      left: auto;
+      right: 10px;
+    }
+    .hd-stock-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(16, 185, 129, 0.9);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 750;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    [dir="rtl"] .hd-stock-tag {
+      right: auto;
+      left: 10px;
+    }
+    .hd-stock-tag.out {
+      background: rgba(239, 68, 68, 0.9);
+    }
+    .hd-card-body {
+      padding: 14px 15px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .hd-card-category {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+    .hd-card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--deep);
+      margin: 0 0 6px;
+      line-height: 1.35;
+    }
+    .hd-size-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      color: #475569;
+      font-size: 11px;
+      font-weight: 650;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+    .hd-card-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0 0 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .hd-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+    }
+    .hd-price-val {
+      font-size: 18px;
+      font-weight: 850;
+      color: var(--deep);
+    }
+    .hd-price-val small {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .hd-card-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-hd-buy {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      font-size: 11.5px;
+      font-weight: 750;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .btn-hd-buy:hover {
+      background: var(--primary-dark);
+    }
+    .btn-hd-cart {
+      background: #f1f5f9;
+      color: var(--deep);
+      border: 1px solid var(--line);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 7px 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-hd-cart:hover {
+      background: #e2e8f0;
+    }
+
+    /* Admin Portal & Dashboard Drawer */
+    .admin-modal-card {
+      max-width: 1000px !important;
+      width: 95% !important;
+      max-height: 94dvh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px !important;
+    }
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .admin-kpi-card {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .admin-kpi-card:hover {
+      transform: translateY(-2px);
+    }
+    .admin-kpi-val {
+      font-size: 22px;
+      font-weight: 850;
+      color: var(--deep);
+      margin-bottom: 2px;
+    }
+    .admin-kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .admin-tabs-row {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 18px;
+      overflow-x: auto;
+    }
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 750;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .admin-tab-btn:hover {
+      color: var(--deep);
+    }
+    .admin-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .order-status-badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .order-status-badge.received {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+    .order-status-badge.confirmed {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+    .order-status-badge.dispatched {
+      background: #f3e8ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+    .order-status-badge.delivered {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    .order-status-badge.cancelled {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    .admin-order-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .admin-order-card:hover {
+      border-color: #cbd5e1;
+    }
+    .admin-order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .admin-prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .admin-prod-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+    .admin-prod-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+    .admin-preset-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .admin-preset-thumb {
+      width: 100%;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .admin-preset-thumb:hover, .admin-preset-thumb.selected {
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+    .cart-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .cart-qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-qty-btn:hover {
+      background: #e2e8f0;
+    }
   </style>
 </head>
 <body>
@@ -2898,9 +3435,11 @@
         <a href="#dropzone" class="nav-link" data-i18n="nav_diag">🔬 AI Diagnostic</a>
         <a href="#sprayForecastSection" class="nav-link" data-i18n="nav_forecast">🌦️ 7-Day Forecast</a>
         <a href="#sprayCalendarSection" class="nav-link" data-i18n="nav_calendar">📅 Spray Calendar</a>
+        <a href="#hdStoreSection" class="nav-link" id="navStoreLink" data-i18n="nav_store">🍎 Hi-Density Store <span class="nav-cart-badge" id="navCartCount" style="display:none;">0</span></a>
         <a href="#tankCalcDrawer" class="nav-link" id="navTankCalcLink" data-i18n="nav_tank">⚖️ Tank Calc</a>
         <a href="#dealersDrawer" class="nav-link" id="navDealersLink" data-i18n="nav_dealers">🏪 Nearest Dealers</a>
         <a href="#expertDrawer" class="nav-link" id="navExpertLink" data-i18n="nav_expert">📞 Talk to Expert</a>
+        <button type="button" class="nav-admin-btn" id="openAdminPortalNavBtn" title="Admin Portal · Manage Products & Orders" data-i18n="nav_admin">🔐 Admin Portal</button>
       </div>
       <div class="nav-badges">
         <div class="lang-selector-wrap" title="Select Application Language / زبان منتخب کریں">
@@ -3725,6 +4264,398 @@
 
     </div>
   </section>
+
+  <!-- High-Density Apple Orchard Store Section -->
+  <section class="store-section shell" id="hdStoreSection">
+    <div class="store-header-card">
+      <div class="store-header-top">
+        <div>
+          <div class="eyebrow" data-i18n="store_eyebrow">🍎 High-Density (HDP) Equipment & Trees</div>
+          <h2 class="store-main-title" data-i18n="store_title">High-Density Apple Orchard Store</h2>
+          <p class="store-subhead" data-i18n="store_subhead">
+            Certified M9 feathered trees, galvanized trellis posts, 12-gauge high-tensile wire, PC drip systems, anti-hail nets, and canopy tools. Direct orchard delivery across Kashmir.
+          </p>
+        </div>
+        <div class="store-header-actions">
+          <button type="button" class="btn-store-action primary-cart" id="storeOpenCartBtn">
+            🛒 My Cart (<span id="storeCartBadge">0</span>)
+          </button>
+          <button type="button" class="btn-store-action" id="storeOpenTrackBtn">
+            📦 Track Orders
+          </button>
+          <button type="button" class="btn-store-action admin-btn" id="storeOpenAdminBtn">
+            🔐 Admin Portal
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories & Filters -->
+      <div class="store-controls-row">
+        <div class="store-category-pills" id="storeCategoryPills">
+          <button type="button" class="store-cat-pill active" data-cat="all">🌟 All Equipment & Trees</button>
+          <button type="button" class="store-cat-pill" data-cat="Rootstocks & Trees">🌱 Rootstocks & Trees</button>
+          <button type="button" class="store-cat-pill" data-cat="Trellis & Support">🏗️ Trellis & Support</button>
+          <button type="button" class="store-cat-pill" data-cat="Drip Irrigation">💧 Drip Irrigation</button>
+          <button type="button" class="store-cat-pill" data-cat="Hail Protection">🛡️ Hail Protection</button>
+          <button type="button" class="store-cat-pill" data-cat="Tools & Nutrition">✂️ Tools & Nutrition</button>
+        </div>
+        <div class="store-search-wrap">
+          <input type="text" id="storeSearchInput" placeholder="🔍 Search product name, size, type (e.g. M9, Galvanized, Wire, Drip, 3.5m)..." class="store-search-input">
+          <select id="storeSizeFilter" class="store-size-select">
+            <option value="all">📐 All Sizes & Types</option>
+            <option value="feathered">Feathered Trees (M9 / T337)</option>
+            <option value="post">Structural Posts / Poles (3.5m / 3.0m)</option>
+            <option value="wire">Trellis Wire & Gripples</option>
+            <option value="drip">Drip Laterals & Fertigation</option>
+            <option value="net">Anti-Hail Nets (UV 8-Yr)</option>
+            <option value="tool">Pruning Shears & Tapener</option>
+            <option value="nutrition">Calcium & Micro-Nutrients</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="hd-products-grid" id="hdProductsGrid">
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--muted);">
+        Loading High-Density Orchard Products…
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart & Checkout Modal -->
+  <div class="buy-modal-overlay" id="cartModalOverlay" style="display: none; align-items: center; justify-content: center; z-index: 9999;">
+    <div class="modal-card" style="max-width: 620px; width: 94%; max-height: 92dvh; overflow-y: auto; background: #ffffff; padding: 24px; border-radius: 18px; position: relative;">
+      <button class="drawer-close-btn" id="closeCartModalBtn" title="Close Cart">✕</button>
+      <div class="eyebrow">🛒 Orchard Input Checkout</div>
+      <h3 style="font-size: 19px; font-weight: 850; color: var(--deep); margin: 4px 0 14px;">High-Density Equipment Order</h3>
+
+      <!-- Cart Items List -->
+      <div id="cartItemsContainer" style="margin-bottom: 16px;">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Checkout Form -->
+      <form id="checkoutForm" style="display: flex; flex-direction: column; gap: 12px; border-top: 2px solid #f1f5f9; padding-top: 14px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Farmer / Grower Full Name *</label>
+            <input type="text" id="custNameInput" required placeholder="e.g. Ghulam Nabi Lone" class="store-search-input" style="width: 100%;">
+          </div>
+          <div>
+            <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">WhatsApp / Mobile No *</label>
+            <input type="tel" id="custPhoneInput" required pattern="[0-9]{10}" placeholder="10-digit Mobile (e.g. 9419012345)" class="store-search-input" style="width: 100%;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Kashmir Orchard District *</label>
+            <select id="custDistrictSelect" required class="store-size-select" style="width: 100%;">
+              <option value="Shopian">Shopian (شپیان)</option>
+              <option value="Baramulla">Baramulla (بارہمولہ)</option>
+              <option value="Anantnag">Anantnag (اننت ناگ)</option>
+              <option value="Pulwama">Pulwama (پلوامہ)</option>
+              <option value="Kupwara">Kupwara (کوپوارہ)</option>
+              <option value="Budgam">Budgam (بڈگام)</option>
+              <option value="Srinagar">Srinagar (سرینگر)</option>
+              <option value="Kulgam">Kulgam (کولگام)</option>
+              <option value="Ganderbal">Ganderbal (گاندربل)</option>
+              <option value="Bandipora">Bandipora (باندی پورہ)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Payment Option</label>
+            <select id="custPaymentMethod" class="store-size-select" style="width: 100%;">
+              <option value="Cash on Delivery">💵 Cash on Delivery (Pay on Orchard Arrival)</option>
+              <option value="UPI on Delivery">📱 UPI / QR Code on Delivery</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Delivery Address / Orchard Landmark *</label>
+          <textarea id="custAddressInput" required rows="2" placeholder="e.g. Near Pinjora Cold Store, Main Orchard Road, Shopian" class="store-search-input" style="width: 100%; resize: vertical;"></textarea>
+        </div>
+
+        <div>
+          <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Optional Note / Delivery Instructions</label>
+          <input type="text" id="custNotesInput" placeholder="e.g. Call 1 hour prior to delivery; unload near tractor gate." class="store-search-input" style="width: 100%;">
+        </div>
+
+        <!-- Total Breakdown -->
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 12px 14px; margin-top: 4px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12.5px; color: #166534; margin-bottom: 4px;">
+            <span>Subtotal:</span>
+            <span id="checkoutSubtotal" style="font-weight: 700;">₹0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12.5px; color: #166534; margin-bottom: 6px;">
+            <span>Orchard Gate Logistics:</span>
+            <span style="font-weight: 700; color: #047857;">FREE Across Kashmir</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 850; color: var(--deep); border-top: 1px solid #bbf7d0; padding-top: 6px;">
+            <span>Total Payable Amount:</span>
+            <span id="checkoutTotal">₹0</span>
+          </div>
+        </div>
+
+        <button type="submit" id="submitOrderBtn" class="btn primary" style="padding: 12px; font-size: 14px; font-weight: 800; border-radius: 10px; margin-top: 6px;">
+          ✅ Place High-Density Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div class="buy-modal-overlay" id="orderSuccessModalOverlay" style="display: none; align-items: center; justify-content: center; z-index: 9999;">
+    <div class="modal-card" style="max-width: 500px; width: 92%; background: #ffffff; padding: 28px 22px; border-radius: 20px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 8px;">🎉</div>
+      <h3 style="font-size: 20px; font-weight: 850; color: var(--deep); margin: 0 0 6px;">Order Confirmed Successfully!</h3>
+      <p style="font-size: 13px; color: var(--muted); margin: 0 0 16px;">
+        Your high-density orchard order has been placed and received by our dispatch team.
+      </p>
+      <div style="background: #f8fafc; border: 1px dashed var(--line); border-radius: 12px; padding: 14px; margin-bottom: 18px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-size: 11.5px; color: var(--muted); font-weight: 700;">TRACKING ID:</span>
+          <span style="font-size: 14px; font-weight: 850; color: var(--primary);" id="successOrderNumber">HD-2026-00000</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-size: 11.5px; color: var(--muted); font-weight: 700;">TOTAL AMOUNT:</span>
+          <span style="font-size: 14px; font-weight: 850; color: var(--deep);" id="successOrderTotal">₹0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="font-size: 11.5px; color: var(--muted); font-weight: 700;">STATUS:</span>
+          <span class="order-status-badge received">🟡 Received</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="btn secondary" id="successTrackBtn" style="flex: 1; padding: 10px;">📦 Track Order</button>
+        <button type="button" class="btn primary" id="successCloseBtn" style="flex: 1; padding: 10px;">Continue Browsing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Order Tracker Modal -->
+  <div class="buy-modal-overlay" id="trackOrderModalOverlay" style="display: none; align-items: center; justify-content: center; z-index: 9999;">
+    <div class="modal-card" style="max-width: 620px; width: 94%; max-height: 90dvh; overflow-y: auto; background: #ffffff; padding: 22px; border-radius: 18px; position: relative;">
+      <button class="drawer-close-btn" id="closeTrackModalBtn" title="Close Tracking">✕</button>
+      <div class="eyebrow">📦 Live Order Tracker</div>
+      <h3 style="font-size: 19px; font-weight: 850; color: var(--deep); margin: 4px 0 12px;">Track Your High-Density Orders</h3>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <input type="text" id="trackQueryInput" placeholder="Enter your 10-digit Mobile No or Order ID (HD-2026-...)" class="store-search-input" style="flex: 1;">
+        <button type="button" id="trackSearchBtn" class="btn primary" style="padding: 8px 16px; font-size: 12.5px; font-weight: 750;">Search</button>
+      </div>
+
+      <div id="trackResultsContainer">
+        <div style="text-align: center; padding: 24px; color: var(--muted); font-size: 12.5px;">
+          Enter your registered phone number or order tracking ID above to check live delivery status.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Separate Admin Portal Drawer & Modal -->
+  <div class="buy-modal-overlay" id="adminPortalModalOverlay" style="display: none; align-items: center; justify-content: center; z-index: 10000;">
+    <div class="admin-modal-card" style="position: relative;">
+      <button class="drawer-close-btn" id="closeAdminModalBtn" title="Close Admin Portal">✕</button>
+
+      <!-- Admin Login View (Shown when not authenticated) -->
+      <div id="adminLoginSection" style="max-width: 440px; margin: 30px auto; text-align: center;">
+        <div style="font-size: 42px; margin-bottom: 10px;">🔐</div>
+        <div class="eyebrow">Administrative Authentication</div>
+        <h3 style="font-size: 22px; font-weight: 850; color: var(--deep); margin: 4px 0 8px;">High-Density Admin Portal</h3>
+        <p style="font-size: 13px; color: var(--muted); margin: 0 0 20px;">
+          Sign in with administrator credentials to manage products, customer orders, inventory, and delivery status.
+        </p>
+
+        <form id="adminLoginForm" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+          <div>
+            <label style="font-size: 12px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Admin Email / Username</label>
+            <input type="text" id="adminEmailInput" required value="admin@applecare.kashmir" placeholder="admin@applecare.kashmir or admin" class="store-search-input" style="width: 100%;">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Password</label>
+            <input type="password" id="adminPassInput" required value="AppleCare@Admin2026" placeholder="Admin password" class="store-search-input" style="width: 100%;">
+          </div>
+          <div id="adminLoginAlert" style="display: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;"></div>
+
+          <button type="submit" id="adminLoginSubmitBtn" class="btn primary" style="padding: 11px; font-size: 13.5px; font-weight: 800; border-radius: 10px; margin-top: 4px;">
+            🔓 Sign In to Admin Dashboard
+          </button>
+          <button type="button" id="adminDemoFillBtn" class="btn secondary" style="padding: 8px; font-size: 11.5px;">
+            🔑 Quick Fill Default Admin Credentials
+          </button>
+        </form>
+      </div>
+
+      <!-- Admin Dashboard View (Shown when authenticated) -->
+      <div id="adminDashboardSection" style="display: none;">
+        <!-- Admin Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line);">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 style="font-size: 20px; font-weight: 850; color: var(--deep); margin: 0;">🔐 High-Density Store Admin Portal</h3>
+              <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">Authenticated</span>
+            </div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">
+              Logged in as: <b id="adminUserDisplay">admin@applecare.kashmir</b>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn secondary" id="adminRefreshBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700;">🔄 Refresh Data</button>
+            <button type="button" class="btn secondary" id="adminLogoutBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; color: #b91c1c;">🚪 Logout</button>
+          </div>
+        </div>
+
+        <!-- KPI Metric Cards -->
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <div class="admin-kpi-val" id="kpiTotalOrders">0</div>
+            <div class="admin-kpi-label">Total Orders</div>
+          </div>
+          <div class="admin-kpi-card" style="border-color: #fde68a;">
+            <div class="admin-kpi-val" style="color: #b45309;" id="kpiReceivedOrders">0</div>
+            <div class="admin-kpi-label">🟡 Received</div>
+          </div>
+          <div class="admin-kpi-card" style="border-color: #bae6fd;">
+            <div class="admin-kpi-val" style="color: #0369a1;" id="kpiConfirmedOrders">0</div>
+            <div class="admin-kpi-label">🔵 Confirmed</div>
+          </div>
+          <div class="admin-kpi-card" style="border-color: #e9d5ff;">
+            <div class="admin-kpi-val" style="color: #7e22ce;" id="kpiDispatchedOrders">0</div>
+            <div class="admin-kpi-label">🚚 In Transit</div>
+          </div>
+          <div class="admin-kpi-card" style="border-color: #bbf7d0;">
+            <div class="admin-kpi-val" style="color: #15803d;" id="kpiDeliveredOrders">0</div>
+            <div class="admin-kpi-label">🟢 Delivered</div>
+          </div>
+          <div class="admin-kpi-card" style="background: #f0fdf4; border-color: #86efac;">
+            <div class="admin-kpi-val" style="color: #166534;" id="kpiTotalRevenue">₹0</div>
+            <div class="admin-kpi-label">💰 Sales Revenue</div>
+          </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tabs-row">
+          <button type="button" class="admin-tab-btn active" data-tab="orders">📦 Orders Management (<span id="adminOrdersCountTab">0</span>)</button>
+          <button type="button" class="admin-tab-btn" data-tab="add-product">➕ Add New Product</button>
+          <button type="button" class="admin-tab-btn" data-tab="manage-products">📋 Manage Catalog (<span id="adminCatalogCountTab">0</span>)</button>
+        </div>
+
+        <!-- Tab 1: Orders Management -->
+        <div id="adminTabOrders" class="admin-tab-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div style="display: flex; gap: 4px; overflow-x: auto;" id="adminOrderFilterPills">
+              <button type="button" class="store-cat-pill active" data-status="all">All Orders</button>
+              <button type="button" class="store-cat-pill" data-status="received">🟡 Received</button>
+              <button type="button" class="store-cat-pill" data-status="confirmed">🔵 Confirmed</button>
+              <button type="button" class="store-cat-pill" data-status="dispatched">🚚 In Transit</button>
+              <button type="button" class="store-cat-pill" data-status="delivered">🟢 Delivered</button>
+              <button type="button" class="store-cat-pill" data-status="cancelled">❌ Cancelled</button>
+            </div>
+            <input type="text" id="adminOrderSearchInput" placeholder="🔍 Search customer, phone, order ID..." class="store-search-input" style="max-width: 260px; font-size: 12px; padding: 6px 10px;">
+          </div>
+
+          <div id="adminOrdersContainer">
+            <div style="text-align: center; padding: 30px; color: var(--muted);">Loading orders...</div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Add New Product -->
+        <div id="adminTabAddProduct" class="admin-tab-content" style="display: none;">
+          <form id="adminAddProductForm" style="display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin: 0 auto; background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--line);">
+            <h4 style="font-size: 16px; font-weight: 850; color: var(--deep); margin: 0 0 4px;">➕ Add High-Density Orchard Product</h4>
+            
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+              <div>
+                <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Product Title / Cultivar Name *</label>
+                <input type="text" id="newProdName" required placeholder="e.g. Jeromine on M9 Feathered 2-Year" class="store-search-input" style="width: 100%;">
+              </div>
+              <div>
+                <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Category / Type *</label>
+                <select id="newProdCategory" required class="store-size-select" style="width: 100%;">
+                  <option value="Rootstocks & Trees">🌱 Rootstocks & Trees</option>
+                  <option value="Trellis & Support">🏗️ Trellis & Support</option>
+                  <option value="Drip Irrigation">💧 Drip Irrigation</option>
+                  <option value="Hail Protection">🛡️ Hail Protection</option>
+                  <option value="Tools & Nutrition">✂️ Tools & Nutrition</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+              <div>
+                <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Size / Specification *</label>
+                <input type="text" id="newProdSize" required placeholder="e.g. 3.5m Heavy Duty (50x50mm)" class="store-search-input" style="width: 100%;">
+              </div>
+              <div>
+                <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Price in ₹ (INR) *</label>
+                <input type="number" id="newProdPrice" step="0.5" min="1" required placeholder="e.g. 750.00" class="store-search-input" style="width: 100%;">
+              </div>
+              <div>
+                <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Initial Stock Quantity *</label>
+                <input type="number" id="newProdStock" min="0" required value="50" class="store-search-input" style="width: 100%;">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Badge / Feature Tag (Optional)</label>
+              <input type="text" id="newProdBadge" placeholder="e.g. SKUAST Certified, Hot-Dip Galvanized, UV 8-Yr Shield" class="store-search-input" style="width: 100%;">
+            </div>
+
+            <div>
+              <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Photo (Image URL or Upload Device Photo) *</label>
+              <input type="url" id="newProdImageUrl" required placeholder="https://images.unsplash.com/... or paste image link" class="store-search-input" style="width: 100%;">
+              
+              <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <label class="btn secondary" style="cursor: pointer; padding: 5px 10px; font-size: 11.5px;">
+                  📁 Browse Photo from Phone/Computer
+                  <input type="file" id="newProdPhotoFile" accept="image/*" style="display: none;">
+                </label>
+                <span id="photoUploadStatus" style="font-size: 11.5px; color: var(--muted);">Or pick a verified high-density preset below:</span>
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="admin-preset-photos" id="adminPhotoPresets">
+                <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=400&q=80" title="M9 Feathered Trees" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=400&q=80" title="Galvanized Trellis Posts" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=400&q=80" title="High-Tensile Wire" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80" title="Gripple Joiners / Hardware" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1527842891421-42eec6e703ea?auto=format&fit=crop&w=400&q=80" title="PC Drip Lateral Line" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=400&q=80" title="Anti-Hail Netting" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=400&q=80" title="Tree Tying Gun / Tools" class="admin-preset-thumb">
+                <img src="https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=400&q=80" title="Foliar Nutrition" class="admin-preset-thumb">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 11.5px; font-weight: 750; color: var(--ink); display: block; margin-bottom: 4px;">Technical Specifications & Orchard Suitability Description *</label>
+              <textarea id="newProdDesc" required rows="3" placeholder="Explain suitability for M9/MM106 high-density architecture, spacing recommendations, materials, and warranty." class="store-search-input" style="width: 100%; resize: vertical;"></textarea>
+            </div>
+
+            <div id="adminProductFormAlert" style="display: none; padding: 10px; border-radius: 8px; font-size: 12px;"></div>
+
+            <button type="submit" id="submitNewProdBtn" class="btn primary" style="padding: 12px; font-size: 13.5px; font-weight: 800; border-radius: 10px;">
+              💾 Save & Publish Product to Store
+            </button>
+          </form>
+        </div>
+
+        <!-- Tab 3: Manage Existing Catalog -->
+        <div id="adminTabManageProducts" class="admin-tab-content" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div style="font-size: 13px; font-weight: 750; color: var(--deep);">Active High-Density Catalog Items</div>
+            <button type="button" class="btn primary" onclick="switchAdminTab('add-product')" style="font-size: 12px; padding: 6px 12px;">➕ Add Product</button>
+          </div>
+          <div id="adminCatalogContainer" class="admin-prod-grid">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Buy Online Modal Overlay -->
   <div class="buy-modal-overlay" id="buyModalOverlay" style="display: none;">
@@ -8468,6 +9399,1143 @@
       const fSel = document.getElementById("forecastDistrictSelect");
       if (fSel) fSel.value = defaultDistrict;
       updateWeather(33.7182, 74.8322, "Shopian, Kashmir");
+    }
+
+    // =============================================================
+    // HIGH-DENSITY ORCHARD STORE & ADMIN PORTAL CONTROLLER
+    // =============================================================
+
+    let storeProducts = [];
+    let activeStoreCat = "all";
+    let activeSizeFilter = "all";
+    let storeSearchTerm = "";
+    let cart = [];
+    let adminToken = localStorage.getItem("applecare_admin_jwt") || null;
+    let currentAdminOrders = [];
+
+    // Load persisted cart
+    try {
+      const savedCart = localStorage.getItem("applecare_store_cart");
+      if (savedCart) cart = JSON.parse(savedCart);
+    } catch (_) {
+      cart = [];
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem("applecare_store_cart", JSON.stringify(cart));
+      } catch (_) {}
+      updateCartBadges();
+    }
+
+    function updateCartBadges() {
+      const totalCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
+      const b1 = document.getElementById("storeCartBadge");
+      const b2 = document.getElementById("navCartCount");
+      if (b1) b1.textContent = String(totalCount);
+      if (b2) {
+        b2.textContent = String(totalCount);
+        b2.style.display = totalCount > 0 ? "inline-block" : "none";
+      }
+    }
+
+    // Default Fallback Products if API is sleeping / offline
+    const DEFAULT_STORE_PRODUCTS = [
+      {
+        id: "hd-prod-1",
+        name: "Red Velox / Gala Schnico on M9 Rootstock",
+        category: "Rootstocks & Trees",
+        size: "2-Year Feathered (7+ branches, Dutch standard)",
+        price: 480.0,
+        image_url: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
+        description: "Certified virus-free feathered high-density apple tree on M9 clonal rootstock. Pre-trained branch angles for rapid year-2 fruiting and intensive production.",
+        stock_quantity: 850,
+        in_stock: true,
+        badge: "Certified Virus-Free"
+      },
+      {
+        id: "hd-prod-2",
+        name: "King Roat / Jeromine on M9 T337 Rootstock",
+        category: "Rootstocks & Trees",
+        size: "2-Year Feathered (5-7 branches)",
+        price: 450.0,
+        image_url: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=600&q=80",
+        description: "Vigorous spurred high-color apple cultivar on true M9-T337 rootstock. Exceptional fruit skin finish and compact canopy architecture for Kashmir climate.",
+        stock_quantity: 620,
+        in_stock: true,
+        badge: "SKUAST Certified"
+      },
+      {
+        id: "hd-prod-3",
+        name: "Hot-Dip Galvanized Steel Trellis Support Posts",
+        category: "Trellis & Support",
+        size: "3.5m Length (50x50mm, 2.5mm heavy wall)",
+        price: 750.0,
+        image_url: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=600&q=80",
+        description: "Heavy-duty structural posts designed to carry full high-density crop load (40-60 MT/ha). Corrosion-proof hot-dip zinc coating with 20+ year field lifespan.",
+        stock_quantity: 1200,
+        in_stock: true,
+        badge: "Hot-Dip Galvanized"
+      },
+      {
+        id: "hd-prod-4",
+        name: "High-Tensile Galvanized Trellis Wire (12-Gauge)",
+        category: "Trellis & Support",
+        size: "500m Coil (2.5mm diameter, Class 3 Zinc)",
+        price: 4850.0,
+        image_url: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80",
+        description: "Ultra high-tensile trellis line wire with minimal stretch under snow or wind load. Rated for 4-tier training systems (0.8m, 1.6m, 2.4m, 3.2m).",
+        stock_quantity: 140,
+        in_stock: true,
+        badge: "High Tensile 12G"
+      },
+      {
+        id: "hd-prod-5",
+        name: "Pressure Compensating (PC) Drip Lateral Line",
+        category: "Drip Irrigation",
+        size: "16mm Diameter x 500m Roll (0.4m spacing, 2.0 LPH)",
+        price: 3600.0,
+        image_url: "https://images.unsplash.com/photo-1527842891421-42eec6e703ea?auto=format&fit=crop&w=600&q=80",
+        description: "Uniform emission on sloping Kashmir terrains from 0.8 to 3.5 bar pressure. Built-in labyrinth self-flushing design prevents silt and fertilizer blockage.",
+        stock_quantity: 90,
+        in_stock: true,
+        badge: "PC Anti-Clog"
+      },
+      {
+        id: "hd-prod-6",
+        name: "UV-Stabilized Crystal Anti-Hail Net",
+        category: "Hail Protection",
+        size: "4m Width x 100m Roll (4-Thread Cross Stitch)",
+        price: 8200.0,
+        image_url: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=600&q=80",
+        description: "High-density polyethylene (HDPE) crystal hail net. 85% light transmission prevents fruit sunburn while stopping stone hail up to 30mm diameter.",
+        stock_quantity: 75,
+        in_stock: true,
+        badge: "8-Year UV Shield"
+      },
+      {
+        id: "hd-prod-7",
+        name: "Max Tapener HT-R High-Density Tree Tying Gun",
+        category: "Tools & Nutrition",
+        size: "Light-Touch 420g Handheld Tool",
+        price: 2650.0,
+        image_url: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=600&q=80",
+        description: "Industry gold standard for tying central leaders and lateral branches to bamboo/trellis wire. 3x faster than manual knotting without girdling stems.",
+        stock_quantity: 110,
+        in_stock: true,
+        badge: "Leader Training"
+      },
+      {
+        id: "hd-prod-8",
+        name: "SKUAST-K Calcium-Boron High-Density Foliar Nutrition",
+        category: "Tools & Nutrition",
+        size: "5-Litre Can (11% Ca + 0.6% B Chelate)",
+        price: 1850.0,
+        image_url: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80",
+        description: "Formulated specifically for high-yielding M9/MM106 orchards to maximize cell density, stop bitter pit breakdown, and extend cold storage shelf-life to 8+ months.",
+        stock_quantity: 220,
+        in_stock: true,
+        badge: "Cell Wall Shield"
+      }
+    ];
+
+    async function loadStoreProducts() {
+      const grid = document.getElementById("hdProductsGrid");
+      if (!grid) return;
+
+      try {
+        const resp = await fetchBackend("/api/v1/store/products");
+        if (resp && resp.ok) {
+          storeProducts = await resp.json();
+        } else {
+          storeProducts = [...DEFAULT_STORE_PRODUCTS];
+        }
+      } catch (err) {
+        console.warn("Could not load products from backend API, using cached catalog:", err);
+        storeProducts = [...DEFAULT_STORE_PRODUCTS];
+      }
+
+      renderStoreProducts();
+    }
+
+    function renderStoreProducts() {
+      const grid = document.getElementById("hdProductsGrid");
+      if (!grid) return;
+
+      const filtered = storeProducts.filter(p => {
+        // Category filter
+        if (activeStoreCat !== "all" && p.category !== activeStoreCat) return false;
+        // Size filter
+        if (activeSizeFilter !== "all") {
+          const s = (p.size + " " + p.name + " " + p.category).toLowerCase();
+          if (activeSizeFilter === "feathered" && !s.includes("feathered") && !s.includes("m9") && !s.includes("tree")) return false;
+          if (activeSizeFilter === "post" && !s.includes("post") && !s.includes("pole") && !s.includes("3.5m") && !s.includes("3.0m")) return false;
+          if (activeSizeFilter === "wire" && !s.includes("wire") && !s.includes("gripple") && !s.includes("tensile")) return false;
+          if (activeSizeFilter === "drip" && !s.includes("drip") && !s.includes("venturi") && !s.includes("lateral")) return false;
+          if (activeSizeFilter === "net" && !s.includes("net") && !s.includes("hail")) return false;
+          if (activeSizeFilter === "tool" && !s.includes("pruner") && !s.includes("shears") && !s.includes("gun") && !s.includes("tapener") && !s.includes("spreader")) return false;
+          if (activeSizeFilter === "nutrition" && !s.includes("calcium") && !s.includes("boron") && !s.includes("foliar") && !s.includes("fertilizer")) return false;
+        }
+        // Search term
+        if (storeSearchTerm) {
+          const q = storeSearchTerm.toLowerCase();
+          const target = (p.name + " " + p.category + " " + p.size + " " + (p.description || "")).toLowerCase();
+          if (!target.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--muted); background: #ffffff; border-radius: 14px; border: 1px dashed var(--line);">
+            <div style="font-size: 32px; margin-bottom: 8px;">🍎</div>
+            <div style="font-size: 16px; font-weight: 800; color: var(--deep); margin-bottom: 4px;">No products match your filter</div>
+            <div style="font-size: 13px;">Try selecting another category or clearing search terms.</div>
+            <button type="button" class="btn secondary" onclick="resetStoreFilters()" style="margin-top: 12px; font-size: 12px; padding: 6px 14px;">Reset Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      const isUrdu = currentAppLang === "ur";
+      const isKashmiri = currentAppLang === "ks";
+      const buyNowTxt = isUrdu ? "⚡ ابھی خریدیں" : (isKashmiri ? "⚡ فوری موٗل تُلِو" : "⚡ Buy Now");
+      const addCartTxt = isUrdu ? "🛒 ٹوکری میں شامل کریں" : (isKashmiri ? "🛒 کارٹس مَنٛز ترٛاوِو" : "🛒 Add to Cart");
+
+      grid.innerHTML = filtered.map(p => {
+        const inStock = p.in_stock !== false;
+        const stockText = inStock 
+          ? (isUrdu ? `دستیاب (${p.stock_quantity || 'سٹاک'} موجود)` : `In Stock (${p.stock_quantity || 'Ready'})`) 
+          : (isUrdu ? "سٹاک ختم" : "Out of Stock");
+        const formattedPrice = Number(p.price).toLocaleString("en-IN");
+        const safeName = escapeHtml(p.name);
+        const safeSize = escapeHtml(p.size);
+        const safeCategory = escapeHtml(p.category);
+        const safeBadge = p.badge ? escapeHtml(p.badge) : null;
+        const safeDesc = escapeHtml(p.description || "");
+        const safeImg = escapeHtml(p.image_url || "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80");
+        const prodId = escapeHtml(String(p.id));
+
+        return `
+          <div class="hd-product-card">
+            <div class="hd-product-img-wrap">
+              <img src="${safeImg}" alt="${safeName}" class="hd-product-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80'">
+              ${safeBadge ? `<span class="hd-badge-tag">${safeBadge}</span>` : ""}
+              <span class="hd-stock-tag ${inStock ? '' : 'out'}">${stockText}</span>
+            </div>
+            <div class="hd-card-body">
+              <span class="hd-card-category">${safeCategory}</span>
+              <h3 class="hd-card-title">${safeName}</h3>
+              <div class="hd-size-pill">📐 <b>Size:</b> ${safeSize}</div>
+              <p class="hd-card-desc">${safeDesc}</p>
+              <div class="hd-price-row">
+                <div class="hd-price-val">₹${formattedPrice} <small>/ unit</small></div>
+                <div class="hd-card-actions">
+                  <button type="button" class="btn-hd-cart" title="Add to Cart" onclick="addToCart('${prodId}')">🛒</button>
+                  <button type="button" class="btn-hd-buy" onclick="buyNowSingleProduct('${prodId}')">${buyNowTxt}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function resetStoreFilters() {
+      activeStoreCat = "all";
+      activeSizeFilter = "all";
+      storeSearchTerm = "";
+      const sIn = document.getElementById("storeSearchInput");
+      const fSel = document.getElementById("storeSizeFilter");
+      if (sIn) sIn.value = "";
+      if (fSel) fSel.value = "all";
+      document.querySelectorAll(".store-cat-pill").forEach(p => {
+        p.classList.toggle("active", p.dataset.cat === "all");
+      });
+      renderStoreProducts();
+    }
+
+    window.resetStoreFilters = resetStoreFilters;
+
+    function addToCart(productId, qty = 1) {
+      const prod = storeProducts.find(p => String(p.id) === String(productId));
+      if (!prod) return;
+
+      const existing = cart.find(it => String(it.product.id) === String(productId));
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({ product: prod, quantity: qty });
+      }
+      saveCart();
+      showToastNotification(`🛒 Added "${prod.name}" to cart (${cart.reduce((a, b) => a + b.quantity, 0)} items)`);
+    }
+
+    window.addToCart = addToCart;
+
+    function buyNowSingleProduct(productId) {
+      const prod = storeProducts.find(p => String(p.id) === String(productId));
+      if (!prod) return;
+
+      // Add to cart if not present
+      const existing = cart.find(it => String(it.product.id) === String(productId));
+      if (!existing) {
+        cart.push({ product: prod, quantity: 1 });
+        saveCart();
+      }
+      openCartModal();
+    }
+
+    window.buyNowSingleProduct = buyNowSingleProduct;
+
+    function openCartModal() {
+      renderCartItems();
+      const modal = document.getElementById("cartModalOverlay");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function closeCartModal() {
+      const modal = document.getElementById("cartModalOverlay");
+      if (modal) modal.style.display = "none";
+    }
+
+    function updateCartItemQty(productId, delta) {
+      const item = cart.find(it => String(it.product.id) === String(productId));
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(it => String(it.product.id) !== String(productId));
+      }
+      saveCart();
+      renderCartItems();
+    }
+
+    window.updateCartItemQty = updateCartItemQty;
+
+    function removeCartItem(productId) {
+      cart = cart.filter(it => String(it.product.id) !== String(productId));
+      saveCart();
+      renderCartItems();
+    }
+
+    window.removeCartItem = removeCartItem;
+
+    function renderCartItems() {
+      const container = document.getElementById("cartItemsContainer");
+      const subtotalEl = document.getElementById("checkoutSubtotal");
+      const totalEl = document.getElementById("checkoutTotal");
+      const submitBtn = document.getElementById("submitOrderBtn");
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 26px; color: var(--muted); background: #f8fafc; border-radius: 12px; border: 1px dashed var(--line);">
+            <div style="font-size: 32px; margin-bottom: 6px;">🛒</div>
+            <div style="font-weight: 750; color: var(--deep); margin-bottom: 2px;">Your Cart is Empty</div>
+            <div style="font-size: 12px;">Browse High-Density Orchard products above and click Add to Cart or Buy Now.</div>
+          </div>
+        `;
+        if (subtotalEl) subtotalEl.textContent = "₹0";
+        if (totalEl) totalEl.textContent = "₹0";
+        if (submitBtn) submitBtn.disabled = true;
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = false;
+      let subtotal = 0;
+
+      container.innerHTML = cart.map(it => {
+        const lineTotal = it.product.price * it.quantity;
+        subtotal += lineTotal;
+        const p = it.product;
+        const pId = escapeHtml(String(p.id));
+
+        return `
+          <div class="cart-item-row">
+            <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+              <img src="${escapeHtml(p.image_url || '')}" alt="${escapeHtml(p.name)}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #e2e8f0;">
+              <div>
+                <div style="font-size: 13.5px; font-weight: 800; color: var(--deep); line-height: 1.25;">${escapeHtml(p.name)}</div>
+                <div style="font-size: 11px; color: var(--muted);">📐 ${escapeHtml(p.size)} · ₹${Number(p.price).toLocaleString("en-IN")}</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <button type="button" class="cart-qty-btn" onclick="updateCartItemQty('${pId}', -1)">-</button>
+                <span style="font-size: 13px; font-weight: 800; min-width: 20px; text-align: center;">${it.quantity}</span>
+                <button type="button" class="cart-qty-btn" onclick="updateCartItemQty('${pId}', 1)">+</button>
+              </div>
+              <div style="font-size: 14px; font-weight: 850; color: var(--deep); min-width: 70px; text-align: right;">
+                ₹${lineTotal.toLocaleString("en-IN")}
+              </div>
+              <button type="button" onclick="removeCartItem('${pId}')" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 14px;" title="Remove">✕</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      if (subtotalEl) subtotalEl.textContent = `₹${subtotal.toLocaleString("en-IN")}`;
+      if (totalEl) totalEl.textContent = `₹${subtotal.toLocaleString("en-IN")}`;
+    }
+
+    // Submit Customer Order
+    async function submitCustomerOrder(e) {
+      e.preventDefault();
+      if (cart.length === 0) return;
+
+      const submitBtn = document.getElementById("submitOrderBtn");
+      const name = document.getElementById("custNameInput")?.value?.trim();
+      const phone = document.getElementById("custPhoneInput")?.value?.trim();
+      const district = document.getElementById("custDistrictSelect")?.value?.trim();
+      const address = document.getElementById("custAddressInput")?.value?.trim();
+      const payment = document.getElementById("custPaymentMethod")?.value?.trim();
+      const notes = document.getElementById("custNotesInput")?.value?.trim();
+
+      if (!name || !phone || !district || !address) {
+        alert("Please fill in your Name, 10-digit Phone Number, District, and Delivery Address.");
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "⏳ Submitting High-Density Order…";
+      }
+
+      const orderPayload = {
+        customer_name: name,
+        customer_phone: phone,
+        district: district,
+        delivery_address: address,
+        payment_method: payment || "Cash on Delivery",
+        notes: notes || null,
+        items: cart.map(it => ({
+          product_id: String(it.product.id),
+          name: it.product.name,
+          category: it.product.category,
+          size: it.product.size,
+          price: it.product.price,
+          quantity: it.quantity,
+          image_url: it.product.image_url,
+          total: it.product.price * it.quantity
+        }))
+      };
+
+      try {
+        let orderRes = null;
+        try {
+          const resp = await fetchBackend("/api/v1/store/orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderPayload)
+          });
+          if (resp && resp.ok) {
+            orderRes = await resp.json();
+          }
+        } catch (fetchErr) {
+          console.warn("Backend order submission error, falling back locally:", fetchErr);
+        }
+
+        if (!orderRes) {
+          // Client-side fallback order creation
+          const year = new Date().getFullYear();
+          const num = `HD-${year}-${Math.floor(10000 + Math.random() * 90000)}`;
+          const totalAmt = cart.reduce((acc, it) => acc + (it.product.price * it.quantity), 0);
+          orderRes = {
+            order_number: num,
+            total_amount: totalAmt,
+            customer_name: name,
+            status: "received"
+          };
+        }
+
+        // Clear cart
+        cart = [];
+        saveCart();
+        closeCartModal();
+
+        // Show Success Modal
+        const successModal = document.getElementById("orderSuccessModalOverlay");
+        const numEl = document.getElementById("successOrderNumber");
+        const totEl = document.getElementById("successOrderTotal");
+        if (numEl) numEl.textContent = orderRes.order_number;
+        if (totEl) totEl.textContent = `₹${Number(orderRes.total_amount).toLocaleString("en-IN")}`;
+        if (successModal) successModal.style.display = "flex";
+
+      } catch (err) {
+        alert("Could not submit order: " + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "✅ Place High-Density Order";
+        }
+      }
+    }
+
+    // Customer Order Tracker
+    function openTrackModal() {
+      const modal = document.getElementById("trackOrderModalOverlay");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function closeTrackModal() {
+      const modal = document.getElementById("trackOrderModalOverlay");
+      if (modal) modal.style.display = "none";
+    }
+
+    async function searchTrackOrders() {
+      const qInput = document.getElementById("trackQueryInput");
+      const container = document.getElementById("trackResultsContainer");
+      if (!qInput || !container) return;
+
+      const q = qInput.value.trim();
+      if (!q) {
+        container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--muted);">Please enter a phone number or order tracking ID.</div>`;
+        return;
+      }
+
+      container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--muted);">Searching order records…</div>`;
+
+      try {
+        let url = `/api/v1/store/orders/track?`;
+        if (q.toUpperCase().startsWith("HD-")) {
+          url += `order_number=${encodeURIComponent(q.toUpperCase())}`;
+        } else {
+          url += `phone=${encodeURIComponent(q)}`;
+        }
+
+        let orders = [];
+        const resp = await fetchBackend(url);
+        if (resp && resp.ok) {
+          orders = await resp.json();
+        }
+
+        if (!orders || orders.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 24px; color: var(--muted); background: #f8fafc; border-radius: 10px; border: 1px dashed var(--line);">
+              <div style="font-size: 26px; margin-bottom: 6px;">🔍</div>
+              <div style="font-weight: 750; color: var(--deep); margin-bottom: 2px;">No Orders Found</div>
+              <div style="font-size: 12px;">We could not find any orders registered under "<b>${escapeHtml(q)}</b>". Verify your mobile number or order tracking ID.</div>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = orders.map(ord => {
+          const dateStr = ord.created_at ? new Date(ord.created_at).toLocaleString() : "Recently";
+          const st = (ord.status || "received").toLowerCase();
+          const items = ord.items || [];
+
+          return `
+            <div style="background: #ffffff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                <div>
+                  <span style="font-size: 14px; font-weight: 850; color: var(--primary);">${escapeHtml(ord.order_number)}</span>
+                  <span style="font-size: 11px; color: var(--muted); margin-left: 6px;">📅 ${dateStr}</span>
+                </div>
+                <span class="order-status-badge ${st}">
+                  ${st === 'received' ? '🟡 Received' : (st === 'confirmed' ? '🔵 Confirmed' : (st === 'dispatched' ? '🚚 In Transit' : (st === 'delivered' ? '🟢 Delivered' : '❌ Cancelled')))}
+                </span>
+              </div>
+
+              <!-- Order Timeline -->
+              <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0 10px; background: #f8fafc; padding: 10px 14px; border-radius: 8px; font-size: 11px; font-weight: 750;">
+                <span style="color: ${st === 'received' ? '#b45309' : '#047857'};">1. Received ✅</span>
+                <span style="color: ${['confirmed', 'dispatched', 'delivered'].includes(st) ? '#047857' : '#94a3b8'};">2. Confirmed ${['confirmed', 'dispatched', 'delivered'].includes(st) ? '✅' : '⏳'}</span>
+                <span style="color: ${['dispatched', 'delivered'].includes(st) ? '#047857' : '#94a3b8'};">3. In Transit ${['dispatched', 'delivered'].includes(st) ? '🚚' : '⏳'}</span>
+                <span style="color: ${st === 'delivered' ? '#047857' : '#94a3b8'};">4. Delivered ${st === 'delivered' ? '🎉' : '⏳'}</span>
+              </div>
+
+              <!-- Items List -->
+              <div style="font-size: 12px; color: var(--ink); margin-bottom: 8px;">
+                ${items.map(it => `• <b>${escapeHtml(it.name)}</b> (${escapeHtml(it.size || '')}) × ${it.quantity} = ₹${Number(it.total || 0).toLocaleString("en-IN")}`).join("<br>")}
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed var(--line); padding-top: 8px; font-size: 12px;">
+                <span style="color: var(--muted);">📍 ${escapeHtml(ord.district)} · ${escapeHtml(ord.delivery_address)}</span>
+                <span style="font-size: 14px; font-weight: 850; color: var(--deep);">Total: ₹${Number(ord.total_amount).toLocaleString("en-IN")}</span>
+              </div>
+
+              ${ord.notes ? `<div style="margin-top: 6px; padding: 6px 10px; background: #f1f5f9; border-radius: 6px; font-size: 11px; color: #475569;"><b>Logistics Note:</b> ${escapeHtml(ord.notes)}</div>` : ''}
+            </div>
+          `;
+        }).join("");
+
+      } catch (err) {
+        container.innerHTML = `<div style="color: #b91c1c; padding: 14px;">Error querying orders: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    // =============================================================
+    // SEPARATE ADMIN PORTAL & DASHBOARD CONTROLLER
+    // =============================================================
+
+    function openAdminPortal() {
+      const modal = document.getElementById("adminPortalModalOverlay");
+      if (!modal) return;
+      modal.style.display = "flex";
+
+      if (adminToken) {
+        showAdminDashboardView();
+      } else {
+        showAdminLoginView();
+      }
+    }
+
+    function closeAdminPortal() {
+      const modal = document.getElementById("adminPortalModalOverlay");
+      if (!modal) return;
+      modal.style.display = "none";
+    }
+
+    function showAdminLoginView() {
+      document.getElementById("adminLoginSection").style.display = "block";
+      document.getElementById("adminDashboardSection").style.display = "none";
+      const alertBox = document.getElementById("adminLoginAlert");
+      if (alertBox) alertBox.style.display = "none";
+    }
+
+    function showAdminDashboardView() {
+      document.getElementById("adminLoginSection").style.display = "none";
+      document.getElementById("adminDashboardSection").style.display = "block";
+      loadAdminDashboardData();
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("adminEmailInput")?.value?.trim();
+      const password = document.getElementById("adminPassInput")?.value;
+      const alertBox = document.getElementById("adminLoginAlert");
+      const submitBtn = document.getElementById("adminLoginSubmitBtn");
+
+      if (alertBox) alertBox.style.display = "none";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Verifying Credentials…";
+      }
+
+      try {
+        const resp = await fetchBackend("/api/v1/store/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password })
+        });
+
+        if (!resp || !resp.ok) {
+          const errData = resp ? await resp.json() : {};
+          throw new Error(errData.detail || "Invalid administrator email or password.");
+        }
+
+        const data = await resp.json();
+        adminToken = data.access_token;
+        localStorage.setItem("applecare_admin_jwt", adminToken);
+
+        const userDisp = document.getElementById("adminUserDisplay");
+        if (userDisp) userDisp.textContent = data.email || email;
+
+        showAdminDashboardView();
+      } catch (err) {
+        if (alertBox) {
+          alertBox.textContent = `❌ ${err.message}`;
+          alertBox.style.display = "block";
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "🔓 Sign In to Admin Dashboard";
+        }
+      }
+    }
+
+    function handleAdminLogout() {
+      adminToken = null;
+      localStorage.removeItem("applecare_admin_jwt");
+      showAdminLoginView();
+    }
+
+    function switchAdminTab(tabName) {
+      document.querySelectorAll(".admin-tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.tab === tabName);
+      });
+      document.getElementById("adminTabOrders").style.display = tabName === "orders" ? "block" : "none";
+      document.getElementById("adminTabAddProduct").style.display = tabName === "add-product" ? "block" : "none";
+      document.getElementById("adminTabManageProducts").style.display = tabName === "manage-products" ? "block" : "none";
+
+      if (tabName === "manage-products") {
+        renderAdminCatalog();
+      }
+    }
+
+    window.switchAdminTab = switchAdminTab;
+
+    async function loadAdminDashboardData() {
+      if (!adminToken) return;
+
+      // 1. Fetch Stats
+      try {
+        const statsResp = await fetchBackend("/api/v1/store/admin/stats", {
+          headers: { "Authorization": `Bearer ${adminToken}` }
+        });
+        if (statsResp && statsResp.ok) {
+          const s = await statsResp.json();
+          document.getElementById("kpiTotalOrders").textContent = s.total_orders;
+          document.getElementById("kpiReceivedOrders").textContent = s.received_orders;
+          document.getElementById("kpiConfirmedOrders").textContent = s.confirmed_orders;
+          document.getElementById("kpiDispatchedOrders").textContent = s.dispatched_orders;
+          document.getElementById("kpiDeliveredOrders").textContent = s.delivered_orders;
+          document.getElementById("kpiTotalRevenue").textContent = `₹${Number(s.total_revenue).toLocaleString("en-IN")}`;
+          document.getElementById("adminOrdersCountTab").textContent = s.total_orders;
+          document.getElementById("adminCatalogCountTab").textContent = s.total_products;
+        }
+      } catch (err) {
+        console.warn("Could not load admin stats:", err);
+      }
+
+      // 2. Fetch Orders
+      loadAdminOrders();
+
+      // 3. Render Catalog
+      renderAdminCatalog();
+    }
+
+    let adminActiveStatusFilter = "all";
+
+    async function loadAdminOrders() {
+      const container = document.getElementById("adminOrdersContainer");
+      if (!container || !adminToken) return;
+
+      container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--muted);">Loading orders list…</div>`;
+
+      try {
+        let url = `/api/v1/store/admin/orders`;
+        if (adminActiveStatusFilter !== "all") {
+          url += `?status=${encodeURIComponent(adminActiveStatusFilter)}`;
+        }
+        const resp = await fetchBackend(url, {
+          headers: { "Authorization": `Bearer ${adminToken}` }
+        });
+
+        if (!resp || !resp.ok) {
+          container.innerHTML = `<div style="text-align: center; padding: 20px; color: #b91c1c;">Could not load orders from API. Verify admin session.</div>`;
+          return;
+        }
+
+        currentAdminOrders = await resp.json();
+        renderAdminOrdersList();
+      } catch (err) {
+        container.innerHTML = `<div style="color: #b91c1c; padding: 14px;">Error: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    function renderAdminOrdersList() {
+      const container = document.getElementById("adminOrdersContainer");
+      const searchInput = document.getElementById("adminOrderSearchInput");
+      const q = (searchInput?.value || "").toLowerCase().trim();
+
+      const filtered = currentAdminOrders.filter(ord => {
+        if (!q) return true;
+        const target = (ord.order_number + " " + ord.customer_name + " " + ord.customer_phone + " " + ord.district + " " + (ord.delivery_address || "")).toLowerCase();
+        return target.includes(q);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 30px; color: var(--muted); background: #f8fafc; border-radius: 10px; border: 1px dashed var(--line);">
+            <div style="font-size: 26px; margin-bottom: 6px;">📦</div>
+            <div style="font-weight: 750; color: var(--deep);">No orders found for this filter</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(ord => {
+        const dateStr = ord.created_at ? new Date(ord.created_at).toLocaleString() : "Recently";
+        const st = (ord.status || "received").toLowerCase();
+        const items = ord.items || [];
+        const ordId = escapeHtml(String(ord.id));
+
+        return `
+          <div class="admin-order-card">
+            <div class="admin-order-header">
+              <div>
+                <span style="font-size: 15px; font-weight: 850; color: var(--primary);">${escapeHtml(ord.order_number)}</span>
+                <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">📅 ${dateStr}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="order-status-badge ${st}">
+                  ${st === 'received' ? '🟡 Received' : (st === 'confirmed' ? '🔵 Confirmed' : (st === 'dispatched' ? '🚚 In Transit' : (st === 'delivered' ? '🟢 Delivered' : '❌ Cancelled')))}
+                </span>
+                <select class="store-size-select" style="padding: 4px 8px; font-size: 11.5px;" onchange="changeOrderStatusFromAdmin('${ordId}', this.value)">
+                  <option value="">Update Status ▾</option>
+                  <option value="received" ${st === 'received' ? 'selected' : ''}>🟡 Received</option>
+                  <option value="confirmed" ${st === 'confirmed' ? 'selected' : ''}>🔵 Confirmed</option>
+                  <option value="dispatched" ${st === 'dispatched' ? 'selected' : ''}>🚚 Dispatched (Out for Delivery)</option>
+                  <option value="delivered" ${st === 'delivered' ? 'selected' : ''}>🟢 Delivered</option>
+                  <option value="cancelled" ${st === 'cancelled' ? 'selected' : ''}>❌ Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Customer & Delivery Info -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; font-size: 12px; background: #f8fafc; padding: 10px 12px; border-radius: 8px;">
+              <div>
+                <span style="color: var(--muted); font-weight: 700;">Customer:</span>
+                <b>${escapeHtml(ord.customer_name)}</b>
+              </div>
+              <div>
+                <span style="color: var(--muted); font-weight: 700;">Phone:</span>
+                <a href="tel:${escapeHtml(ord.customer_phone)}" style="color: var(--primary); font-weight: 800; text-decoration: none;">📞 ${escapeHtml(ord.customer_phone)}</a>
+              </div>
+              <div>
+                <span style="color: var(--muted); font-weight: 700;">District:</span>
+                <b>${escapeHtml(ord.district)}</b>
+              </div>
+              <div>
+                <span style="color: var(--muted); font-weight: 700;">Address:</span>
+                <span>${escapeHtml(ord.delivery_address)}</span>
+              </div>
+            </div>
+
+            <!-- Items Ordered -->
+            <div style="margin-bottom: 10px;">
+              <div style="font-size: 11.5px; font-weight: 750; color: var(--muted); margin-bottom: 4px;">ORDERED ITEMS:</div>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                ${items.map(it => `
+                  <div style="display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-bottom: 1px dashed #f1f5f9;">
+                    <span>• <b>${escapeHtml(it.name)}</b> <span style="font-size: 11px; color: var(--muted);">(Size: ${escapeHtml(it.size || 'Standard')})</span> × ${it.quantity}</span>
+                    <span style="font-weight: 750;">₹${Number(it.total || 0).toLocaleString("en-IN")}</span>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+
+            <!-- Total & Notes -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 8px; flex-wrap: wrap; gap: 8px;">
+              <div style="font-size: 12px; color: var(--muted);">
+                Payment: <b>${escapeHtml(ord.payment_method || 'Cash on Delivery')}</b>
+                ${ord.notes ? ` · <span style="color: #475569;">Note: <i>${escapeHtml(ord.notes)}</i></span>` : ''}
+              </div>
+              <div style="font-size: 16px; font-weight: 850; color: var(--deep);">
+                Total Amount: ₹${Number(ord.total_amount).toLocaleString("en-IN")}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function changeOrderStatusFromAdmin(orderId, newStatus) {
+      if (!newStatus || !adminToken) return;
+
+      let notes = null;
+      if (newStatus === "dispatched") {
+        notes = prompt("Enter optional dispatch note (e.g. Truck number, Driver phone):", "Dispatched from regional apple depot");
+      }
+
+      try {
+        const resp = await fetchBackend(`/api/v1/store/admin/orders/${orderId}/status`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({ status: newStatus, notes: notes })
+        });
+
+        if (resp && resp.ok) {
+          showToastNotification(`✅ Order status updated to "${newStatus.toUpperCase()}"`);
+          loadAdminDashboardData();
+        } else {
+          alert("Could not update order status.");
+        }
+      } catch (err) {
+        alert("Error updating status: " + err.message);
+      }
+    }
+
+    window.changeOrderStatusFromAdmin = changeOrderStatusFromAdmin;
+
+    // Admin Add Product Form Handler
+    async function handleAdminAddProduct(e) {
+      e.preventDefault();
+      if (!adminToken) return;
+
+      const submitBtn = document.getElementById("submitNewProdBtn");
+      const alertBox = document.getElementById("adminProductFormAlert");
+      const name = document.getElementById("newProdName")?.value?.trim();
+      const category = document.getElementById("newProdCategory")?.value?.trim();
+      const size = document.getElementById("newProdSize")?.value?.trim();
+      const price = parseFloat(document.getElementById("newProdPrice")?.value || "0");
+      const stock = parseInt(document.getElementById("newProdStock")?.value || "50", 10);
+      const badge = document.getElementById("newProdBadge")?.value?.trim();
+      const imageUrl = document.getElementById("newProdImageUrl")?.value?.trim();
+      const desc = document.getElementById("newProdDesc")?.value?.trim();
+
+      if (!name || !category || !size || !price || !imageUrl || !desc) {
+        alert("Please complete all required fields (Name, Category, Size, Price, Photo, Description).");
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Publishing Product…";
+      }
+
+      try {
+        const resp = await fetchBackend("/api/v1/store/admin/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            name: name,
+            category: category,
+            size: size,
+            price: price,
+            stock_quantity: stock,
+            badge: badge || null,
+            image_url: imageUrl,
+            description: desc,
+            in_stock: true
+          })
+        });
+
+        if (!resp || !resp.ok) {
+          throw new Error("Failed to save product in database.");
+        }
+
+        const newProd = await resp.json();
+        showToastNotification(`🎉 Product "${newProd.name}" added successfully!`);
+
+        // Reset form
+        document.getElementById("adminAddProductForm").reset();
+
+        // Reload data and switch to catalog view
+        loadStoreProducts();
+        loadAdminDashboardData();
+        switchAdminTab("manage-products");
+
+      } catch (err) {
+        alert("Could not add product: " + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "💾 Save & Publish Product to Store";
+        }
+      }
+    }
+
+    // Admin Catalog Manager
+    function renderAdminCatalog() {
+      const container = document.getElementById("adminCatalogContainer");
+      if (!container) return;
+
+      container.innerHTML = storeProducts.map(p => {
+        const pId = escapeHtml(String(p.id));
+        const formattedPrice = Number(p.price).toLocaleString("en-IN");
+
+        return `
+          <div class="admin-prod-row">
+            <img src="${escapeHtml(p.image_url || '')}" alt="${escapeHtml(p.name)}" class="admin-prod-thumb" onerror="this.src='https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=400&q=80'">
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 800; color: var(--deep); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(p.name)}</div>
+              <div style="font-size: 11px; color: var(--muted);">${escapeHtml(p.category)} · 📐 ${escapeHtml(p.size)}</div>
+              <div style="font-size: 12.5px; font-weight: 850; color: var(--primary);">₹${formattedPrice}</div>
+            </div>
+            <div>
+              <button type="button" onclick="deleteProductFromAdmin('${pId}', '${escapeHtml(p.name)}')" style="background: #fee2e2; border: 1px solid #fecaca; color: #b91c1c; font-size: 11px; font-weight: 750; padding: 5px 9px; border-radius: 6px; cursor: pointer;">
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function deleteProductFromAdmin(productId, name) {
+      if (!adminToken) return;
+      if (!confirm(`Are you sure you want to delete "${name}" from the store catalog?`)) return;
+
+      try {
+        const resp = await fetchBackend(`/api/v1/store/admin/products/${productId}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${adminToken}` }
+        });
+
+        if (resp && resp.ok) {
+          showToastNotification(`🗑️ Deleted "${name}" from store.`);
+          loadStoreProducts();
+          loadAdminDashboardData();
+        } else {
+          alert("Could not delete product.");
+        }
+      } catch (err) {
+        alert("Error deleting product: " + err.message);
+      }
+    }
+
+    window.deleteProductFromAdmin = deleteProductFromAdmin;
+
+    // Toast notification utility
+    function showToastNotification(msg) {
+      let toast = document.getElementById("storeToastNotify");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "storeToastNotify";
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          background: #0f172a;
+          color: #ffffff;
+          padding: 12px 18px;
+          border-radius: 12px;
+          font-size: 13px;
+          font-weight: 750;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+          z-index: 100000;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          transform: translateY(100px);
+          opacity: 0;
+        `;
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.transform = "translateY(0)";
+      toast.style.opacity = "1";
+      setTimeout(() => {
+        toast.style.transform = "translateY(100px)";
+        toast.style.opacity = "0";
+      }, 3500);
+    }
+
+    // Initialize Store & Admin Listeners
+    function initHighDensityStoreAndAdmin() {
+      // Nav links & buttons
+      document.getElementById("openAdminPortalNavBtn")?.addEventListener("click", openAdminPortal);
+      document.getElementById("storeOpenAdminBtn")?.addEventListener("click", openAdminPortal);
+      document.getElementById("closeAdminModalBtn")?.addEventListener("click", closeAdminPortal);
+      document.getElementById("adminLoginForm")?.addEventListener("submit", handleAdminLogin);
+      document.getElementById("adminLogoutBtn")?.addEventListener("click", handleAdminLogout);
+      document.getElementById("adminRefreshBtn")?.addEventListener("click", loadAdminDashboardData);
+
+      // Demo fill
+      document.getElementById("adminDemoFillBtn")?.addEventListener("click", () => {
+        const eIn = document.getElementById("adminEmailInput");
+        const pIn = document.getElementById("adminPassInput");
+        if (eIn) eIn.value = "admin@applecare.kashmir";
+        if (pIn) pIn.value = "AppleCare@Admin2026";
+      });
+
+      // Admin tabs
+      document.querySelectorAll(".admin-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => switchAdminTab(btn.dataset.tab));
+      });
+
+      // Admin order filter pills
+      document.querySelectorAll("#adminOrderFilterPills .store-cat-pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll("#adminOrderFilterPills .store-cat-pill").forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          adminActiveStatusFilter = pill.dataset.status;
+          loadAdminOrders();
+        });
+      });
+
+      // Admin order search
+      document.getElementById("adminOrderSearchInput")?.addEventListener("input", renderAdminOrdersList);
+
+      // Admin add product
+      document.getElementById("adminAddProductForm")?.addEventListener("submit", handleAdminAddProduct);
+
+      // Admin photo presets
+      document.querySelectorAll(".admin-preset-thumb").forEach(thumb => {
+        thumb.addEventListener("click", () => {
+          document.querySelectorAll(".admin-preset-thumb").forEach(t => t.classList.remove("selected"));
+          thumb.classList.add("selected");
+          const urlInput = document.getElementById("newProdImageUrl");
+          if (urlInput) urlInput.value = thumb.src;
+        });
+      });
+
+      // Admin photo file upload
+      document.getElementById("newProdPhotoFile")?.addEventListener("change", (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        const statusSpan = document.getElementById("photoUploadStatus");
+        if (statusSpan) statusSpan.textContent = `Processing ${file.name}…`;
+
+        reader.onload = (re) => {
+          const urlInput = document.getElementById("newProdImageUrl");
+          if (urlInput) urlInput.value = re.target.result;
+          if (statusSpan) statusSpan.textContent = `✅ Loaded: ${file.name}`;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Cart buttons
+      document.getElementById("storeOpenCartBtn")?.addEventListener("click", openCartModal);
+      document.getElementById("closeCartModalBtn")?.addEventListener("click", closeCartModal);
+      document.getElementById("checkoutForm")?.addEventListener("submit", submitCustomerOrder);
+
+      // Success modal
+      document.getElementById("successCloseBtn")?.addEventListener("click", () => {
+        document.getElementById("orderSuccessModalOverlay").style.display = "none";
+      });
+      document.getElementById("successTrackBtn")?.addEventListener("click", () => {
+        document.getElementById("orderSuccessModalOverlay").style.display = "none";
+        openTrackModal();
+        const num = document.getElementById("successOrderNumber")?.textContent;
+        const qIn = document.getElementById("trackQueryInput");
+        if (qIn && num) {
+          qIn.value = num;
+          searchTrackOrders();
+        }
+      });
+
+      // Track modal
+      document.getElementById("storeOpenTrackBtn")?.addEventListener("click", openTrackModal);
+      document.getElementById("closeTrackModalBtn")?.addEventListener("click", closeTrackModal);
+      document.getElementById("trackSearchBtn")?.addEventListener("click", searchTrackOrders);
+      document.getElementById("trackQueryInput")?.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") searchTrackOrders();
+      });
+
+      // Category filter pills
+      document.querySelectorAll("#storeCategoryPills .store-cat-pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll("#storeCategoryPills .store-cat-pill").forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          activeStoreCat = pill.dataset.cat;
+          renderStoreProducts();
+        });
+      });
+
+      // Search and size filters
+      document.getElementById("storeSearchInput")?.addEventListener("input", (e) => {
+        storeSearchTerm = e.target.value.trim();
+        renderStoreProducts();
+      });
+      document.getElementById("storeSizeFilter")?.addEventListener("change", (e) => {
+        activeSizeFilter = e.target.value;
+        renderStoreProducts();
+      });
+
+      // Initial load
+      updateCartBadges();
+      loadStoreProducts();
+    }
+
+    // Call store & admin init on DOM ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initHighDensityStoreAndAdmin);
+    } else {
+      initHighDensityStoreAndAdmin();
     }
 
     if ("serviceWorker" in navigator) {

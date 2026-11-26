@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     ensemble_enabled: bool = True
     ensemble_dir: str = "artifacts/ensemble"
     max_upload_bytes: int = 10 * 1024 * 1024
+    admin_email: str = Field("admin@applecare.kashmir", validation_alias="ADMIN_EMAIL")
+    admin_password: str = Field("AppleCare@Admin2026", validation_alias="ADMIN_PASSWORD")
 
     @property
     def cors_origins(self) -> list[str]:
