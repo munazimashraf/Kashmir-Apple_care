@@ -1,0 +1,134 @@
+{
+  "architecture": "Tri-Model Deep Ensemble (VGG-19 + VGG-16 + ResNet-50)",
+  "classes": [
+    "alternaria_leaf_blotch",
+    "apple_scab",
+    "black_rot",
+    "cedar_apple_rust",
+    "healthy",
+    "powdery_mildew"
+  ],
+  "models": [
+    {
+      "name": "ResNet-50",
+      "model_file": "applecare_resnet50_quant.onnx",
+      "weight": 0.45,
+      "test_accuracy": 0.9655
+    },
+    {
+      "name": "VGG-16",
+      "model_file": "applecare_vgg16_quant.onnx",
+      "weight": 0.3,
+      "test_accuracy": 0.931
+    },
+    {
+      "name": "VGG-19",
+      "model_file": "applecare_vgg19_quant.onnx",
+      "weight": 0.25,
+      "test_accuracy": 0.8966
+    }
+  ],
+  "ensemble_test_accuracy": 0.9598,
+  "classification_report": {
+    "alternaria_leaf_blotch": {
+      "precision": 0.9285714285714286,
+      "recall": 0.8666666666666667,
+      "f1-score": 0.896551724137931,
+      "support": 30.0
+    },
+    "apple_scab": {
+      "precision": 0.967741935483871,
+      "recall": 1.0,
+      "f1-score": 0.9836065573770492,
+      "support": 30.0
+    },
+    "black_rot": {
+      "precision": 0.967741935483871,
+      "recall": 1.0,
+      "f1-score": 0.9836065573770492,
+      "support": 30.0
+    },
+    "cedar_apple_rust": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 30.0
+    },
+    "healthy": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1-score": 0.9,
+      "support": 30.0
+    },
+    "powdery_mildew": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "accuracy": 0.9597701149425287,
+    "macro avg": {
+      "precision": 0.9606758832565285,
+      "recall": 0.9611111111111111,
+      "f1-score": 0.9606274731486716,
+      "support": 174.0
+    },
+    "weighted avg": {
+      "precision": 0.9593198792308915,
+      "recall": 0.9597701149425287,
+      "f1-score": 0.9592697998089706,
+      "support": 174.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      26,
+      0,
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      30,
+      0,
+      0
+    ],
+    [
+      2,
+      1,
+      0,
+      0,
+      27,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      24
+    ]
+  ],
+  "timestamp": "2026-11-22 18:38:09"
+}

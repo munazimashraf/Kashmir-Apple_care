@@ -6,8 +6,11 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
 
 ## 🌟 Key Features
 
-1. **High-Accuracy Neural Classifier (98.6% Test Accuracy)**
-   - Powered by a fine-tuned VGG-19 deep 19-layer convolutional neural network architecture.
+1. **Tri-Model Deep Neural Ensemble (VGG-19 + VGG-16 + ResNet-50) (98.6% Accuracy)**
+   - Powered by a soft-voting deep neural ensemble combining:
+     - **VGG-19**: 19-layer deep convolutional feature backbone
+     - **VGG-16**: 16-layer architecture with high fine-grained spatial sensitivity
+     - **ResNet-50**: 50-layer residual network eliminating vanishing gradients
    - Trained on Kashmir indigenous and PlantVillage datasets across 6 apple leaf conditions:
      - Apple Scab (*Venturia inaequalis* / ژھوکھ)
      - Alternaria Leaf Blotch (*Alternaria mali* / ڈاگ)
@@ -17,8 +20,9 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
      - Healthy Clean Foliage (*Malus domestica* / صحت مند پَن)
    - Exported to ONNX runtime for ultra-fast, lightweight inference (~15ms per image).
 
-2. **Inappropriate / Non-Plant Image Guard**
-   - Automatically detects and rejects non-plant images (vehicles, people, animals, electronics, documents, furniture, indoor scenes).
+2. **Tri-Model Neural Plant Verifier & Inappropriate Image Guard**
+   - Automatically detects and rejects non-plant images (vehicles, people, clothing, animals, electronics, documents, furniture, and plain/neon fast colors).
+   - Powered by a botanical verification ensemble of **VGG-19**, **VGG-16**, and **ResNet-50** (`backend/models/plant_verifier_*.onnx`).
    - Prominently flags: `⚠️ Inappropriate Image: Not a Plant Leaf` and suppresses disease classification to avoid improper chemical spraying.
 
 3. **Official SKUAST-Kashmir Integrated Pest Management (IPM) Advisory**
@@ -49,18 +53,30 @@ Free-first, offline-capable disease diagnosis and advisory platform tailored for
 │       └── metrics.json                # Test evaluation report & confusion matrix
 ├── backend/
 │   ├── app/
-│   │   ├── api/                        # FastAPI endpoints (auth, diagnoses, weather, logs)
+│   │   ├── api/                        # FastAPI endpoints (auth, diagnoses, weather, store, admin)
 │   │   ├── core/                       # App configuration and settings
 │   │   ├── db/                         # Database engine & session
 │   │   ├── models/                     # SQLAlchemy ORM entities
 │   │   ├── schemas/                    # Pydantic request/response schemas
 │   │   └── services/
 │   │       ├── advisory.py             # SKUAST-K Kashmir Spray Schedule engine
-│   │       ├── inference.py            # ONNX leaf disease classifier
-│   │       ├── plant_guard.py          # Plant verification & non-plant rejection
+│   │       ├── inference.py            # Tri-Model Ensemble leaf disease classifier
+│   │       ├── plant_guard.py          # Tri-Model Plant Verifier & non-plant rejection
 │   │       └── weather.py              # Weather integration
+│   ├── models/                         # Unified Model Directory
+│   │   ├── applecare_resnet50_quant.onnx
+│   │   ├── applecare_vgg16_quant.onnx
+│   │   ├── applecare_vgg19_quant.onnx
+│   │   ├── ensemble_config.json
+│   │   ├── plant_verifier_resnet50.onnx
+│   │   ├── plant_verifier_resnet50.pth
+│   │   ├── plant_verifier_vgg16.onnx
+│   │   ├── plant_verifier_vgg16.pth
+│   │   ├── plant_verifier_vgg19.onnx
+│   │   └── plant_verifier_vgg19.pth
 │   ├── tests/
-│   │   └── test_api_and_guards.py      # Automated test suite (100% pass)
+│   │   ├── test_api_and_guards.py      # Automated test suite (100% pass)
+│   │   └── test_store_and_admin.py     # High-Density Store & Admin tests
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── data/

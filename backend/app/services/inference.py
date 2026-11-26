@@ -34,6 +34,11 @@ class LeafInference:
 
         # 1. Try loading Tri-Model Deep Ensemble (ResNet-50 + VGG-16 + VGG-19)
         cfg_path = self.ensemble_dir / "ensemble_config.json"
+        if not cfg_path.is_file():
+            alt_path = Path("backend/models/ensemble_config.json")
+            if alt_path.is_file():
+                self.ensemble_dir = Path("backend/models")
+                cfg_path = alt_path
         if self.ensemble_enabled and cfg_path.is_file():
             try:
                 cfg = json.loads(cfg_path.read_text(encoding="utf-8"))

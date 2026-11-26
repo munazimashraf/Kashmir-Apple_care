@@ -87,35 +87,57 @@ EXPLICIT_NON_PLANT_INDICES = {
 }
 
 _GUARD_MODEL = None
-_PLANT_VERIFIER_SESSION = None
+_PLANT_VERIFIER_MODELS = None
 
 
-def get_plant_verifier():
-    """Loads the dedicated neural PlantVillage verifier model (ONNX) if available."""
-    global _PLANT_VERIFIER_SESSION
-    if _PLANT_VERIFIER_SESSION is None:
+def get_plant_verifier_models():
+    """Loads the Tri-Model Deep Neural Verifier Ensemble (VGG-19, VGG-16, ResNet-50)."""
+    global _PLANT_VERIFIER_MODELS
+    if _PLANT_VERIFIER_MODELS is None:
+        _PLANT_VERIFIER_MODELS = []
         try:
             from pathlib import Path
             import onnxruntime as ort
-            onnx_path = Path("backend/models/plant_verifier_vgg19.onnx")
-            if onnx_path.is_file():
-                opts = ort.SessionOptions()
-                opts.intra_op_num_threads = 2
-                _PLANT_VERIFIER_SESSION = ort.InferenceSession(str(onnx_path), opts, providers=["CPUExecutionProvider"])
-                LOGGER.info("Loaded PlantVerifier ONNX model from %s", onnx_path)
-            else:
-                _PLANT_VERIFIER_SESSION = False
+            opts = ort.SessionOptions()
+            opts.intra_op_num_threads = 2
+
+            model_specs = [
+                {"name": "VGG-19", "file": "backend/models/plant_verifier_vgg19.onnx", "weight": 0.35},
+                {"name": "VGG-16", "file": "backend/models/plant_verifier_vgg16.onnx", "weight": 0.35},
+                {"name": "ResNet-50", "file": "backend/models/plant_verifier_resnet50.onnx", "weight": 0.30},
+            ]
+            for spec in model_specs:
+                p = Path(spec["file"])
+                if p.is_file():
+                    sess = ort.InferenceSession(str(p), opts, providers=["CPUExecutionProvider"])
+                    _PLANT_VERIFIER_MODELS.append({
+                        "name": spec["name"],
+                        "session": sess,
+                        "input_name": sess.get_inputs()[0].name,
+                        "weight": spec["weight"],
+                    })
+            if _PLANT_VERIFIER_MODELS:
+                LOGGER.info(
+                    "Loaded Tri-Model Plant Verifier Ensemble with %d backbones: %s",
+                    len(_PLANT_VERIFIER_MODELS),
+                    [m["name"] for m in _PLANT_VERIFIER_MODELS],
+                )
         except Exception as exc:
-            LOGGER.warning("Could not load PlantVerifier ONNX model: %s", exc)
-            _PLANT_VERIFIER_SESSION = False
-    return _PLANT_VERIFIER_SESSION if _PLANT_VERIFIER_SESSION is not False else None
+            LOGGER.warning("Could not load Tri-Model Plant Verifier Ensemble: %s", exc)
+    return _PLANT_VERIFIER_MODELS
 
 
-def predict_plant_verifier(image: Image.Image) -> Tuple[bool, float]:
-    """Evaluates image with the PlantVillage-trained neural verifier."""
-    session = get_plant_verifier()
-    if session is None:
-        return True, 1.0  # Fallback if model not yet loaded
+def get_plant_verifier():
+    """Loads and returns the primary ONNX session for backward compatibility."""
+    models = get_plant_verifier_models()
+    return models[0]["session"] if models else None
+
+
+def predict_plant_verifier(image: Image.Image) -> Tuple[bool, float, Dict[str, float]]:
+    """Evaluates image with the Tri-Model Neural Verifier Ensemble (VGG-19, VGG-16, ResNet-50)."""
+    models = get_plant_verifier_models()
+    if not models:
+        return True, 1.0, {}
 
     try:
         im = image.convert("RGB").resize((224, 224))
@@ -125,15 +147,26 @@ def predict_plant_verifier(image: Image.Image) -> Tuple[bool, float]:
         arr = ((arr - mean) / std).astype(np.float32, copy=False)
         tensor = np.transpose(arr, (2, 0, 1))[None, ...]
 
-        input_name = session.get_inputs()[0].name
-        logits = session.run(None, {input_name: tensor})[0][0]
-        shift = logits - np.max(logits)
-        probs = np.exp(shift) / np.sum(np.exp(shift))
-        p_plant = float(probs[1])
-        return (p_plant >= 0.50), p_plant
+        total_weight = 0.0
+        weighted_p_plant = 0.0
+        breakdown = {}
+
+        for m in models:
+            logits = m["session"].run(None, {m["input_name"]: tensor})[0][0]
+            shift = logits - np.max(logits)
+            probs = np.exp(shift) / np.sum(np.exp(shift))
+            p_plant = float(probs[1])
+            key = f"p_plant_{m['name'].lower().replace('-', '')}"
+            breakdown[key] = round(p_plant, 4)
+            w = m["weight"]
+            weighted_p_plant += p_plant * w
+            total_weight += w
+
+        ensemble_p_plant = (weighted_p_plant / total_weight) if total_weight > 0 else 1.0
+        return (ensemble_p_plant >= 0.50), ensemble_p_plant, breakdown
     except Exception as exc:
-        LOGGER.warning("PlantVerifier inference failed: %s", exc)
-        return True, 1.0
+        LOGGER.warning("Tri-Model PlantVerifier inference failed: %s", exc)
+        return True, 1.0, {}
 
 
 def analyze_botanical_texture_and_flatness(image: Image.Image) -> Dict[str, Any]:
@@ -312,7 +345,8 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
     )
 
     # Neural Plant Verifier (Trained on PlantVillage dataset + negative fast colors)
-    is_real_plant_neural, p_plant_neural = predict_plant_verifier(image)
+    # Uses Tri-Model Deep Ensemble (VGG-19, VGG-16, ResNet-50)
+    is_real_plant_neural, p_plant_neural, verifier_breakdown = predict_plant_verifier(image)
 
     # ImageNet category verification
     guard_model = get_guard_model()
@@ -364,6 +398,8 @@ def check_is_plant(image: Image.Image) -> Tuple[bool, str, Dict[str, Any]]:
         "color_std": texture["color_std"],
         "mean_sat": texture["mean_sat"],
         "p_plant_verifier": round(p_plant_neural, 4),
+        "plant_verifier_ensemble": [m["name"] for m in get_plant_verifier_models()],
+        **verifier_breakdown,
         "imagenet_top1_idx": imagenet_top1_idx,
         "imagenet_top1_prob": round(imagenet_top1_prob, 4),
         "is_flora_top": is_flora_top,

@@ -1,0 +1,25 @@
+{
+  "ensemble_type": "soft_voting_tri_model",
+  "models": [
+    {
+      "name": "VGG-19",
+      "file": "plant_verifier_vgg19.onnx",
+      "weight": 0.35
+    },
+    {
+      "name": "VGG-16",
+      "file": "plant_verifier_vgg16.onnx",
+      "weight": 0.35
+    },
+    {
+      "name": "ResNet-50",
+      "file": "plant_verifier_resnet50.onnx",
+      "weight": 0.3
+    }
+  ],
+  "classes": [
+    "non_plant",
+    "real_plant"
+  ],
+  "decision_threshold": 0.5
+}
